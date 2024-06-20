@@ -1,61 +1,41 @@
 {
-  "formFields": [
-      {
-          "label": "Organization",
-          "id": "organization",
-          "type": "select",
-          "options": [
-              { "value": "SASS", "text": "MSĢ TSV SASS" },
-              { "value": "JMSG", "text": "MSĢ TSV Jūrmala" },
-              { "value": "DJSS", "text": "Daugavpils Sporta skola" },
-              { "value": "JJSS", "text": "Jelgavas BJSS" },
-              { "value": "LATC", "text": "LATC" },
-              { "value": "KRAK", "text": "Rīgas Airētāju klubs" },
-              { "value": "BLAK", "text": "Lielupes airēšanas klubs" },
-              { "value": "KAIR", "text": "Airusports" },
-              { "value": "Other", "text": "Other" }
-          ],
-          "additionalField": {
-              "id": "other-organization",
-              "type": "text",
-              "style": "display: none;"
-          }
-      },
-      {
-          "label": "Boat Class",
-          "id": "boat-class",
-          "type": "select",
-          "options": [
-              { "value": "M1x", "text": "M1x" },
-              { "value": "W1x", "text": "W1x" },
-              { "value": "M2x", "text": "M2x" },
-              { "value": "W2x", "text": "W2x" },
-              { "value": "M2-", "text": "M2-" },
-              { "value": "W2-", "text": "W2-" },
-              { "value": "M4x", "text": "M4x" },
-              { "value": "W4x", "text": "W4x" },
-              { "value": "M4-", "text": "M4-" },
-              { "value": "W4-", "text": "W4-" },
-              { "value": "M4+", "text": "M4+" },
-              { "value": "W4+", "text": "W4+" },
-              { "value": "M8+", "text": "M8+" },
-              { "value": "W8+", "text": "W8+" }
-          ]
-      },
-      {
-          "label": "Participants",
-          "id": "participantsTable",
-          "type": "table",
-          "columns": [
-              { "header": "Birth Year", "type": "number", "min": 1900, "max": 2024 },
-              { "header": "First Name", "type": "text" },
-              { "header": "Last Name", "type": "text" }
-          ]
-      },
-      {
-          "label": "Contact Information",
-          "id": "contact-information",
-          "type": "text"
-      }
-  ]
+    "organizations": [
+    ],
+    "boatClasses": [
+        {
+            "class": "Select"
+        },
+        {
+            "class": "Sievietes D-20",
+            "participants": 21,
+            "coxswainIndex": 0,
+            "coxswainName": "Bundzinieks"
+        },
+        {
+            "class": "MIX Sport D-20 (200 m)",
+            "participants": 21,
+            "coxswainIndex": 0,
+            "coxswainName": "Bundzinieks"
+        },
+        {
+            "class": "MIX Sport D-20 (500 m)",
+            "participants": 21,
+            "coxswainIndex": 0,
+            "coxswainName": "Bundzinieks"
+        },
+        {
+            "class": "MIX Amatieri D-20",
+            "participants": 21,
+            "coxswainIndex": 0,
+            "coxswainName": "Bundzinieks"
+        },
+        {
+            "class": "MIX Bērni D-20",
+            "participants": 21,
+            "coxswainIndex": 0,
+            "coxswainName": "Bundzinieks"
+        }
+    ],
+    "registrationStartDate": "2024-06-01T00:00:00Z",
+    "registrationEndDate": "2024-07-19T20:59:59Z"
 }

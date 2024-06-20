@@ -369,7 +369,23 @@ header {
     gap: 10px;
 }
 
-.event-buttons.inactive .event-btn {
+.event-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, opacity 0.3s, cursor 0.3s;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.event-btn:hover {
+    opacity: 0.8;
+}
+
+.event-btn.inactive {
     background-color: #ccc;
     color: #666;
     opacity: 0.6;
@@ -378,8 +394,8 @@ header {
 
 .event-buttons.inactive .event-btn:hover {
     background-color: #ccc;
+    color: #666; /* Можно изменить цвет текста при наведении, если необходимо */
 }
-
 
 
 
@@ -425,4 +441,9 @@ header {
     margin-bottom: 20px;
     font-size: 1.5em;
     color: #24252a;
+}
+
+
+.coxswain-row {
+    background-color: lightsalmon; /* Любой другой цвет, который вы хотите использовать */
 }

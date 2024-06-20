@@ -22,47 +22,102 @@ document.addEventListener('DOMContentLoaded', function () {
                 const li = document.createElement('li');
                 const div = document.createElement('div');
                 div.classList.add('event-details');
-
+            
                 const h3 = document.createElement('h3');
                 h3.textContent = event.name;
-
+            
                 const p = document.createElement('p');
                 p.classList.add('event-dates');
                 p.textContent = event.date;
-
+            
                 const divButtons = document.createElement('div');
                 divButtons.classList.add('event-buttons');
-
+            
                 const resultBtn = document.createElement('a');
                 resultBtn.classList.add('event-btn');
                 resultBtn.href = 'results.html';
                 resultBtn.textContent = 'Rezultāti';
                 resultBtn.setAttribute('data-event', event.name);
-
+            
                 divButtons.appendChild(resultBtn);
-
+            
                 if (!isPastEvent) {
-                    const registerBtn = document.createElement('a');
-                    registerBtn.classList.add('event-btn');
-                    registerBtn.href = '#';
-                    registerBtn.textContent = 'Pieteikties';
-                    registerBtn.setAttribute('data-event', event.name);
-                    registerBtn.setAttribute('data-date', event.date);
-                    registerBtn.classList.add('register-btn');
-                    checkRegistrationForm(registerBtn, event.date, event.name);
+                    fetch(`/entrySys/${event.date}%20%20${event.name}/config.json`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to fetch event configuration');
+                            }
+                            return response.json();
+                        })
+                        .then(config => {
+                            const registrationStartDate = new Date(config.registrationStartDate);
+                            const registrationEndDate = new Date(config.registrationEndDate);
+                            const currentDate = new Date();
+            
+                            if (currentDate < registrationStartDate || currentDate > registrationEndDate) {
+                                const registerBtn = document.createElement('a');
+                                registerBtn.classList.add('event-btn', 'inactive');
+                                registerBtn.href = '#';
+                                registerBtn.textContent = 'Pieteikties';
+                                registerBtn.setAttribute('data-event', event.name);
+                                registerBtn.setAttribute('data-date', event.date);
 
-                    divButtons.appendChild(registerBtn);
+                                const registrationInfo = document.createElement('div');
+                                registrationInfo.textContent = `Pieteikšanas termiņš ${registrationStartDate.toLocaleDateString()} - ${registrationEndDate.toLocaleDateString()}`;
+                                registrationInfo.classList.add('registration-info');
+                                li.appendChild(registrationInfo);
+
+                                divButtons.appendChild(registerBtn);
+                            } else {
+                                const registerBtn = document.createElement('a');
+                                registerBtn.classList.add('event-btn', 'register-btn');
+                                registerBtn.href = '#';
+                                registerBtn.textContent = 'Pieteikties';
+                                registerBtn.setAttribute('data-event', event.name);
+                                registerBtn.setAttribute('data-date', event.date);
+
+                                const registrationInfo = document.createElement('div');
+                                registrationInfo.textContent = `Pieteikšanas termiņš ${registrationStartDate.toLocaleDateString()} - ${registrationEndDate.toLocaleDateString()}`;
+                                registrationInfo.classList.add('registration-info');
+                                li.appendChild(registrationInfo);
+
+                                divButtons.appendChild(registerBtn);
+
+                                registerBtn.addEventListener('click', function (event) {
+                                    event.preventDefault();
+                                    fetchAndDisplayRegistrationForm(event.target.getAttribute('data-event'), event.target.getAttribute('data-date'));
+                                });
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching event configuration:', error);
+                            const registerBtn = document.createElement('a');
+                            registerBtn.classList.add('event-btn', 'inactive');
+                            registerBtn.href = '#';
+                            registerBtn.textContent = 'Pieteikties';
+                            registerBtn.setAttribute('data-event', event.name);
+                            registerBtn.setAttribute('data-date', event.date);
+                            registerBtn.setAttribute('title', 'Registration is not available for this event');
+            
+                            divButtons.appendChild(registerBtn);
+                        });
                 }
-
+            
                 div.appendChild(h3);
                 div.appendChild(p);
                 div.appendChild(divButtons);
-
+            
                 li.appendChild(div);
                 container.appendChild(li);
             }
+            
+            upcomingEvents.forEach(event => createEventListItem(event, startlistsContainer, false));
+            pastEvents.forEach(event => createEventListItem(event, competitionsContainer, true));
 
-            function checkRegistrationForm(button, eventDate, eventName) {
+            let boatClasses = [];
+
+            function fetchAndDisplayRegistrationForm(eventName, eventDate) {
+                document.getElementById('modal-title').textContent = `${eventName} - ${eventDate}`;
                 fetch(`/entrySys/${eventDate}%20%20${eventName}/config.json`)
                     .then(response => {
                         if (!response.ok) {
@@ -71,58 +126,89 @@ document.addEventListener('DOMContentLoaded', function () {
                         return response.json();
                     })
                     .then(config => {
-                        // Load form content dynamically
+                        boatClasses = config.boatClasses;
                         const formHtml = generateFormHtml(config);
-                        document.getElementById('includedContent').innerHTML = formHtml;
-                        button.classList.remove('inactive');
+                        document.getElementById('entryForm').innerHTML = formHtml;
+            
+                        document.getElementById('organization').addEventListener('change', function () {
+                            const otherOrganizationInput = document.getElementById('other-organization');
+                            if (this.value === 'Other') {
+                                otherOrganizationInput.style.display = 'block';
+                            } else {
+                                otherOrganizationInput.style.display = 'none';
+                            }
+                        });
+            
+                        document.getElementById('boat-class').addEventListener('change', handleBoatClassChange);
+                        handleBoatClassChange();
+            
+                        document.getElementById('registration-form').addEventListener('submit', function (event) {
+                            event.preventDefault();
+            
+                            const formData = new FormData(this);
+                            const serializedData = {};
+                            formData.forEach((value, key) => {
+                                serializedData[key] = value;
+                            });
+            
+                            console.log('Form data:', serializedData);
+                            sendEmail(serializedData, eventName);
+                        });
+            
+                        document.getElementById('registration-modal').style.display = 'flex';
                     })
                     .catch(error => {
-                        button.classList.add('inactive');
-                        button.style.pointerEvents = 'none';
-                        button.style.backgroundColor = 'grey';
                         console.error('Error loading registration form:', error);
                     });
             }
-
+            
             function generateFormHtml(config) {
-                let html = `
+                let organizationOptions = '';
+                if (config.organizations && config.organizations.length > 0) {
+                    organizationOptions = config.organizations.map(org => `<option value="${org}">${org}</option>`).join('');
+                } else {
+                    organizationOptions = '<option value="Other">Other</option>';
+                }
+            
+                const showOtherOrganization = config.organizations.length === 0 || (config.organizations.length === 1 && config.organizations[0] === 'Other');
+            
+                let organizationSelectHtml = `
+                    <label for="organization">Organization:</label>
+                    <select id="organization" name="organization" required>
+                        ${organizationOptions}
+                    </select>
+                `;
+            
+                if (showOtherOrganization) {
+                    organizationSelectHtml += `
+                        <input type="text" id="other-organization" name="otherOrganization" placeholder="Enter your organization" required>
+                    `;
+                } else {
+                    organizationSelectHtml += `
+                        <input type="text" id="other-organization" name="otherOrganization" style="display: none;">
+                    `;
+                }
+            
+                let boatClassOptions = config.boatClasses.map(boatClass => `<option value="${boatClass.class}">${boatClass.class}</option>`).join('');
+            
+                let coxswainInfoHtml = `
+                    <div class="coxswain-info" id="coxswain-info">${getInitialCoxswainInfo(config.boatClasses)}</div>
+                `;
+            
+                return `
                     <form id="registration-form">
                         <div class="form-group">
-                            <label for="organization">Organization:</label>
-                            <select id="organization" name="organization">
-                                <option value="SASS">MSĢ TSV SASS</option>
-                                <option value="JMSG">MSĢ TSV Jūrmala</option>
-                                <option value="DJSS">Daugavpils Sporta skola</option>
-                                <option value="JJSS">Jelgavas BJSS</option>
-                                <option value="LATC">LATC</option>
-                                <option value="KRAK">Rīgas Airētāju klubs</option>
-                                <option value="BLAK">Lielupes airēšanas klubs</option>
-                                <option value="KAIR">Airusports</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <input type="text" id="other-organization" name="otherOrganization" style="display: none;">
+                            ${organizationSelectHtml}
                         </div>
                         <div class="form-group">
                             <label for="boat-class">Boat Class:</label>
-                            <select id="boat-class" name="boatClass">
-                                <option value="M1x">M1x</option>
-                                <option value="W1x">W1x</option>
-                                <option value="M2x">M2x</option>
-                                <option value="W2x">W2x</option>
-                                <option value="M2-">M2-</option>
-                                <option value="W2-">W2-</option>
-                                <option value="M4x">M4x</option>
-                                <option value="W4x">W4x</option>
-                                <option value="M4-">M4-</option>
-                                <option value="W4-">W4-</option>
-                                <option value="M4+">M4+</option>
-                                <option value="W4+">W4+</option>
-                                <option value="M8+">M8+</option>
-                                <option value="W8+">W8+</option>
+                            <select id="boat-class" name="boatClass" required>
+                                ${boatClassOptions}
                             </select>
                         </div>
                         <div class="form-group">
                             <label>Participants:</label>
+                            ${coxswainInfoHtml}
                             <table id="participantsTable">
                                 <thead>
                                     <tr>
@@ -138,29 +224,67 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label for="contact-information">Contact Information:</label>
                             <input type="text" id="contact-information" name="contactInformation" required>
                         </div>
-                        <button type="submit" id="submit-button">Submit</button>
+                        <button type="submit">Submit</button>
                     </form>
                 `;
-                return html;
             }
-
-            upcomingEvents.forEach(event => createEventListItem(event, startlistsContainer, false));
-            pastEvents.forEach(event => createEventListItem(event, competitionsContainer, true));
-
-            function fetchAndDisplayRegistrationForm(eventName, eventDate) {
-                // Populate modal title
-                document.getElementById('modal-title').textContent = `${eventName} - ${eventDate}`;
-
-                // Show the modal
-                document.getElementById('registration-modal').style.display = 'flex';
+            
+            function getInitialCoxswainInfo(boatClasses) {
+                if (boatClasses.length > 0 && boatClasses[0].coxswainIndex !== undefined && boatClasses[0].coxswainName) {
+                    const position = boatClasses[0].coxswainIndex + 1;
+                    return `${boatClasses[0].coxswainName} is marked in ${position} position.`;
+                } else {
+                    return '';
+                }
             }
-
-            document.querySelector('.close-modal').addEventListener('click', function () {
-                document.getElementById('registration-modal').style.display = 'none';
-            });
+            
+            function handleBoatClassChange() {
+                const category = document.getElementById('boat-class').value;
+                const participantsTable = document.getElementById('participantsTable').getElementsByTagName('tbody')[0];
+                participantsTable.innerHTML = '';
+            
+                const selectedClass = boatClasses.find(boatClass => boatClass.class === category);
+                const numParticipants = selectedClass ? selectedClass.participants : 1;
+                const coxswainIndex = selectedClass ? selectedClass.coxswainIndex : -1;
+            
+                let coxswainInfo = '';
+                if (coxswainIndex !== undefined && selectedClass.coxswainName) {
+                    const position = coxswainIndex + 1;
+                    coxswainInfo = `${selectedClass.coxswainName} is marked in ${position} position.`;
+                } else {
+                    console.log('coxswainIndex or coxswainName is undefined or empty:', selectedClass);
+                    coxswainInfo = '';
+                }
+            
+                const coxswainInfoParagraph = document.getElementById('coxswain-info');
+                coxswainInfoParagraph.textContent = coxswainInfo;
+            
+                for (let i = 0; i < numParticipants; i++) {
+                    const newRow = participantsTable.insertRow();
+                    newRow.innerHTML = `
+                        <td><input type="number" id="birthYear${i + 1}" name="birthYear${i + 1}" required></td>
+                        <td><input type="text" id="firstName${i + 1}" name="firstName${i + 1}" required></td>
+                        <td><input type="text" id="lastName${i + 1}" name="lastName${i + 1}" required></td>
+                    `;
+            
+                    if (coxswainIndex === i) {
+                        newRow.classList.add('coxswain-row');
+                    }
+                }
+            
+                if (coxswainIndex >= numParticipants) {
+                    const newRow = participantsTable.insertRow(coxswainIndex);
+                    newRow.innerHTML = `
+                        <td><input type="number" id="birthYearCox" name="birthYearCox" required></td>
+                        <td><input type="text" id="firstNameCox" name="firstNameCox" required></td>
+                        <td><input type="text" id="lastNameCox" name="lastNameCox" required></td>
+                    `;
+                    newRow.classList.add('coxswain-row');
+                }
+            }
 
             document.addEventListener('click', function (event) {
-                if (event.target && event.target.classList.contains('register-btn')) {
+                if (event.target.classList.contains('register-btn') && !event.target.classList.contains('inactive')) {
                     event.preventDefault();
                     const eventName = event.target.getAttribute('data-event');
                     const eventDate = event.target.getAttribute('data-date');
@@ -168,99 +292,67 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            document.getElementById('organization').addEventListener('change', function () {
-                const otherOrganizationInput = document.getElementById('other-organization');
-                if (this.value === 'Other') {
-                    otherOrganizationInput.style.display = 'block';
-                } else {
-                    otherOrganizationInput.style.display = 'none';
+            const modal = document.getElementById('registration-modal');
+            const closeModalBtn = document.getElementsByClassName('close-modal')[0];
+
+            closeModalBtn.addEventListener('click', function () {
+                modal.style.display = 'none';
+            });
+
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
                 }
             });
 
-            // Function to handle adding rows to participants table
-            function handleBoatClassChange() {
-                const category = document.getElementById('boat-class').value;
-                const participantsTable = document.getElementById('participantsTable').getElementsByTagName('tbody')[0];
-                participantsTable.innerHTML = '';
+            applyInactiveButtonStyles();
 
-                let numParticipants = 1;
-                let coxswainIndex = -1;
-                switch (category) {
-                    case 'M1x':
-                    case 'W1x':
-                        numParticipants = 1;
-                        break;
-                    case 'M2x':
-                    case 'M2-':
-                    case 'W2x':
-                    case 'W2-':
-                        numParticipants = 2;
-                        break;
-                    case 'M4x':
-                    case 'M4-':
-                    case 'W4x':
-                    case 'W4-':
-                        numParticipants = 4;
-                        break;
-                    case 'M4+':
-                    case 'W4+':
-                        numParticipants = 5;
-                        coxswainIndex = 4;
-                        break;
-                    case 'M8+':
-                    case 'W8+':
-                        numParticipants = 9;
-                        coxswainIndex = 8;
-                        break;
-                    default:
-                        break;
-                }
+            function applyInactiveButtonStyles() {
+                const inactiveButtons = document.querySelectorAll('.event-btn.inactive');
 
-                for (let i = 0; i < numParticipants; i++) {
-                    const newRow = participantsTable.insertRow();
-                    newRow.innerHTML = `
-                        <td>
-                            <input type="number" id="birthYear${i + 1}" name="birthYear${i + 1}" min="1900" max="2024" required>
-                        </td>
-                        <td>
-                            <input type="text" id="firstName${i + 1}" name="firstName${i + 1}" required>
-                        </td>
-                        <td>
-                            <input type="text" id="lastName${i + 1}" name="lastName${i + 1}" required>
-                        </td>
-                    `;
-                    if (i === coxswainIndex) {
-                        newRow.classList.add('highlight');
-                    }
-                }
-            }
-
-            // Attach event listener for boat class change
-            document.addEventListener('change', function (event) {
-                if (event.target && event.target.id === 'boat-class') {
-                    handleBoatClassChange();
-                }
-            });
-
-            // Initial setup in case there's a pre-selected boat class
-            handleBoatClassChange();
-
-            // Handle form submission
-            document.getElementById('registration-form').addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                // Example of form submission handling
-                const formData = new FormData(this);
-                const serializedData = {};
-                formData.forEach((value, key) => {
-                    serializedData[key] = value;
+                inactiveButtons.forEach(button => {
+                    button.style.backgroundColor = '#ccc';
+                    button.style.color = '#666';
+                    button.style.opacity = '0.6';
+                    button.style.cursor = 'not-allowed';
                 });
+            }
+        });
 
-                console.log('Form data:', serializedData);
+        function sendEmail(formData, eventName) {
+            const participants = Object.keys(formData)
+                .filter(key => key.startsWith('firstName') || key.startsWith('lastName') || key.startsWith('birthYear'))
+                .reduce((acc, key) => {
+                    const [type, index] = key.match(/[a-zA-Z]+|[0-9]+/g);
+                    if (!acc[index]) {
+                        acc[index] = {};
+                    }
+                    acc[index][type] = formData[key];
+                    return acc;
+                }, []);
 
-                // Here you can handle form submission to your server or perform other actions
-                // For demonstration purposes, we're just logging the form data
-            });
-        })
-        .catch(error => console.error('Error loading files:', error));
+            const formattedParticipants = participants.map(participant => {
+                const { firstName, lastName, birthYear } = participant;
+                const surname = lastName.charAt(0).toUpperCase() + lastName.slice(1).toUpperCase();
+                const name = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+                const year = birthYear.slice(-2);
+                return `${surname} ${name} ${year}`;
+            }).join(', ');
+
+            const boatClass = formData.boatClass;
+            const contactInformation = formData.contactInformation;
+            const emailBody = `${boatClass}, ${formattedParticipants}, ${contactInformation}`;
+
+            console.log("EMAIL SENDING!!!")
+            Email.send({
+                SecureToken : "ac3745a2-47bf-470a-a3a2-7c201fd92a6c",
+                To : 'antons.cernavskis@gmail.com',
+                From : "antons.cernavskis@gmail.com",
+                Subject : eventName,
+                Body : emailBody
+            }).then(
+                message => alert("Saņemts!"),
+                error => console.error("Email sending error:", error)
+            );
+        }       
 });

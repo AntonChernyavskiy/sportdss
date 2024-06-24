@@ -1,24 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>DSS Sport System</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="results.css">
+    <link rel="stylesheet" href="menu.css">
+    <style>
+        /* Your existing styles */
+        .scrollMenu {
+            overflow-y: auto;
+            max-height: 40vh;
+            width: 100%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            height: 80%;
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        .category-buttons {
+            margin-top: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .category-buttons button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: rgba(169, 0, 0, 1);
+            color: white;
+            /* Initially hide category buttons */
+            display: none;
+        }
+
+        .category-buttons button:hover {
+            background-color: rgba(169, 0, 0, 0.8);
+        }
+
+        .modal-section {
+            flex: 1 1 calc(50% - 40px);
+        }
+
+        .modal-section h2 {
+            margin-top: 0;
+        }
+
+        .modal-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0; /* Added margin reset */
+        }
+
+        .modal-section ul li {
+            margin-bottom: 5px;
+        }
+
+        .modal-section ul li a {
+            text-decoration: none;
+            color: rgba(169, 0, 0, 1);
+        }
+
+        .modal-section ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Styles for competitions table */
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table thead {
+            background-color: rgba(169, 0, 0, 1);
+            color: white;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            cursor: pointer;
+        }
+
+        table button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: rgba(169, 0, 0, 1);
+            color: white;
+            font-weight: bold;
+        }
+
+        table button:hover {
+            background-color: rgba(169, 0, 0, 0.8);
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container input[type="text"], .form-container input[type="date"] {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: rgba(169, 0, 0, 1);
+            color: white;
+            font-weight: bold;
+        }
+
+        .form-container button:hover {
+            background-color: rgba(169, 0, 0, 0.8);
+        }
+
+        .main-content {
+            display: flex;
+        }
+
+        .form-wrapper {
+            flex: 1;
+        }
+
+        .table-wrapper {
+            flex: 3;
+        }
+
+        .upload-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1001;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upload-container .news {
+            width: 100%;
+        }
+
+        .upload-container h3 {
+            margin-bottom: 10px;
+        }
+
+        .upload-container form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upload-container input[type="file"],
+        .upload-container select {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .upload-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: rgba(169, 0, 0, 1);
+            color: white;
+            font-weight: bold;
+        }
+
+        .upload-container button:hover {
+            background-color: rgba(169, 0, 0, 0.8);
+        }
+
+        .delete-button:hover {
+            background-color: rgba(169, 0, 0, 0.8);
+        }
+    </style>
 </head>
 <body>
     <header>
-        <a class="cta-admin" href="/">Admin page</a>
+        <a class="cta-admin" href="/">Admin Page</a>
         <nav>
             <ul class="nav__links">
                 <li><a href="index.html">Dashboard</a></li>
                 <li><a href="calendar.html">Calendar</a></li>
                 <li><a href="results.html">Results</a></li>
-                <li><a href="login_admin.html">Admin page</a></li>
+                <li><a href="admin.html">Admin page</a></li>
+                <li><a href="admin_entries.html">Admin Entries</a></li>
             </ul>
         </nav>
-        <p class="menu cta">Menu</p>
+        <p class="menu cta-admin">Menu</p>
     </header>
     <div class="overlay">
         <a class="close">&times;</a>
@@ -26,13 +261,354 @@
             <a href="index.html">Dashboard</a>
             <a href="calendar.html">Calendar</a>
             <a href="results.html">Results</a>
-            <a href="login_admin.html">Admin page</a>
+            <a href="admin.html">Admin page</a>
+            <a href="admin_entries.html">Admin Entries</a>
         </div>
     </div>
-
-    <div class="main-content">
+    <!-- Modal for results -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="news">
+                <h3>Upload File</h3>
+                <form id="upload-form">
+                    <input type="file" id="file-input" required>
+                    <select id="folder-select">
+                        <!-- Options will be dynamically added -->
+                    </select>
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+            <div class="modal-section">
+                <div class="newsResults">
+                    <h2>Start lists / Starta protokoli</h2>
+                    <div class="scrollMenu">
+                        <ul id="startlists"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-section">
+                <div class="newsResults">
+                    <h2>Races / Braucieni</h2>
+                    <div class="scrollMenu">
+                        <ul id="results-list"></ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-section">
+                <div class="newsResults">
+                    <h2>Results / Rezultāti</h2>
+                    <div class="category-buttons" id="category-buttons"></div>
+                </div>
+                <div class="modal-section">
+                    <div class="newsResults">
+                        <h2>Other files / Citi faili</h2>
+                        <div class="scrollMenu">
+                            <ul id="other-files"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+<div class="main-content">
+    <div class="form-wrapper">
+        <div class="news">
+            <h2>File management</h2><br><br>
+            <div class="form-container">
+                <form id="add-folder-form">
+                    <input type="date" id="folder-date" required>
+                    <input type="text" id="folder-name" placeholder="Enter event name" required>
+                    <button type="submit">Add Folder</button>
+                </form>
+                <form id="delete-folder-form">
+                    <input type="date" id="delete-folder-date" required>
+                    <input type="text" id="delete-folder-name" placeholder="Enter event name" required>
+                    <button type="submit">Delete Folder</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="table-wrapper">
+        <div class="newsResults">
+        <table id="competitions-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Event</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="competitions-files">
+                <!-- Rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    <script type="text/javascript" src="mobile.js"></script>
+<script src="filter.js"></script>
+<script src="mobile.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        fetch('/files')
+            .then(response => response.json())
+            .then(data => {
+                const competitionsTable = document.getElementById('competitions-table');
+                const categoryButtonsContainer = document.getElementById('category-buttons');
+                const folderSelect = document.getElementById('folder-select');
+
+                const events = data.map(entry => {
+                    const [date, eventName] = entry.split('  ');
+                    return { date: date, name: eventName };
+                });
+
+                events.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                events.forEach(event => {
+                    const tr = document.createElement('tr');
+                    const tdDate = document.createElement('td');
+                    const tdEventName = document.createElement('td');
+                    const tdActions = document.createElement('td');
+
+                    tdDate.textContent = event.date;
+                    tdEventName.textContent = event.name;
+
+                    const button = document.createElement('button');
+                    button.textContent = 'Results';
+                    button.addEventListener('click', function () {
+                        fetchAndDisplayResults(event.name, event.date);
+                        const modal = document.getElementById('myModal');
+                        modal.style.display = 'flex';
+
+                        // Set selected folder for file upload
+                        const selectedOption = folderSelect.querySelector(`option[value="${event.date}  ${event.name}"]`);
+                        if (selectedOption) {
+                            selectedOption.selected = true;
+                        }
+                    });
+
+                    tdActions.appendChild(button);
+
+                    tr.appendChild(tdDate);
+                    tr.appendChild(tdEventName);
+                    tr.appendChild(tdActions);
+
+                    competitionsTable.querySelector('tbody').appendChild(tr);
+                });
+
+                function fetchAndDisplayResults(eventName, eventDate) {
+                    const modalStartlistsContainer = document.getElementById('startlists');
+                    const modalResultsListContainer = document.getElementById('results-list');
+                    const modalOtherFilesContainer = document.getElementById('other-files');
+                    const categoryButtonsContainer = document.getElementById('category-buttons');
+
+                    modalStartlistsContainer.innerHTML = '';
+                    modalResultsListContainer.innerHTML = '';
+                    modalOtherFilesContainer.innerHTML = '';
+                    categoryButtonsContainer.innerHTML = '';
+
+                    fetch(`/files/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/`)
+                        .then(response => response.json())
+                        .then(files => {
+                            const categories = new Set();
+
+                            files.forEach(file => {
+                                const li = document.createElement('li');
+                                const a = document.createElement('a');
+                                a.href = `/files/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/${encodeURIComponent(file)}`;
+                                a.textContent = file;
+                                li.appendChild(a);
+
+                                // Create delete button
+                                const deleteButton = document.createElement('button');
+                                deleteButton.textContent = 'Delete';
+                                deleteButton.style.marginLeft = '15px'; // Adding margin-left property
+                                deleteButton.addEventListener('click', function () {
+                                    deleteFile(`${eventDate}  ${eventName}`, file);
+                                });
+                                li.appendChild(deleteButton); // Append delete button to list item
+
+
+                                if (file.includes('-')) {
+                                    modalOtherFilesContainer.appendChild(li);
+                                } else if (file.includes('race_')) {
+                                    li.classList.add('race-item');
+                                    modalResultsListContainer.appendChild(li);
+                                    const category = file.split('__')[1];
+                                    categories.add(category);
+                                } else {
+                                    modalStartlistsContainer.appendChild(li);
+                                }
+                            });
+
+                            // Add buttons for each category
+                            categories.forEach(category => {
+                                const button = document.createElement('button');
+                                button.textContent = category;
+                                button.addEventListener('click', function () {
+                                    filterResultsByCategory(category);
+                                });
+                                categoryButtonsContainer.appendChild(button);
+                            });
+
+                            // Show category buttons
+                            categoryButtonsContainer.querySelectorAll('button').forEach(btn => {
+                                btn.style.display = 'inline-block';
+                            });
+                        })
+                        .catch(error => console.error('Error loading results:', error));
+                }
+
+                const spanClose = document.getElementsByClassName('close')[0];
+                spanClose.onclick = function () {
+                    const modal = document.getElementById('myModal');
+                    modal.style.display = 'none';
+                };
+
+                window.onclick = function (event) {
+                    const modal = document.getElementById('myModal');
+                    if (event.target == modal) {
+                        modal.style.display = 'none';
+                    }
+                };
+
+                document.getElementById('add-folder-form').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const folderDate = document.getElementById('folder-date').value;
+                    const folderName = document.getElementById('folder-name').value;
+                    fetch('/create-folder', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ date: folderDate, name: folderName })
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                alert('Folder created successfully');
+                                window.location.reload();
+                            } else {
+                                alert('Failed to create folder');
+                            }
+                        })
+                        .catch(error => console.error('Error creating folder:', error));
+                });
+
+                document.getElementById('delete-folder-form').addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const folderDate = document.getElementById('delete-folder-date').value;
+                    const folderName = document.getElementById('delete-folder-name').value;
+                    fetch('/delete-folder', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ date: folderDate, name: folderName })
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                alert('Folder deleted successfully');
+                                window.location.reload();
+                            } else {
+                                alert('Failed to delete folder');
+                            }
+                        })
+                        .catch(error => console.error('Error deleting folder:', error));
+                });
+
+                // Populate folder select options
+                events.forEach(event => {
+                    const option = document.createElement('option');
+                    option.value = `${event.date}  ${event.name}`;
+                    option.textContent = `${event.date} - ${event.name}`;
+                    folderSelect.appendChild(option);
+                });
+
+                // File upload
+                const uploadForm = document.getElementById('upload-form');
+                const fileInput = document.getElementById('file-input');
+
+                uploadForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const files = fileInput.files;
+                    if (files.length > 0) {
+                        uploadFiles(files);
+                    }
+                });
+                
+                function deleteFile(eventIdentifier, fileName) {
+                    if (confirm(`Are you sure you want to delete '${fileName}'?`)) {
+                        fetch(`/delete-file/${encodeURIComponent(eventIdentifier)}/${encodeURIComponent(fileName)}`, {
+                            method: 'DELETE',
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                alert('File deleted successfully');
+                                fetchAndDisplayResults(eventName, eventDate); // Refresh file list after deletion
+                            } else {
+                                alert('Failed to delete file');
+                            }
+                        })
+                        .catch(error => console.error('Error deleting file:', error));
+                    }
+                }
+
+                function uploadFiles(files) {
+                    const formData = new FormData();
+                    for (let i = 0; i < files.length; i++) {
+                        formData.append('file', files[i]);
+                    }
+                    const selectedFolder = folderSelect.value;
+                    const [selectedEventDate, selectedEventName] = selectedFolder.split('  ');
+
+                    formData.append('eventDate', selectedEventDate);
+                    formData.append('eventName', selectedEventName);
+
+                    fetch('/upload-file', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                alert('File uploaded successfully');
+                                window.location.reload();
+                            } else {
+                                alert('Failed to upload file');
+                            }
+                        })
+                        .catch(error => console.error('Error uploading file:', error));
+                }
+            })
+            .catch(error => console.error('Error loading files:', error));
+    });
+</script>
+<!-- <script>
+    // Пароль для доступа
+    const password = "admin123"; // Замените на свой пароль
+
+    // Функция для проверки пароля
+    function checkPassword() {
+        const enteredPassword = prompt("Введите пароль для доступа:");
+
+        if (enteredPassword === password) {
+            // Пароль верный, показываем основное содержимое страницы
+            document.getElementById("main-content").style.display = "block";
+        } else {
+            // Пароль неверный или отменен пользователем
+            alert("Пользователь скорее всего любопытный. Попытался зайти на страницу, но не смог, ведь не знал пароль.");
+            window.location.href = "index.html";
+        }
+    }
+
+    // Вызов функции проверки пароля при загрузке страницы
+    checkPassword();
+</script> -->
+</div>
+<footer style="text-align: center;">
+    <br>
+    <hr>
+    © 2024 DSS Sport System. All rights reserved.
+</footer>
 </body>
 </html>
+

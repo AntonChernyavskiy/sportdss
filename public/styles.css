@@ -37,10 +37,6 @@ header {
     transition: color 0.3s ease;
 }
 
-.nav__links li a:hover {
-    color: #0088a9;
-}
-
 .cta,
 .cta-admin {
     padding: 9px 25px;
@@ -48,6 +44,18 @@ header {
     border-radius: 50px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.cta-admin {
+    background-color: rgb(169, 0, 0);
+}
+
+.cta-admin:hover {
+    background-color: rgba(169, 0, 0, 0.8);
+}
+
+.nav__links li a:hover {
+    color: #0088a9;
 }
 
 .cta {
@@ -58,13 +66,7 @@ header {
     background-color: rgba(0, 136, 169, 0.8);
 }
 
-.cta-admin {
-    background-color: rgb(169, 0, 0);
-}
 
-.cta-admin:hover {
-    background-color: rgba(169, 0, 0, 0.8);
-}
 
 .menu {
     display: none;
@@ -334,22 +336,20 @@ header {
     flex-direction: column;
 }
 
-
 .column.news .event-list {
     list-style-type: none;
     padding: 0;
 }
 
-
 .column.news .event-list li {
     margin-bottom: 20px;
 }
 
-
 .event-list {
     list-style-type: none;
     padding: 0;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
+    width: 100%;
 }
 
 .event-list li {
@@ -394,10 +394,8 @@ header {
 
 .event-buttons.inactive .event-btn:hover {
     background-color: #ccc;
-    color: #666; /* Можно изменить цвет текста при наведении, если необходимо */
+    color: #666;
 }
-
-
 
 /* Modal styles */
 .modal {
@@ -443,7 +441,122 @@ header {
     color: #24252a;
 }
 
-
 .coxswain-row {
-    background-color: lightsalmon; /* Любой другой цвет, который вы хотите использовать */
+    background-color: lightsalmon;
+}
+
+#fileTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#fileTable thead {
+    background-color: #f2f2f2;
+}
+
+#fileTable th,
+#fileTable td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+#fileTable th {
+    background-color: rgb(169, 0, 0);
+    color: white;
+}
+
+#fileTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#fileTable tr:hover {
+    background-color: #ddd;
+}
+
+#fileTable button {
+    margin-right: 5px;
+    padding: 5px 10px;
+    background-color: rgb(169, 0, 0);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+#fileTable button:hover {
+    background-color: rgb(169, 0, 0, 0.8);
+}
+
+#uploadFile,
+button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    background-color: rgb(169, 0, 0);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: rgb(169, 0, 0, 0.8);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    padding-top: 20px;
+}
+
+.file-management,
+.folder-management {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.file-management {
+    grid-column: 1;
+}
+
+.folder-management {
+    grid-column: 2;
+}
+
+.file-table {
+    grid-column: 1 / span 2;
+}
+
+.styled-input {
+    display: block;
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.styled-button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: rgb(169, 0, 0);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.styled-button:hover {
+    background-color: rgb(169, 0, 0, 0.8);
 }

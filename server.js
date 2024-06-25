@@ -3,25 +3,16 @@ const path = require('path');
 const fs = require('fs').promises;
 const fileUpload = require('express-fileupload');
 const moment = require('moment');
+const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(fileUpload());
 
-// Serve the admin page
-app.get('/admin', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-});
 
-app.get('/admin_entries', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'admin_entries.html'));
-});
-
-// Endpoint to fetch all events (folders) in public/files
 app.get('/files', async (req, res) => {
     try {
         const filesDirectory = path.join(__dirname, 'public', 'files');
@@ -33,7 +24,6 @@ app.get('/files', async (req, res) => {
     }
 });
 
-// Endpoint to fetch files in a specific event folder in public/files
 app.get('/files/:eventName', async (req, res) => {
     try {
         const eventName = req.params.eventName;
@@ -46,7 +36,6 @@ app.get('/files/:eventName', async (req, res) => {
     }
 });
 
-// Endpoint to create a new folder (event) in public/files
 app.post('/create-folder_entrySys', async (req, res) => {
     const { date, name, path: basePath } = req.body;
     const folderName = `${date}  ${name}`;
@@ -55,11 +44,8 @@ app.post('/create-folder_entrySys', async (req, res) => {
     try {
         await fs.mkdir(folderPath, { recursive: true });
 
-        // Calculate registration start and end dates
-        const registrationStartDate = moment().format(); // current timestamp
+        const registrationStartDate = moment().format();
         const registrationEndDate = moment(date, 'YYYY-MM-DD').subtract(2, 'days').set({ hour: 20, minute: 59, second: 59 }).format();
-
-        // Create default config.json file
         const configPath = path.join(folderPath, 'config.json');
         const defaultConfig = {
             organizations: [
@@ -101,7 +87,7 @@ app.post('/create-folder_entrySys', async (req, res) => {
     }
 });
 
-// Endpoint to delete a folder (event) in public/entrySys
+// удалить папку в заявках
 app.post('/delete-folder_entrySys', async (req, res) => {
     const { date, name } = req.body;
     const folderName = `${date}  ${name}`;
@@ -116,7 +102,7 @@ app.post('/delete-folder_entrySys', async (req, res) => {
     }
 });
 
-// Endpoint to handle file upload in public/entrySys
+// закинуть файл в заявки
 app.post('/upload-file', async (req, res) => {
     try {
         if (!req.files || Object.keys(req.files).length === 0) {
@@ -127,13 +113,11 @@ app.post('/upload-file', async (req, res) => {
         const eventFolder = `${eventDate}  ${eventName}`;
         const uploadDir = path.join(__dirname, 'public', 'entrySys', eventFolder);
 
-        // Create the directory if it doesn't exist
         await fs.mkdir(uploadDir, { recursive: true });
 
         const uploadedFile = req.files.file;
         const filePath = path.join(uploadDir, uploadedFile.name);
 
-        // Move the file to the specified path
         await uploadedFile.mv(filePath);
 
         res.status(200).send('File uploaded successfully');
@@ -143,7 +127,7 @@ app.post('/upload-file', async (req, res) => {
     }
 });
 
-// Endpoint to delete a file in public/entrySys
+// удалить папку в заявках
 app.delete('/delete-file/:eventName/:fileName', async (req, res) => {
     try {
         const { eventName, fileName } = req.params;
@@ -158,9 +142,6 @@ app.delete('/delete-file/:eventName/:fileName', async (req, res) => {
     }
 });
 
-// Endpoints for public/entrySys
-
-// Endpoint to fetch all events (folders) in public/entrySys
 app.get('/entrySys', async (req, res) => {
     try {
         const entrySysDirectory = path.join(__dirname, 'public', 'entrySys');
@@ -172,7 +153,6 @@ app.get('/entrySys', async (req, res) => {
     }
 });
 
-// Endpoint to fetch files in a specific event folder in public/entrySys
 app.get('/entrySys/:eventName', async (req, res) => {
     try {
         const eventName = req.params.eventName;
@@ -185,7 +165,6 @@ app.get('/entrySys/:eventName', async (req, res) => {
     }
 });
 
-// Endpoint to fetch config.json file for a specific event folder in public/entrySys
 app.get('/entrySys/:eventName/config.json', async (req, res) => {
     try {
         const eventName = req.params.eventName;
@@ -198,21 +177,21 @@ app.get('/entrySys/:eventName/config.json', async (req, res) => {
     }
 });
 
-// Endpoint to save config.json file for a specific event folder in public/entrySys
+// сохранить конфиг файл в конкретном месте
 app.put('/entrySys/:eventName/config.json', async (req, res) => {
     try {
         const eventName = req.params.eventName;
-        const configPath = path.join(__dirname, 'public', 'entrySys', eventName, 'config.json');
+        const configPath =  path.join(__dirname, 'public', 'entrySys', eventName, 'config.json');
         const configData = JSON.stringify(req.body, null, 2);
         await fs.writeFile(configPath, configData, 'utf8');
         res.status(200).send('Config.json saved successfully');
     } catch (err) {
-        console.error('Error reading config.json:', err);
+        console.error('Error saving config.json:', err);
         res.status(500).send('Unable to save config.json');
     }
 });
 
-// Endpoint to delete a folder (event) in public/entrySys
+// удалить папку в формах
 app.delete('/entrySys/:eventName', async (req, res) => {
     try {
         const eventName = req.params.eventName;
@@ -225,8 +204,37 @@ app.delete('/entrySys/:eventName', async (req, res) => {
     }
 });
 
-// Start the server
+// новая папка в соревах
+app.post('/create-folder', async (req, res) => {
+    const { date, name } = req.body;
+    const folderName = `${date}  ${name}`;
+    const folderPath = path.join(__dirname, 'public', 'files', folderName);
+
+    try {
+        await fs.mkdir(folderPath, { recursive: true });
+
+        res.status(200).send('Folder created successfully');
+    } catch (err) {
+        console.error('Error creating folder:', err);
+        res.status(500).send('Failed to create folder');
+    }
+});
+
+// удалить папку в соревах
+app.post('/delete-folder', async (req, res) => {
+    const { date, name } = req.body;
+    const folderName = `${date}  ${name}`;
+    const folderPath = path.join(__dirname, 'public', 'files', folderName);
+
+    try {
+        await fs.rmdir(folderPath, { recursive: true });
+        res.status(200).send('Folder deleted successfully');
+    } catch (err) {
+        console.error('Error deleting folder:', err);
+        res.status(500).send('Failed to delete folder');
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
-

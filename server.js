@@ -5,13 +5,41 @@ const fileUpload = require('express-fileupload');
 const moment = require('moment');
 const bodyParser = require('body-parser');
 
+const { requiresAuth } = require('express-openid-connect');
+const { auth } = require('express-openid-connect');
+require('dotenv').config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(fileUpload());
 
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: process.env.SECRET || 'a long, randomly-generated string stored in env',
+  baseURL: process.env.BASE_URL || 'http://localhost:3000',
+  clientID: process.env.CLIENT_ID || 'yT2he6zIWN8rXoC2YouxeA0WrpLp0KL1',
+  issuerBaseURL: process.env.ISSUER_BASE_URL || 'https://dev-xuenlyj535dnppsd.us.auth0.com'
+};
+
+app.use(auth(config));
+
+// Middleware to protect specific static files
+app.use((req, res, next) => {
+    const protectedPaths = ['/admin.html', '/admin_entries.html'];
+    if (protectedPaths.includes(req.path) && (!req.oidc.isAuthenticated() || req.oidc.user.nickname !== 'antons.cernavskis')) {
+        return res.status(403).send('Access Forbidden');
+    }
+    next();
+});
+
+app.get('/entries.html', requiresAuth(), (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'entries.html'));
+});
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/files', async (req, res) => {
     try {
@@ -46,6 +74,7 @@ app.post('/create-folder_entrySys', async (req, res) => {
 
         const registrationStartDate = moment().format();
         const registrationEndDate = moment(date, 'YYYY-MM-DD').subtract(2, 'days').set({ hour: 20, minute: 59, second: 59 }).format();
+        const entryPath = path.join(folderPath, 'entries.json');
         const configPath = path.join(folderPath, 'config.json');
         const defaultConfig = {
             organizations: [
@@ -87,7 +116,6 @@ app.post('/create-folder_entrySys', async (req, res) => {
     }
 });
 
-// удалить папку в заявках
 app.post('/delete-folder_entrySys', async (req, res) => {
     const { date, name } = req.body;
     const folderName = `${date}  ${name}`;
@@ -102,8 +130,7 @@ app.post('/delete-folder_entrySys', async (req, res) => {
     }
 });
 
-// закинуть файл в заявки
-app.post('/upload-file', async (req, res) => {
+app.post('/upload-file', requiresAuth(), async (req, res) => {
     try {
         if (!req.files || Object.keys(req.files).length === 0) {
             return res.status(400).send('No files were uploaded.');
@@ -111,7 +138,7 @@ app.post('/upload-file', async (req, res) => {
 
         const { eventDate, eventName } = req.body;
         const eventFolder = `${eventDate}  ${eventName}`;
-        const uploadDir = path.join(__dirname, 'public', 'entrySys', eventFolder);
+        const uploadDir = path.join(__dirname, 'public', 'files', eventFolder);
 
         await fs.mkdir(uploadDir, { recursive: true });
 
@@ -127,11 +154,10 @@ app.post('/upload-file', async (req, res) => {
     }
 });
 
-// удалить папку в заявках
-app.delete('/delete-file/:eventName/:fileName', async (req, res) => {
+app.delete('/delete-file/:eventName/:fileName', requiresAuth(), async (req, res) => {
     try {
         const { eventName, fileName } = req.params;
-        const eventDirectory = path.join(__dirname, 'public', 'entrySys', eventName);
+        const eventDirectory = path.join(__dirname, 'public', 'files', eventName);
         const filePath = path.join(eventDirectory, fileName);
 
         await fs.unlink(filePath);
@@ -177,8 +203,7 @@ app.get('/entrySys/:eventName/config.json', async (req, res) => {
     }
 });
 
-// сохранить конфиг файл в конкретном месте
-app.put('/entrySys/:eventName/config.json', async (req, res) => {
+app.put('/entrySys/:eventName/config.json', requiresAuth(), async (req, res) => {
     try {
         const eventName = req.params.eventName;
         const configPath =  path.join(__dirname, 'public', 'entrySys', eventName, 'config.json');
@@ -191,8 +216,7 @@ app.put('/entrySys/:eventName/config.json', async (req, res) => {
     }
 });
 
-// удалить папку в формах
-app.delete('/entrySys/:eventName', async (req, res) => {
+app.delete('/entrySys/:eventName', requiresAuth(), async (req, res) => {
     try {
         const eventName = req.params.eventName;
         const eventDirectory = path.join(__dirname, 'public', 'entrySys', eventName);
@@ -204,7 +228,6 @@ app.delete('/entrySys/:eventName', async (req, res) => {
     }
 });
 
-// новая папка в соревах
 app.post('/create-folder', async (req, res) => {
     const { date, name } = req.body;
     const folderName = `${date}  ${name}`;
@@ -220,7 +243,6 @@ app.post('/create-folder', async (req, res) => {
     }
 });
 
-// удалить папку в соревах
 app.post('/delete-folder', async (req, res) => {
     const { date, name } = req.body;
     const folderName = `${date}  ${name}`;
@@ -235,6 +257,47 @@ app.post('/delete-folder', async (req, res) => {
     }
 });
 
+app.get('/profile', requiresAuth(), (req, res) => {
+    res.send(JSON.stringify(req.oidc.user));
+});
+
+// Serve admin.html (protected route)
+app.get('/admin', requiresAuth(), (req, res) => {
+    const nickname = req.oidc.user.nickname;
+    if (nickname === 'antons.cernavskis') {
+        res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+    } else {
+        res.redirect('/'); // Redirect to index.html if the user's nickname is not 'antons.cernavskis'
+    }
+});
+
+// Prevent direct access to admin.html
+app.get('/admin.html', requiresAuth(), (req, res) => {
+    const nickname = req.oidc.user.nickname;
+    if (nickname === 'antons.cernavskis') {
+        res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+    } else {
+        res.status(403).send('Access Forbidden'); // Send forbidden status if the user is not authorized
+    }
+});
+
+// Route to list files in a directory
+app.get('/files', requiresAuth(), async (req, res) => {
+    try {
+        const filesDirectory = path.join(__dirname, 'public', 'files');
+        const files = await fs.readdir(filesDirectory);
+        res.json(files);
+    } catch (err) {
+        console.error('Error reading files directory:', err);
+        res.status(500).send('Unable to scan files directory');
+    }
+});
+
+app.get('/logout', (req, res) => {
+    res.oidc.logout();
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
+

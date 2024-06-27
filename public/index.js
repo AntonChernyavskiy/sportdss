@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                             const registerBtn = document.createElement('a');
                             registerBtn.classList.add('event-btn', currentDate < registrationStartDate || currentDate > registrationEndDate ? 'inactive' : 'register-btn');
-                            registerBtn.href = '#';
+                            registerBtn.href = 'entries.html';
                             registerBtn.textContent = 'Entry';
                             registerBtn.setAttribute('data-event', event.name);
                             registerBtn.setAttribute('data-date', event.date);
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             console.error('Error fetching event configuration:', error);
                             const registerBtn = document.createElement('a');
                             registerBtn.classList.add('event-btn', 'inactive');
-                            registerBtn.href = '#';
+                            registerBtn.href = 'entries.html';
                             registerBtn.textContent = 'Entry';
                             registerBtn.setAttribute('data-event', event.name);
                             registerBtn.setAttribute('data-date', event.date);
@@ -255,6 +255,11 @@ document.addEventListener('DOMContentLoaded', function () {
                             <label for="contact-information">Contact Information:</label>
                             <input type="text" id="contact-information" name="contactInformation" required>
                         </div>
+                        <input type="hidden" id="given_name" name="given_name">
+                        <input type="hidden" id="family_name" name="family_name">
+                        <input type="hidden" id="nickname" name="nickname">
+                        <input type="hidden" id="email" name="email">
+
                         <button type="submit">Submit</button>
                     </form>
                     
@@ -372,7 +377,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         acc[index][type] = formData[key];
                         return acc;
                     }, []);
-
+            
                 const formattedParticipants = participants.map(participant => {
                     const { firstName, lastName, birthYear, license } = participant;
                     if (license) {
@@ -383,24 +388,28 @@ document.addEventListener('DOMContentLoaded', function () {
                         const year = birthYear.slice(-2);
                         return `${surname} ${name} ${year}`;
                     }
-                }).join(', ');
-
+                }).join(' / '); // Join with slash
+            
+                // Ensure trimmedParticipants is not empty before using it
+                const trimmedParticipants = formattedParticipants.trim();
+            
                 const boatClass = formData.boatClass;
                 const contactInformation = formData.contactInformation;
-                const emailBody = `${boatClass}, ${formattedParticipants}, ${contactInformation}`;
-
-                console.log("EMAIL SENDING!!!")
+                const emailSubject = `Pieteikšanas sacensībām - ${eventName}`;
+            
+                const emailBody = `${boatClass}, ${trimmedParticipants}, ${contactInformation}`;
+            
                 Email.send({
                     SecureToken : "ac3745a2-47bf-470a-a3a2-7c201fd92a6c",
                     To : 'antons.cernavskis@gmail.com',
                     From : "antons.cernavskis@gmail.com",
-                    Subject : eventName,
+                    Subject : emailSubject,
                     Body : emailBody
                 }).then(
                     message => alert("Saņemts!"),
                     error => console.error("Email sending error:", error)
                 );
-            }
+            }                                    
         });
 
     const modal = document.getElementById('registration-modal');

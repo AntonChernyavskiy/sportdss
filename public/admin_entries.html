@@ -270,7 +270,6 @@
         <div class="modal-content">
             <div class="modal-section">
                 <div class="newsResults">
-                    <h2>Other files / Citi faili</h2>
                     <div class="scrollMenu">
                         <ul id="other-files"></ul>
                     </div>
@@ -436,7 +435,14 @@
                     fetchAndDisplayConfig(event.date, event.name);
                 });
 
+                const buttonEntryView = document.createElement('button');
+                buttonEntryView.textContent = 'View entries';
+                buttonEntryView.addEventListener('click', function () {
+                    fetchAndDisplayConfig(event.date, event.name);
+                });
+
                 // Добавляем кнопки в ячейку для действий
+                tdActions.appendChild(buttonView);
                 tdActions.appendChild(buttonView);
 
                 // Добавляем ячейки в строку
@@ -555,67 +561,46 @@
         // Получаем выбранные файлы
         const files = document.getElementById('file-input').files;
 
-// Проверяем, что есть выбранные файлы
-if (files.length > 0) {
-    // Вызываем функцию для загрузки файлов
-    uploadFiles(files);
-}
-function uploadFiles(files) {
-        const formData = new FormData();
-
-        // Добавляем все выбранные файлы в FormData
-        for (let i = 0; i < files.length; i++) {
-            formData.append('file', files[i]);
-        }
-
-        // Получаем выбранную папку для загрузки файла
-        const selectedFolder = document.getElementById('folder-select').value;
-        const [selectedEventDate, selectedEventName] = selectedFolder.split('  ');
-
-        // Добавляем дату и название события в FormData
-        formData.append('eventDate', selectedEventDate);
-        formData.append('eventName', selectedEventName);
-
-        // Отправляем запрос на сервер для загрузки файла
-        fetch('/upload-file', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('File uploaded successfully');
-                window.location.reload(); // Перезагружаем страницу после успешной загрузки файла
-            } else {
-                alert('Failed to upload file');
-            }
-        })
-        .catch(error => console.error('Error uploading file:', error));
+    // Проверяем, что есть выбранные файлы
+    if (files.length > 0) {
+        // Вызываем функцию для загрузки файлов
+        uploadFiles(files);
     }
-});
+    function uploadFiles(files) {
+            const formData = new FormData();
+
+            // Добавляем все выбранные файлы в FormData
+            for (let i = 0; i < files.length; i++) {
+                formData.append('file', files[i]);
+            }
+
+            // Получаем выбранную папку для загрузки файла
+            const selectedFolder = document.getElementById('folder-select').value;
+            const [selectedEventDate, selectedEventName] = selectedFolder.split('  ');
+
+            // Добавляем дату и название события в FormData
+            formData.append('eventDate', selectedEventDate);
+            formData.append('eventName', selectedEventName);
+
+            // Отправляем запрос на сервер для загрузки файла
+            fetch('/upload-file', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('File uploaded successfully');
+                    window.location.reload(); // Перезагружаем страницу после успешной загрузки файла
+                } else {
+                    alert('Failed to upload file');
+                }
+            })
+            .catch(error => console.error('Error uploading file:', error));
+        }
+    });
     });
 
 </script>
-<!-- <script>
-    // Пароль для доступа
-    const password = "admin123"; // Замените на свой пароль
-
-    // Функция для проверки пароля
-    function checkPassword() {
-        const enteredPassword = prompt("Введите пароль для доступа:");
-
-        if (enteredPassword === password) {
-            // Пароль верный, показываем основное содержимое страницы
-            document.getElementById("main-content").style.display = "block";
-        } else {
-            // Пароль неверный или отменен пользователем
-            alert("Пользователь скорее всего любопытный. Попытался зайти на страницу, но не смог, ведь не знал пароль.");
-            window.location.href = "index.html";
-        }
-    }
-
-    // Вызов функции проверки пароля при загрузке страницы
-    checkPassword();
-</script> -->
 </div>
 <footer style="text-align: center;">
     <br>

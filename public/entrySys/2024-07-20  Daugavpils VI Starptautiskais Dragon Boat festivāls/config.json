@@ -1,13 +1,5 @@
 {
   "organizations": [
-    "MSĢ TSV SASS",
-    "MSĢ TSV Jūrmala",
-    "Daugavpils Sporta skola",
-    "Jelgavas BJSS",
-    "LATC",
-    "Rīgas Airētāju klubs",
-    "Lielupes airēšanas klubs",
-    "Airusports",
     "Other"
   ],
   "boatClasses": [
@@ -15,58 +7,36 @@
       "class": "Select"
     },
     {
-      "class": "M1x",
-      "participants": 1
+      "class": "Sievietes D-20",
+      "participants": 21,
+      "coxswainIndex": 0,
+      "coxswainName": "Bundzinieks"
     },
     {
-      "class": "W1x",
-      "participants": 1
+      "class": "MIX Sport D-20 (200 m)",
+      "participants": 21,
+      "coxswainIndex": 0,
+      "coxswainName": "Bundzinieks"
     },
     {
-      "class": "M2x",
-      "participants": 2
+      "class": "MIX Sport D-20 (500 m)",
+      "participants": 21,
+      "coxswainIndex": 0,
+      "coxswainName": "Bundzinieks"
     },
     {
-      "class": "W2x",
-      "participants": 2
+      "class": "MIX Amatieri D-20",
+      "participants": 21,
+      "coxswainIndex": 0,
+      "coxswainName": "Bundzinieks"
     },
     {
-      "class": "M2-",
-      "participants": 2
-    },
-    {
-      "class": "W2-",
-      "participants": 2
-    },
-    {
-      "class": "M4x",
-      "participants": 4
-    },
-    {
-      "class": "W4x",
-      "participants": 4
-    },
-    {
-      "class": "M4-",
-      "participants": 4
-    },
-    {
-      "class": "W4-",
-      "participants": 4
-    },
-    {
-      "class": "M8+",
-      "participants": 9,
-      "coxswainIndex": 8,
-      "coxswainName": "Sturmanis"
-    },
-    {
-      "class": "W8+",
-      "participants": 9,
-      "coxswainIndex": 8,
-      "coxswainName": "Sturmanis"
+      "class": "MIX Bērni D-20",
+      "participants": 21,
+      "coxswainIndex": 0,
+      "coxswainName": "Bundzinieks"
     }
   ],
-  "registrationStartDate": "2024-06-25T14:35:23+03:00",
-  "registrationEndDate": "2024-07-18T20:59:59+03:00"
+  "registrationStartDate": "2024-06-19T00:00:00Z",
+  "registrationEndDate": "2024-07-19T20:59:59Z"
 }

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 const resultBtn = document.createElement('a');
                 resultBtn.classList.add('event-btn');
-                resultBtn.href = 'results.html';
+                resultBtn.href = 'entries.html';
                 resultBtn.textContent = 'Rezultāti';
                 resultBtn.setAttribute('data-event', event.name);
 
@@ -63,13 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             }
 
                             const registrationInfo = document.createElement('div');
-                            registrationInfo.textContent = `Entry deadline ${registrationStartDate.toLocaleDateString()} - ${registrationEndDate.toLocaleDateString()}`;
+                            registrationInfo.textContent = `Pieteikšanas termiņš ${registrationStartDate.toLocaleDateString()} - ${registrationEndDate.toLocaleDateString()}`;
                             registrationInfo.classList.add('registration-info');
                             li.appendChild(registrationInfo);
 
                             const registerBtn = document.createElement('a');
                             registerBtn.classList.add('event-btn', currentDate < registrationStartDate || currentDate > registrationEndDate ? 'inactive' : 'register-btn');
-                            registerBtn.href = '#';
+                            registerBtn.href = 'lv_entries.html';
                             registerBtn.textContent = 'Pieteikties';
                             registerBtn.setAttribute('data-event', event.name);
                             registerBtn.setAttribute('data-date', event.date);
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             console.error('Error fetching event configuration:', error);
                             const registerBtn = document.createElement('a');
                             registerBtn.classList.add('event-btn', 'inactive');
-                            registerBtn.href = '#';
+                            registerBtn.href = 'lv_entries.html';
                             registerBtn.textContent = 'Pieteikties';
                             registerBtn.setAttribute('data-event', event.name);
                             registerBtn.setAttribute('data-date', event.date);

@@ -29,7 +29,7 @@ app.use(auth(config));
 // Middleware to protect specific static files
 app.use((req, res, next) => {
     const protectedPaths = ['/admin.html', '/admin_entries.html'];
-    if (protectedPaths.includes(req.path) && (!req.oidc.isAuthenticated() || req.oidc.user.nickname !== 'antons.cernavskis')) {
+    if (protectedPaths.includes(req.path) && (!req.oidc.isAuthenticated() || req.oidc.user.sub !== 'google-oauth2|102340706795534265787')) {
         return res.status(403).send('Access Forbidden');
     }
     next();
@@ -263,8 +263,8 @@ app.get('/profile', requiresAuth(), (req, res) => {
 
 // Serve admin.html (protected route)
 app.get('/admin', requiresAuth(), (req, res) => {
-    const nickname = req.oidc.user.nickname;
-    if (nickname === 'antons.cernavskis') {
+    const sub = req.oidc.user.sub;
+    if (sub === 'google-oauth2|102340706795534265787') {
         res.sendFile(path.join(__dirname, 'public', 'admin.html'));
     } else {
         res.redirect('/'); // Redirect to index.html if the user's nickname is not 'antons.cernavskis'
@@ -273,8 +273,8 @@ app.get('/admin', requiresAuth(), (req, res) => {
 
 // Prevent direct access to admin.html
 app.get('/admin.html', requiresAuth(), (req, res) => {
-    const nickname = req.oidc.user.nickname;
-    if (nickname === 'antons.cernavskis') {
+    const sub = req.oidc.user.sub;
+    if (sub === 'google-oauth2|102340706795534265787') {
         res.sendFile(path.join(__dirname, 'public', 'admin.html'));
     } else {
         res.status(403).send('Access Forbidden'); // Send forbidden status if the user is not authorized

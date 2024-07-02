@@ -284,72 +284,85 @@
                                 files.forEach(file => {
                                     const li = document.createElement('li');
                                     const a = document.createElement('a');
-                                    a.href = `/files/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/${encodeURIComponent(file)}`;
+                                    const fileUrl = `/files/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/${encodeURIComponent(file)}`;
+
+                                    a.href = fileUrl;
                                     a.textContent = file;
+
+                                    // Check if the user is on a mobile device
+                                    if (isMobileDevice()) {
+                                        a.setAttribute('download', ''); // Force download on mobile
+                                    }
+
                                     li.appendChild(a);
 
                                     if (file.includes('-')) {
-                                        modalOtherFilesContainer.appendChild(li);
-                                    } else if (file.includes('race_')) {
-                                        li.classList.add('race-item');
-                                        modalResultsListContainer.appendChild(li);
-                                        const category = file.split('__')[1];
-                                        categories.add(category);
-                                    } else {
-                                        modalStartlistsContainer.appendChild(li);
-                                    }
+                                    modalOtherFilesContainer.appendChild(li);
+                                } else if (file.includes('race_')) {
+                                    li.classList.add('race-item');
+                                    modalResultsListContainer.appendChild(li);
+                                    const category = file.split('__')[1];
+                                    categories.add(category);
+                                } else {
+                                    modalStartlistsContainer.appendChild(li);
+                                }
+                            });
+
+                            // Add buttons for each category
+                            categories.forEach(category => {
+                                const button = document.createElement('button');
+                                button.textContent = category;
+                                button.addEventListener('click', function() {
+                                    filterResultsByCategory(category);
                                 });
+                                categoryButtonsContainer.appendChild(button);
+                            });
 
-                                // Add buttons for each category
-                                categories.forEach(category => {
-                                    const button = document.createElement('button');
-                                    button.textContent = category;
-                                    button.addEventListener('click', function() {
-                                        filterResultsByCategory(category);
-                                    });
-                                    categoryButtonsContainer.appendChild(button);
-                                });
+                            // Show category buttons
+                            categoryButtonsContainer.querySelectorAll('button').forEach(btn => {
+                                btn.style.display = 'inline-block';
+                            });
+                        })
+                        .catch(error => console.error('Error loading results:', error));
+                }
 
-                                // Show category buttons
-                                categoryButtonsContainer.querySelectorAll('button').forEach(btn => {
-                                    btn.style.display = 'inline-block';
-                                });
-                            })
-                            .catch(error => console.error('Error loading results:', error));
-                    }
-
-                    function filterResultsByCategory(category) {
-                        const resultItems = document.querySelectorAll('#results-list .race-item');
-                        resultItems.forEach(item => {
-                            if (item.textContent.includes(category)) {
-                                item.style.display = '';
-                            } else {
-                                item.style.display = 'none';
-                            }
-                        });
-                    }
-
-                    const spanClose = document.getElementsByClassName('close')[0];
-                    spanClose.onclick = function() {
-                        const modal = document.getElementById('myModal');
-                        modal.style.display = 'none';
-                    };
-
-                    window.onclick = function(event) {
-                        const modal = document.getElementById('myModal');
-                        if (event.target == modal) {
-                            modal.style.display = 'none';
+                function filterResultsByCategory(category) {
+                    const resultItems = document.querySelectorAll('#results-list .race-item');
+                    resultItems.forEach(item => {
+                        if (item.textContent.includes(category)) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
                         }
-                    };
-                })
-                .catch(error => console.error('Error loading files:', error));
-        });
-    </script>
-    <footer style="text-align: center;">
-        <br>
-        <hr>
-        © 2024 DSS Sport System. All rights reserved.
-    </footer>
+                    });
+                }
+
+                const spanClose = document.getElementsByClassName('close')[0];
+                spanClose.onclick = function() {
+                    const modal = document.getElementById('myModal');
+                    modal.style.display = 'none';
+                };
+
+                window.onclick = function(event) {
+                    const modal = document.getElementById('myModal');
+                    if (event.target == modal) {
+                        modal.style.display = 'none';
+                    }
+                };
+
+                // Function to detect if the device is a mobile device
+                function isMobileDevice() {
+                    return /Mobi/i.test(navigator.userAgent);
+                }
+            })
+            .catch(error => console.error('Error loading files:', error));
+    });
+</script>
+<footer style="text-align: center;">
+    <br>
+    <hr>
+    Report any problems at <a href="">antons.cernavskis@gmail.com</a><br>
+    © 2024 DSS Sport System. All rights reserved.
+</footer>
 </body>
 </html>
-

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSS Sport System</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="hover.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,400,700|Maven+Pro:400,700|Montserrat:300,400,700|Titillium+Web:300,400,700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=430px" />
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="modal.css">
+    <link rel="stylesheet" href="index.css">
+    <meta charset="utf-8">
+    <style>
+        .table-column-participant {
+            width: 50% !important;
+        }
+
+        .table-column-birthyear {
+            width: 25% !important;
+        }
+
+        .table-column-boatclass {
+            width: 25% !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <div class="navbar-brand" href="/">
+                <span>
+                    DSS Sport System
+                </span>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav" style="padding-right: 10px; margin-right: 10px;">
+                    <li class="nav-item hvr-underline-from-left">
+                        <a class="nav-link" href="results.html">Rezultāti</a>
+                    </li>
+                    <li class="nav-item hvr-underline-from-left active">
+                        <a class="nav-link" href="index.html">Pieteikšanas</a>
+                    </li>
+                    <li class="nav-item hvr-underline-from-left">
+                        <a class="nav-link" href="live_results.html">Dzīvie rezultāti</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container main-content">
+        <div class="row mb-4 d-print-none">
+            <div class="col">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title" id="event-title">Event Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted" style="font-size: small;" id="event-date">Event Date</h6>
+                        <div class="row d-print-none">
+                            <div class="col">
+                                <h6 style="margin-top: 5px; margin-bottom: 7px; float: left; margin-right: 20px;">
+                                    <i style="margin: 0px 10px;" class="far fa-window-restore"></i>
+                                    Skatīšanas režīms:
+                                </h6>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <a id="sort-by-boat-class" class="btn btn-primary">pēc kategorijām</a>
+                                    <a id="sort-by-club" class="btn btn-secondary">pēc sportistiem</a>
+                                    <a id="show-stats" class="btn btn-secondary">statistika</a>
+                                </div>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="entry-list-container"></div>
+    </div>
+    <footer style="text-align: center;">
+        <br>
+        <hr>
+        © 2024 DSS Sport System. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventName = urlParams.get('event');
+            const eventDate = urlParams.get('date');
+
+            const eventTitleElement = document.getElementById('event-title');
+            const eventDateElement = document.getElementById('event-date');
+
+            if (eventTitleElement) {
+                eventTitleElement.textContent = eventName ? decodeURIComponent(eventName) : 'Event Title';
+            }
+
+            if (eventDateElement) {
+                eventDateElement.textContent = eventDate ? decodeURIComponent(eventDate) : 'Event Date';
+            }
+        
+            const entryListContainer = document.getElementById('entry-list-container');
+            const csvFilePath = `/entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/entries.csv`;
+        
+            let boatClassTables = {};
+        
+            function renderTable(boatClassTables) {
+                entryListContainer.innerHTML = '';
+        
+                Object.keys(boatClassTables).forEach((boatClass, tableIndex) => {
+                    const containerDiv = document.createElement('div');
+                    containerDiv.classList.add('row');
+                    containerDiv.id = boatClass;
+        
+                    const colDiv = document.createElement('div');
+                    colDiv.classList.add('col');
+        
+                    const table = document.createElement('table');
+                    table.classList.add('table', 'table-hover', 'table-bordered');
+        
+                    const categoryHeaderRow = document.createElement('tr');
+                    const categoryHeaderCell = document.createElement('th');
+                    categoryHeaderCell.classList.add('club-header');
+                    categoryHeaderCell.style.borderTop = '2px solid #aaa';
+                    categoryHeaderCell.colSpan = '5'; // Updated colSpan to match the number of columns
+                    categoryHeaderCell.innerHTML = `
+                        <span class="competition-number">${tableIndex + 1}</span>
+                        <span class="competition-symbol">${boatClass}</span>
+                        <span class="competition-description" style="font-weight: normal;"> </span>
+                    `;
+                    categoryHeaderRow.appendChild(categoryHeaderCell);
+                    table.appendChild(categoryHeaderRow);
+        
+                    // Create and append table header row
+                    const headerRow = document.createElement('tr');
+                    ['#', 'Organizācija', 'Dalībnieki', 'Treneri', 'Pieteikšanas laiks'].forEach((header) => {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+    
+                        // Apply the CSS classes based on header text
+                        switch (header) {
+                            case '#':
+                                th.classList.add('table-header-id');
+                                break;
+                            case 'Organizācija':
+                                th.classList.add('table-header-org');
+                                break;
+                            case 'Dalībnieki':
+                                th.classList.add('table-header-participant');
+                                break;
+                            case 'Treneri':
+                                th.classList.add('table-header-coach');
+                                break;
+                            case 'Pieteikšanas laiks':
+                                th.classList.add('table-header-time');
+                                break;
+                        }
+    
+                        headerRow.appendChild(th);
+                    });
+                    table.appendChild(headerRow);
+        
+                    boatClassTables[boatClass].forEach((row, rowIndex) => {
+                        const tr = document.createElement('tr');
+                        const participantCells = row[2].split('<br>').map(participant => participant.trim());
+                        const currentYear = new Date().getFullYear();
+        
+                        // Calculate average age of participants
+                        const ages = participantCells.map(cell => {
+                            const match = cell.match(/(\d{2})$/); // Adjusted to match two-digit years
+                            if (match) {
+                                const birthYear = parseInt(match[1], 10);
+                                // Determine if the year is 1900s or 2000s
+                                const fullYear = (birthYear >= currentYear % 100) ? 1900 + birthYear : 2000 + birthYear;
+                                return currentYear - fullYear;
+                            }
+                            return null;
+                        }).filter(age => age !== null);
+        
+                        const averageAge = ages.length > 0 ? Math.round(ages.reduce((a, b) => a + b) / ages.length) : 'N/A';
+        
+                        // Process Coach information
+                        const coachInfo = row[4]; // Use the correct index for Coach and trim whitespace
+                        const coachText = coachInfo ? `${coachInfo}<br><b>vid. vecums: ${averageAge}</b>` : `<br><b>vid. vecums: ${averageAge}</b>`;
+        
+                        // Convert Pieteikšanas laiks from UTC to local time
+                        const utcTime = row[5]; // Use the correct index for Time
+                        const dateObj = new Date(utcTime + ' UTC'); // Append ' UTC' to indicate the time is in UTC
+                        const localTime = dateObj.toLocaleString(); // Format the local time
+        
+                        // Append cells in the new order
+                        const cells = [
+                            (rowIndex + 1).toString(), // #
+                            row[1], // Organizācija
+                            participantCells.map(participant => `<span>${participant}</span><br>`).join(''), // Dalībnieki
+                            coachText, // Treneri
+                            localTime // Pieteikšanas laiks
+                        ];
+        
+                        cells.forEach((cell, cellIndex) => {
+                            const td = document.createElement('td');
+                            td.innerHTML = cell;
+    
+                            // Apply the CSS class to 'Pieteikšanas laiks' column
+                            if (cellIndex === cells.length - 1) { // Last column
+                                td.classList.add('table-header-time');
+                            }
+        
+                            tr.appendChild(td);
+                        });
+        
+                        table.appendChild(tr);
+                    });
+        
+                    colDiv.appendChild(table);
+                    containerDiv.appendChild(colDiv);
+                    entryListContainer.appendChild(containerDiv);
+                });
+            }
+        
+            function fetchData() {
+                fetch(csvFilePath)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch entries');
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                        const lines = data.split('\n').map(line => line.split(',').map(cell => cell.trim()));
+                        const headers = lines[0];
+        
+                        const boatClassIndex = headers.indexOf('Event Abbrev');
+                        const participantIndex = headers.indexOf('Stroke');
+                        const coachIndex = headers.indexOf('Coach');
+                        const timeIndex = headers.indexOf('Time');
+                        const contactInfoIndex = headers.indexOf('Contact Information');
+        
+                        if (boatClassIndex === -1 || participantIndex === -1 || coachIndex === -1 || timeIndex === -1 || contactInfoIndex === -1) {
+                            console.error('Required columns are missing in the CSV file');
+                            console.error('Boat Class Index:', boatClassIndex);
+                            console.error('Participant Index:', participantIndex);
+                            console.error('Coach Index:', coachIndex);
+                            console.error('Time Index:', timeIndex);
+                            console.error('Contact Info Index:', contactInfoIndex);
+                            throw new Error('Required columns are missing in the CSV file');
+                        }
+        
+                        boatClassTables = {};
+                        lines.slice(1).forEach(line => {
+                            const boatClass = line[boatClassIndex];
+                            if (!boatClassTables[boatClass]) {
+                                boatClassTables[boatClass] = [];
+                            }
+                            const modifiedLine = line.filter((_, index) => index !== boatClassIndex);
+        
+                            if (modifiedLine[participantIndex]) {
+                                modifiedLine[participantIndex] = modifiedLine[participantIndex]
+                                    .replace(/"/g, '')
+                                    .replace(/\s*\/\s*/g, '<br>');
+                            }
+        
+                            boatClassTables[boatClass].push([line[0], ...modifiedLine]);
+                        });
+        
+                        renderTable(boatClassTables);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching entries:', error);
+                        entryListContainer.textContent = 'Failed to load entry list';
+                    });
+            }
+        
+            function sortByBoatClass() {
+                renderTable(boatClassTables);
+            }
+        
+            function sortByClub() {
+                const clubTables = {};
+
+                // Process the CSV data
+                Object.entries(boatClassTables).forEach(([boatClass, entries]) => {
+                    entries.forEach(row => {
+                        const participants = row[2].split('<br>').map(participant => participant.trim());
+                        const organization = row[1];
+
+                        if (!clubTables[organization]) {
+                            clubTables[organization] = [];
+                        }
+
+                        participants.forEach(participant => {
+                            const match = participant.match(/(\d{2})$/);
+                            if (match) {
+                                const year = parseInt(match[1], 10);
+                                const currentYear = new Date().getFullYear();
+                                const fullYear = (year >= currentYear % 100) ? 1900 + year : 2000 + year;
+                                const name = participant.replace(/\d{2}$/, '').trim();
+                                
+                                // Use name + year as the unique key
+                                clubTables[organization].push({
+                                    name,
+                                    year: fullYear,
+                                    boatClass: boatClass
+                                });
+                            }
+                        });
+                    });
+                });
+
+                // Deduplicate entries based on name
+                const uniqueClubTables = {};
+                Object.keys(clubTables).forEach(club => {
+                    const entries = clubTables[club];
+                    const uniqueEntries = {};
+
+                    entries.forEach(entry => {
+                        if (!uniqueEntries[entry.name]) {
+                            uniqueEntries[entry.name] = [];
+                        }
+                        uniqueEntries[entry.name].push(entry.boatClass);
+                    });
+
+                    uniqueClubTables[club] = Object.keys(uniqueEntries).map(name => ({
+                        name,
+                        year: entries.find(entry => entry.name === name).year,
+                        boatClasses: uniqueEntries[name].join('<br>')
+                    }));
+                });
+
+                // Sort entries alphabetically by name
+                Object.keys(uniqueClubTables).forEach(club => {
+                    uniqueClubTables[club].sort((a, b) => a.name.localeCompare(b.name));
+                });
+
+                // Render the table
+                entryListContainer.innerHTML = '';
+
+                Object.keys(uniqueClubTables).forEach((club, clubIndex) => {
+                    // Create the main container div similar to the structure of containerDiv
+                    const containerDiv = document.createElement('div');
+                    containerDiv.classList.add('row'); // Applying the 'row' class to the container
+                    containerDiv.id = `club-${clubIndex}`;
+
+                    // Create a column div similar to colDiv
+                    const colDiv = document.createElement('div');
+                    colDiv.classList.add('col');
+
+                    // Create the table element
+                    const table = document.createElement('table');
+                    table.classList.add('table', 'table-hover', 'table-bordered');
+
+                    // Create the header row similar to categoryHeaderRow
+                    const clubHeaderRow = document.createElement('tr');
+                    const clubHeaderCell = document.createElement('th');
+                    clubHeaderCell.classList.add('club-header'); // Add the 'club-header' class
+                    clubHeaderCell.style.borderTop = '2px solid #aaa'; // Set the top border style
+                    clubHeaderCell.colSpan = '3'; // Set the colSpan to match the number of columns
+                    clubHeaderCell.innerHTML = `
+                        <span class="competition-number">${clubIndex + 1}</span>
+                        <span class="competition-symbol">${club}</span>
+                        <span class="competition-description" style="font-weight: normal;"> </span>
+                    `;
+
+                    // Append the header cell to the header row, and the row to the table
+                    clubHeaderRow.appendChild(clubHeaderCell);
+                    table.appendChild(clubHeaderRow);
+
+                    // Create and append the table header row similar to the example
+                    const headerRow = document.createElement('tr');
+                    ['Dalībnieki', 'Dzimšanas gads', 'Klase'].forEach((header) => {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+                        // Apply column-specific CSS classes
+                        if (header === 'Dalībnieki') {
+                            th.classList.add('table-column-participant');
+                        } else if (header === 'Dzimšanas gads') {
+                            th.classList.add('table-column-birthyear');
+                        } else if (header === 'Klase') {
+                            th.classList.add('table-column-boatclass');
+                        }
+                        headerRow.appendChild(th);
+                    });
+                    table.appendChild(headerRow);
+
+                    // Append rows with participant data
+                    uniqueClubTables[club].forEach((entry) => {
+                        const tr = document.createElement('tr');
+                        const cells = [
+                            entry.name,
+                            entry.year,
+                            entry.boatClasses
+                        ];
+
+                        cells.forEach((cell, cellIndex) => {
+                            const td = document.createElement('td');
+                            td.innerHTML = cell;
+                            // Apply column-specific CSS classes
+                            if (cellIndex === 0) {
+                                td.classList.add('table-column-participant');
+                            } else if (cellIndex === 1) {
+                                td.classList.add('table-column-birthyear');
+                            } else if (cellIndex === 2) {
+                                td.classList.add('table-column-boatclass');
+                            }
+                            tr.appendChild(td);
+                        });
+
+                        table.appendChild(tr);
+                    });
+
+                    // Append the table to the column div, and the column div to the container div
+                    colDiv.appendChild(table);
+                    containerDiv.appendChild(colDiv);
+
+                    // Finally, append the container div to the main entry list container
+                    entryListContainer.appendChild(containerDiv);
+                });
+
+            }
+
+            function showStats() {
+                const stats = {};
+                const allParticipants = new Set(); // For counting unique athletes across the entire list
+        
+                Object.entries(boatClassTables).forEach(([boatClass, entries]) => {
+                    entries.forEach(row => {
+                        const organization = row[1];
+                        if (!stats[organization]) {
+                            stats[organization] = { boatClasses: 0, uniqueAthletes: new Set(), totalAthletes: 0 };
+                        }
+                        stats[organization].boatClasses += 1;
+        
+                        // Count all athletes
+                        const participants = row[2].split('<br>').map(participant => participant.trim());
+                        stats[organization].totalAthletes += participants.length;
+        
+                        // Track unique athletes by club
+                        participants.forEach(participant => {
+                            stats[organization].uniqueAthletes.add(participant);
+                            allParticipants.add(participant); // Track unique athletes globally
+                        });
+                    });
+                });
+        
+                entryListContainer.innerHTML = '';
+                const table = document.createElement('table');
+                table.classList.add('table', 'table-hover', 'table-bordered');
+        
+                const headerRow = document.createElement('tr');
+                ['#', 'Klubs', 'Laivas', 'Dalībnieki', 'Dalībnieki/Laivas'].forEach(header => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+                table.appendChild(headerRow);
+        
+                let index = 1;
+                Object.keys(stats).forEach(club => {
+                    const tr = document.createElement('tr');
+                    const boatClassesCount = stats[club].boatClasses;
+                    const uniqueAthletesCount = stats[club].uniqueAthletes.size;
+                    const totalAthletesCount = stats[club].totalAthletes;
+        
+                    [index++, club, boatClassesCount, uniqueAthletesCount, totalAthletesCount].forEach(cell => {
+                        const td = document.createElement('td');
+                        td.textContent = cell;
+                        tr.appendChild(td);
+                    });
+        
+                    table.appendChild(tr);
+                });
+        
+                // Summary row
+                const summaryRow = document.createElement('tr');
+                const totalBoatClasses = Object.values(stats).reduce((sum, clubStats) => sum + clubStats.boatClasses, 0);
+                const totalParticipants = Object.values(stats).reduce((sum, clubStats) => sum + clubStats.totalAthletes, 0);
+        
+                ['Kopā', '', totalBoatClasses, allParticipants.size, totalParticipants].forEach((cell, index) => {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    summaryRow.appendChild(td);
+                });
+                table.appendChild(summaryRow);
+        
+                entryListContainer.appendChild(table);
+            }
+        
+            fetchData();
+        
+            const buttons = document.querySelectorAll('.btn-group .btn');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    // Reset all buttons: remove btn-primary and add btn-secondary
+                    buttons.forEach(btn => {
+                        btn.classList.remove('btn-primary');
+                        btn.classList.add('btn-secondary');
+                    });
+                    
+                    // Set the clicked button: add btn-primary and remove btn-secondary
+                    this.classList.add('btn-primary');
+                    this.classList.remove('btn-secondary');
+                });
+            });
+
+            document.getElementById('sort-by-boat-class').addEventListener('click', sortByBoatClass);
+            document.getElementById('sort-by-club').addEventListener('click', sortByClub);
+            document.getElementById('show-stats').addEventListener('click', showStats);
+        });
+    </script>              
+</body>
+</html>

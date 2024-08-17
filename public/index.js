@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+    let licenseMapping = {};
+    let organization = '';  // Переменная для хранения организации
+    let otherOrganization = '';  // Переменная для хранения другой организации
+
     fetch('/files')
         .then(response => response.json())
         .then(data => {
@@ -7,6 +11,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const upcomingEvents = [];
             const pastEvents = [];
+
+            let cachedUTCDate = null;
+
+            function fetchCurrentUTC() {
+                if (cachedUTCDate) {
+                    return Promise.resolve(cachedUTCDate);
+                }
+
+                return fetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
+                    .then(response => response.json())
+                    .then(data => {
+                        cachedUTCDate = new Date(data.utc_datetime);
+                        return cachedUTCDate;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching current UTC time:', error);
+                        cachedUTCDate = new Date(); // В случае ошибки возвращаем локальное время
+                        return cachedUTCDate;
+                    });
+            }
 
             data.forEach(entry => {
                 const [date, eventName] = entry.split('  ');
@@ -18,93 +42,125 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            function createEventListItem(event, container, isPastEvent) {
-                const li = document.createElement('li');
-                const div = document.createElement('div');
-                div.classList.add('event-details');
-
-                const h3 = document.createElement('h3');
-                h3.textContent = event.name;
-
-                const p = document.createElement('p');
-                p.classList.add('event-dates');
-                p.textContent = event.date;
-
-                const divButtons = document.createElement('div');
-                divButtons.classList.add('event-buttons');
-
-                const resultBtn = document.createElement('a');
-                resultBtn.classList.add('event-btn');
-                resultBtn.href = 'results.html';
-                resultBtn.textContent = 'Results';
-                resultBtn.setAttribute('data-event', event.name);
-
-                divButtons.appendChild(resultBtn);
-
-                if (!isPastEvent) {
-                    fetch(`/entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/config.json`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Failed to fetch event configuration');
-                            }
-                            return response.json();
-                        })
-                        .then(config => {
-                            const registrationStartDate = new Date(config.registrationStartDate);
-                            const registrationEndDate = new Date(config.registrationEndDate);
-                            const currentDate = new Date();
-
-                            if (currentDate < registrationStartDate) {
-                                li.classList.add('registration-not-started');
-                            } else if (currentDate > registrationEndDate) {
-                                li.classList.add('registration-ended');
-                            } else {
-                                li.classList.add('registration-open');
-                            }
-
-                            const registrationInfo = document.createElement('div');
-                            registrationInfo.textContent = `Entry deadline ${registrationStartDate.toLocaleDateString()} - ${registrationEndDate.toLocaleDateString()}`;
-                            registrationInfo.classList.add('registration-info');
-                            li.appendChild(registrationInfo);
-
-                            const registerBtn = document.createElement('a');
-                            registerBtn.classList.add('event-btn', currentDate < registrationStartDate || currentDate > registrationEndDate ? 'inactive' : 'register-btn');
-                            registerBtn.href = 'entries.html';
-                            registerBtn.textContent = 'Entry';
-                            registerBtn.setAttribute('data-event', event.name);
-                            registerBtn.setAttribute('data-date', event.date);
-
-                            divButtons.appendChild(registerBtn);
-
-                            if (currentDate >= registrationStartDate && currentDate <= registrationEndDate) {
-                                registerBtn.addEventListener('click', function (event) {
-                                    event.preventDefault();
-                                    fetchAndDisplayRegistrationForm(event.target.getAttribute('data-event'), event.target.getAttribute('data-date'));
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching event configuration:', error);
-                            const registerBtn = document.createElement('a');
-                            registerBtn.classList.add('event-btn', 'inactive');
-                            registerBtn.href = 'entries.html';
-                            registerBtn.textContent = 'Entry';
-                            registerBtn.setAttribute('data-event', event.name);
-                            registerBtn.setAttribute('data-date', event.date);
-                            registerBtn.setAttribute('title', 'Registration is not available for this event');
-
-                            divButtons.appendChild(registerBtn);
-                        });
-                }
-
-                div.appendChild(h3);
-                div.appendChild(p);
-                div.appendChild(divButtons);
-
-                li.appendChild(div);
-                container.appendChild(li);
+            function checkFileExists(url) {
+                return fetch(url, { method: 'HEAD' })
+                    .then(response => response.ok)
+                    .catch(() => false);
             }
 
+            function createEventListItem(event, container, isPastEvent) {
+                const cardDiv = document.createElement('div');
+                cardDiv.classList.add('card');
+                cardDiv.style.marginBottom = '10px';
+            
+                const cardBodyDiv = document.createElement('div');
+                cardBodyDiv.classList.add('card-body');
+                cardBodyDiv.style.padding = '0.9rem';
+            
+                const h6Title = document.createElement('h6');
+                h6Title.classList.add('card-title');
+                h6Title.textContent = event.name;
+            
+                const h6Subtitle = document.createElement('h6');
+                h6Subtitle.classList.add('card-subtitle', 'mb-2', 'text-muted');
+                h6Subtitle.style.fontSize = 'small';
+                h6Subtitle.textContent = event.date;
+            
+                const btnGroupDiv = document.createElement('div');
+                btnGroupDiv.classList.add('btn-group', 'btn-group-sm');
+                btnGroupDiv.setAttribute('role', 'group');
+            
+                const resultBtn = document.createElement('a');
+                resultBtn.classList.add('btn', 'btn-secondary');
+                resultBtn.href = 'results.html';
+                resultBtn.textContent = 'Rezultāti';
+                resultBtn.setAttribute('data-event', event.name);
+            
+                btnGroupDiv.appendChild(resultBtn);
+            
+                const entriesCsvPath = `/entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/entries.csv`;
+            
+                checkFileExists(entriesCsvPath).then(fileExists => {
+                    if (fileExists) {
+                        const entryListBtn = document.createElement('a');
+                        entryListBtn.classList.add('btn', 'btn-secondary');
+                        entryListBtn.href = `entry-list.html?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}`;
+                        entryListBtn.textContent = 'Dalībnieki';
+                        btnGroupDiv.appendChild(entryListBtn);
+                    }
+            
+                    if (!isPastEvent) {
+                        fetch(`/entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/config.json`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Failed to fetch event configuration');
+                                }
+                                return response.json();
+                            })
+                            .then(config => {
+                                fetchCurrentUTC().then(currentDate => {
+                                    const registrationStartDate = new Date(config.registrationStartDate);
+                                    const registrationEndDate = new Date(config.registrationEndDate);
+            
+                                    if (currentDate < registrationStartDate) {
+                                        cardDiv.classList.add('registration-not-started');
+                                    } else if (currentDate > registrationEndDate) {
+                                        cardDiv.classList.add('registration-ended');
+                                    } else {
+                                        cardDiv.classList.add('registration-open');
+                                    }
+            
+                                    const registrationInfo = document.createElement('div');
+                                    registrationInfo.textContent = `Pieteikšanas termiņš ${registrationStartDate.toLocaleDateString()} - ${registrationEndDate.toLocaleDateString()}`;
+                                    registrationInfo.classList.add('registration-info');
+                                    cardBodyDiv.appendChild(registrationInfo);
+            
+                                    const registerBtn = document.createElement('a');
+                                    registerBtn.classList.add('btn', 'btn-secondary', 'register-btn');
+                                    if (currentDate < registrationStartDate || currentDate > registrationEndDate) {
+                                        registerBtn.classList.add('inactive', 'hidden');
+                                    } else {
+                                        registerBtn.classList.add('register-btn');
+                                    }
+                                    registerBtn.href = '#'; // Избегайте перезагрузки страницы
+                                    registerBtn.textContent = 'Pieteikties';
+                                    registerBtn.setAttribute('data-event', event.name);
+                                    registerBtn.setAttribute('data-date', event.date);
+            
+                                    btnGroupDiv.appendChild(registerBtn);
+            
+                                    // Добавление обработчика только если регистрация открыта
+                                    if (currentDate >= registrationStartDate && currentDate <= registrationEndDate) {
+                                        registerBtn.addEventListener('click', function (event) {
+                                            event.preventDefault();
+                                            const eventName = event.target.getAttribute('data-event');
+                                            const eventDate = event.target.getAttribute('data-date');
+                                            if (eventName && eventDate) {
+                                                fetchAndDisplayRegistrationForm(eventName, eventDate);
+                                            } else {
+                                                console.error('Missing eventName or eventDate');
+                                            }
+                                        });
+                                    }
+                                });
+                            })
+                            .catch(error => {
+                                console.error('Error fetching event configuration:', error);
+                                // Кнопка Pieteikties не создается, если не удалось получить конфигурацию
+                            });
+                    } else {
+                        btnGroupDiv.classList.add('past-event-buttons');
+                    }
+                });
+            
+                cardBodyDiv.appendChild(h6Title);
+                cardBodyDiv.appendChild(h6Subtitle);
+                cardBodyDiv.appendChild(btnGroupDiv);
+            
+                cardDiv.appendChild(cardBodyDiv);
+                container.appendChild(cardDiv);
+            }                       
+        
             upcomingEvents.forEach(event => createEventListItem(event, startlistsContainer, false));
             pastEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
             pastEvents.forEach(event => createEventListItem(event, competitionsContainer, true));
@@ -112,7 +168,14 @@ document.addEventListener('DOMContentLoaded', function () {
             let boatClasses = [];
 
             function fetchAndDisplayRegistrationForm(eventName, eventDate) {
-                document.getElementById('modal-title').textContent = `${eventName} - ${eventDate}`;
+                const dialogTitle = document.getElementById('dialog-title');
+                if (dialogTitle) {
+                    dialogTitle.textContent = `${eventName} - ${eventDate}`;
+                } else {
+                    console.error('Element with id "dialog-title" not found');
+                    return;
+                }
+            
                 fetch(`/entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/config.json`)
                     .then(response => {
                         if (!response.ok) {
@@ -121,237 +184,342 @@ document.addEventListener('DOMContentLoaded', function () {
                         return response.json();
                     })
                     .then(config => {
+                        // Сохраняем информацию и создаем HTML форму
+                        organization = config.organization || '';
+                        otherOrganization = config.otherOrganization || '';
                         boatClasses = config.boatClasses;
-                        const formHtml = generateFormHtml(config);
-                        document.getElementById('entryForm').innerHTML = formHtml;
-
-                        const organizationSelect = document.getElementById('organization');
-                        organizationSelect.innerHTML = '';
-
-                        if (config.organizations && config.organizations.length > 0) {
-                            config.organizations.forEach(org => {
-                                const option = document.createElement('option');
-                                option.value = org;
-                                option.textContent = org;
-                                organizationSelect.appendChild(option);
-                            });
+            
+                        const formHtml = generateFormHtml(config, eventName, eventDate);
+                        const entryForm = document.getElementById('entryForm');
+                        if (entryForm) {
+                            entryForm.innerHTML = formHtml;
                         } else {
-                            const option = document.createElement('option');
-                            option.value = 'Other';
-                            option.textContent = 'Other';
-                            organizationSelect.appendChild(option);
+                            console.error('Element with id "entryForm" not found');
+                            return;
                         }
-
-                        const otherOrganizationInput = document.getElementById('other-organization');
-                        organizationSelect.addEventListener('change', function () {
-                            if (this.value === 'Other') {
-                                otherOrganizationInput.style.display = 'block';
+            
+                        // Пример обработки селекторов и чекбоксов
+                        const organizationSelect = document.getElementById('organization');
+                        if (organizationSelect) {
+                            organizationSelect.innerHTML = '';
+                            if (config.organizations && config.organizations.length > 0) {
+                                config.organizations.forEach(org => {
+                                    const option = document.createElement('option');
+                                    option.value = org;
+                                    option.textContent = org;
+                                    organizationSelect.appendChild(option);
+                                });
                             } else {
-                                otherOrganizationInput.style.display = 'none';
+                                const option = document.createElement('option');
+                                option.value = 'Other';
+                                option.textContent = 'Other';
+                                organizationSelect.appendChild(option);
                             }
-                        });
-
-                        const boatClassSelect = document.getElementById('boat-class');
-                        boatClassSelect.innerHTML = '';
-                        boatClasses.forEach(boatClass => {
-                            const option = document.createElement('option');
-                            option.value = boatClass.class;
-                            option.textContent = boatClass.class;
-                            boatClassSelect.appendChild(option);
-                        });
-
-                        boatClassSelect.addEventListener('change', handleBoatClassChange);
-                        handleBoatClassChange();
-
-                        const registrationForm = document.getElementById('registration-form');
-                        registrationForm.addEventListener('submit', function (event) {
-                            event.preventDefault();
-                            const formData = new FormData(this);
-                            const serializedData = {};
-                            formData.forEach((value, key) => {
-                                serializedData[key] = value;
+                        }
+            
+                        const otherOrganizationInput = document.getElementById('other-organization');
+                        if (organizationSelect) {
+                            organizationSelect.addEventListener('change', function () {
+                                if (otherOrganizationInput) {
+                                    otherOrganizationInput.style.display = (this.value === 'Other') ? 'block' : 'none';
+                                }
                             });
-                            sendEmail(serializedData, eventName);
-                        });
-
-                        document.getElementById('registration-modal').style.display = 'flex';
+                        }
+            
+                        const boatClassSelect = document.getElementById('boat-class');
+                        if (boatClassSelect) {
+                            boatClassSelect.innerHTML = '';
+                            boatClasses.forEach(boatClass => {
+                                const option = document.createElement('option');
+                                option.value = boatClass.class;
+                                option.textContent = boatClass.class;
+                                boatClassSelect.appendChild(option);
+                            });
+                            boatClassSelect.addEventListener('change', function() {
+                                handleBoatClassChange(eventName, eventDate);
+                            });
+                        }
+            
+                        // Обработка остальных элементов
+                        const licenseCheckbox = document.getElementById('has-license');
+                        if (licenseCheckbox) {
+                            licenseCheckbox.addEventListener('change', function() {
+                                handleBoatClassChange(eventName, eventDate);
+                            });
+                        }
+            
+                        const crewCheckbox = document.getElementById('joined-crew');
+                        if (crewCheckbox) {
+                            crewCheckbox.addEventListener('change', function() {
+                                handleBoatClassChange(eventName, eventDate);
+                            });
+                        }
+            
+                        handleBoatClassChange(eventName, eventDate);
+            
+                        const registrationForm = document.getElementById('registration-form');
+                        if (registrationForm) {
+                            registrationForm.addEventListener('submit', function (event) {
+                                event.preventDefault();
+                                const formData = new FormData(this);
+                                const serializedData = {};
+                                formData.forEach((value, key) => {
+                                    serializedData[key] = value;
+                                });
+                                sendEmail(serializedData, eventName);
+                            });
+                        }
+            
+                        const registrationModal = document.getElementById('registration-dialog');
+                        if (registrationModal) {
+                            registrationModal.style.display = 'block';
+                        } else {
+                            console.error('Element with id "registration-dialog" not found');
+                        }
                     })
                     .catch(error => {
                         console.error('Error loading registration form:', error);
                     });
-            }
-
-            function generateFormHtml(config) {
-                let organizationOptions = '';
+            }            
+                                               
+            let organizationOptions = '';
+            function generateFormHtml(config, eventName, eventDate) {
+                
                 if (config.organizations && config.organizations.length > 0) {
                     organizationOptions = config.organizations.map(org => `<option value="${org}">${org}</option>`).join('');
                 } else {
                     organizationOptions = '<option value="Other">Other</option>';
                 }
-            
+
                 const showOtherOrganization = !config.organizations || (config.organizations.length === 1 && config.organizations[0] === 'Other');
-            
+
                 let organizationSelectHtml = `
-                    <label for="organization">Organization:</label>
-                    <select id="organization" name="organization" required onchange="toggleOtherOrganization(this.value)">
+                    <select id="organization" name="organization">
                         ${organizationOptions}
                     </select>
                 `;
-            
+
                 if (showOtherOrganization) {
                     organizationSelectHtml += `
-                        <input type="text" id="other-organization" name="otherOrganization" placeholder="Enter your organization" required>
+                        <input type="text" id="other-organization" name="otherOrganization" placeholder="Ievadiet jūsu organizāciju">
                     `;
                 } else {
                     organizationSelectHtml += `
-                        <input type="text" id="other-organization" name="otherOrganization" style="display: none;" placeholder="Enter your organization" required>
+                        <input type="text" id="other-organization" name="otherOrganization" style="display: none;" placeholder="Ievadiet jūsu organizāciju">
                     `;
                 }
-            
+
                 const licenseQuestionHtml = `
-                    <div class="form-group">
+                    <div class="">
                         <label>
-                            <input type="checkbox" id="has-license" name="hasLicense"> I have a license number
+                            <input type="checkbox" id="has-license" name="hasLicense"> I have a license / Man ir licence
                         </label>
                     </div>
                 `;
-            
+
+                const joinedCrewQuestion = `
+                    <div class="">
+                        <label>
+                            <input type="checkbox" id="joined-crew" name="joinedCrew"> Joined crew / Apvienota ekipāža
+                        </label>
+                    </div>
+                `;
+
                 let boatClassOptions = '';
                 if (config.boatClasses && config.boatClasses.length > 0) {
                     boatClassOptions = config.boatClasses.map(boatClass => `<option value="${boatClass.class}">${boatClass.class}</option>`).join('');
                 }
-            
+
                 const coxswainInfoHtml = `
                     <div class="coxswain-info" id="coxswain-info">${getInitialCoxswainInfo(config.boatClasses)}</div>
                 `;
-            
+
                 const formHtml = `
                     <form id="registration-form">
-                        <div class="form-group">
+                        <div class="">
+                            <label for="organization">Organization / Organizācija:</label>
                             ${organizationSelectHtml}
                         </div>
-                        <div class="form-group">
-                            <label for="boat-class">Boat Class:</label>
+                        <div class="">
+                            ${licenseQuestionHtml}
+                        </div>
+                        <div class="">
+                            ${joinedCrewQuestion}
+                        </div>
+                        <div class="">
+                            <label for="boat-class">Boat Class / Laivu klase:</label>
                             <select id="boat-class" name="boatClass" required>
                                 ${boatClassOptions}
                             </select>
                         </div>
-                        ${licenseQuestionHtml}
-                        <div class="form-group" id="participantsGroup">
-                            <label>Participants:</label>
+                        <div class="">
+                            <label for="participants">Participants / Dalībnieki:</label>
                             ${coxswainInfoHtml}
                             <table id="participantsTable">
                                 <thead>
-                                    <tr>
-                                        <th>Birth Year</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
+                                    <tr id="participantsTableHeader">
+                                        <th>Dzimšanas gads</th>
+                                        <th>Vārds</th>
+                                        <th>Uzvārds</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
                             </table>
+                            <div id="participant-info" class="participant-info"></div>
+                        </div><br>
+                        <div class="">
+                            <label for="coach-information">Coach / Treneris:</label>
+                            <input type="text" id="coach-information" name="coachInformation">
                         </div>
-                        <div class="form-group">
-                            <label for="contact-information">Contact Information:</label>
+                        <div class="">
+                            <label for="contact-information">Contact Information / Kontaktinformācija:</label>
                             <input type="text" id="contact-information" name="contactInformation" required>
                         </div>
                         <input type="hidden" id="given_name" name="given_name">
                         <input type="hidden" id="family_name" name="family_name">
                         <input type="hidden" id="nickname" name="nickname">
                         <input type="hidden" id="email" name="email">
-
                         <button type="submit">Submit</button>
                     </form>
-                    
-                    <script>
-                        function toggleOtherOrganization(value) {
-                            const otherOrganizationInput = document.getElementById('other-organization');
-                            if (value === 'Other') {
-                                otherOrganizationInput.style.display = 'block';
-                                otherOrganizationInput.setAttribute('required', 'true');
-                            } else {
-                                otherOrganizationInput.style.display = 'none';
-                                otherOrganizationInput.removeAttribute('required');
-                            }
-                        }
-                    </script>
                 `;
-            
+
                 return formHtml;
             }
-            
-            
 
             function getInitialCoxswainInfo(boatClasses) {
                 if (boatClasses.length > 0 && boatClasses[0].coxswainIndex !== undefined && boatClasses[0].coxswainName) {
                     const position = boatClasses[0].coxswainIndex + 1
-                    return `${boatClasses[0].coxswainName} is marked in ${position} position.`;
+                    return `${selectedClass.coxswainName} is marked in ${position} position.`;
                 } else {
                     return '';
                 }
             }
 
-            function handleBoatClassChange() {
+            function handleBoatClassChange(eventName, eventDate) {
                 const category = document.getElementById('boat-class').value;
                 const participantsTable = document.getElementById('participantsTable').getElementsByTagName('tbody')[0];
+                const participantInfoDiv = document.getElementById('participant-info');
                 participantsTable.innerHTML = '';
-
+                participantInfoDiv.innerHTML = '';
+            
                 const selectedClass = boatClasses.find(boatClass => boatClass.class === category);
                 const numParticipants = selectedClass ? selectedClass.participants : 1;
                 const coxswainIndex = selectedClass ? selectedClass.coxswainIndex : -1;
-
+            
                 const hasLicenseCheckbox = document.getElementById('has-license');
+                const joinedCrewCheckbox = document.getElementById('joined-crew');
                 const headerRow = document.querySelector('#participantsTable thead tr');
+            
+                // Обновляем заголовки таблицы в зависимости от состояния чекбоксов
                 if (hasLicenseCheckbox.checked) {
-                    headerRow.innerHTML = `
-                        <th>License</th>
-                    `;
+                    headerRow.innerHTML = '<th>Licence</th>';
+                    if (joinedCrewCheckbox.checked) {
+                        headerRow.innerHTML += '<th>Organizācija</th>';
+                    }
                 } else {
                     headerRow.innerHTML = `
-                        <th>Birth Year</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
+                        <th>Dzimšanas gads</th>
+                        <th>Vārds</th>
+                        <th>Uzvārds</th>
+                        ${joinedCrewCheckbox.checked ? '<th>Organizācija</th>' : ''}
                     `;
                 }
-
+            
+                // Генерация строк таблицы для участников
                 for (let i = 0; i < numParticipants; i++) {
                     const newRow = participantsTable.insertRow();
                     if (hasLicenseCheckbox.checked) {
                         newRow.innerHTML = `
-                            <td><input type="text" id="license${i + 1}" name="license${i + 1}" required></td>
+                            <td><input type="text" id="license${i + 1}" name="license${i + 1}" required oninput="fetchParticipantData(${i + 1}, '${eventName}', '${eventDate}')"></td>
                         `;
+                        if (joinedCrewCheckbox.checked) {
+                            newRow.innerHTML += `
+                                <td>
+                                    <select id="participantOrganization${i + 1}" name="participantOrganization${i + 1}">
+                                        ${organizationOptions}
+                                    </select>
+                                    <input type="text" id="other-participant-organization${i + 1}" name="otherParticipantOrganization${i + 1}" style="display: none;" placeholder="Enter other organization">
+                                </td>
+                            `;
+                        }
                     } else {
                         newRow.innerHTML = `
                             <td><input type="number" id="birthYear${i + 1}" name="birthYear${i + 1}" required></td>
                             <td><input type="text" id="firstName${i + 1}" name="firstName${i + 1}" required></td>
                             <td><input type="text" id="lastName${i + 1}" name="lastName${i + 1}" required></td>
+                            ${joinedCrewCheckbox.checked ? `
+                                <td>
+                                    <select id="participantOrganization${i + 1}" name="participantOrganization${i + 1}">
+                                        ${organizationOptions}
+                                    </select>
+                                    <input type="text" id="other-participant-organization${i + 1}" name="otherParticipantOrganization${i + 1}" style="display: none;" placeholder="Enter other organization">
+                                </td>
+                            ` : ''}
                         `;
                     }
-
-                    if (coxswainIndex === i) {
-                        newRow.classList.add('coxswain-row');
+            
+                    // Устанавливаем слушатель для изменения видимости поля "Other Organization"
+                    if (joinedCrewCheckbox.checked) {
+                        const orgSelect = document.getElementById(`participantOrganization${i + 1}`);
+                        const otherOrgInput = document.getElementById(`other-participant-organization${i + 1}`);
+                        if (orgSelect) {
+                            orgSelect.addEventListener('change', function () {
+                                otherOrgInput.style.display = (this.value === 'Other') ? 'block' : 'none';
+                            });
+                        }
                     }
                 }
-
+            
+                // Обработка поля для гребца
                 if (coxswainIndex >= numParticipants) {
                     const newRow = participantsTable.insertRow(coxswainIndex);
                     if (hasLicenseCheckbox.checked) {
                         newRow.innerHTML = `
-                            <td><input type="text" id="licenseCox" name="licenseCox" required></td>
+                            <td><input type="text" id="licenseCox" name="licenseCox" required oninput="fetchParticipantData('Cox', '${eventName}', '${eventDate}')"></td>
                         `;
+                        if (joinedCrewCheckbox.checked) {
+                            newRow.innerHTML += `
+                                <td>
+                                    <select id="participantOrganizationCox" name="participantOrganizationCox">
+                                        ${organizationOptions}
+                                    </select>
+                                    <input type="text" id="other-participant-organizationCox" name="otherParticipantOrganizationCox" style="display: none;" placeholder="Enter other organization">
+                                </td>
+                            `;
+                        }
                     } else {
                         newRow.innerHTML = `
                             <td><input type="number" id="birthYearCox" name="birthYearCox" required></td>
                             <td><input type="text" id="firstNameCox" name="firstNameCox" required></td>
                             <td><input type="text" id="lastNameCox" name="lastNameCox" required></td>
+                            ${joinedCrewCheckbox.checked ? `
+                                <td>
+                                    <select id="participantOrganizationCox" name="participantOrganizationCox">
+                                        ${organizationOptions}
+                                    </select>
+                                    <input type="text" id="other-participant-organizationCox" name="otherParticipantOrganizationCox" style="display: none;" placeholder="Enter other organization">
+                                </td>
+                            ` : ''}
                         `;
                     }
+            
+                    // Устанавливаем слушатель для изменения видимости поля "Other Organization" для гребца
+                    if (joinedCrewCheckbox.checked) {
+                        const orgSelect = document.getElementById('participantOrganizationCox');
+                        const otherOrgInput = document.getElementById('other-participant-organizationCox');
+                        if (orgSelect) {
+                            orgSelect.addEventListener('change', function () {
+                                otherOrgInput.style.display = (this.value === 'Other') ? 'block' : 'none';
+                            });
+                        }
+                    }
+            
                     newRow.classList.add('coxswain-row');
                 }
-
+            
                 updateCoxswainInfo(selectedClass);
             }
-
+                                                                                  
             function updateCoxswainInfo(selectedClass) {
                 const coxswainInfoParagraph = document.getElementById('coxswain-info');
                 if (selectedClass && selectedClass.coxswainIndex !== undefined && selectedClass.coxswainName) {
@@ -362,54 +530,256 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            document.getElementById('has-license').addEventListener('change', function () {
-                handleBoatClassChange();
-            });
+            window.selectParticipant = function selectParticipant(index, lastName, firstName, birthYear) {
+                const formattedParticipant = `${lastName.toUpperCase()} ${firstName} ${birthYear.toString().slice(-2)}`;
+                const searchInput = document.getElementById(`license${index}`);
+                if (searchInput) {
+                    searchInput.value = formattedParticipant;
+                }
+                // Clear participant info div after selection
+                const participantInfoDiv = document.getElementById('participant-info');
+                participantInfoDiv.innerHTML = '';
+            }
+            
 
-            function sendEmail(formData, eventName) {
-                const participants = Object.keys(formData)
-                    .filter(key => key.startsWith('firstName') || key.startsWith('lastName') || key.startsWith('birthYear') || key.startsWith('license'))
-                    .reduce((acc, key) => {
-                        const [type, index] = key.match(/[a-zA-Z]+|[0-9]+/g);
-                        if (!acc[index]) {
-                            acc[index] = {};
-                        }
-                        acc[index][type] = formData[key];
-                        return acc;
-                    }, []);
+            window.fetchParticipantData = function fetchParticipantData(index, eventName, eventDate) {
+                const searchInput = document.getElementById(`license${index}`);
+                const searchQuery = searchInput ? searchInput.value.trim().toUpperCase() : '';
             
-                const formattedParticipants = participants.map(participant => {
-                    const { firstName, lastName, birthYear, license } = participant;
-                    if (license) {
-                        return `${license}`;
-                    } else {
-                        const surname = lastName.charAt(0).toUpperCase() + lastName.slice(1).toUpperCase();
-                        const name = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-                        const year = birthYear.slice(-2);
-                        return `${surname} ${name} ${year}`;
+                if (searchQuery) {
+                    fetch(`/entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/licences.xlsx`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to fetch the licenses file');
+                            }
+                            return response.blob(); // Получаем файл в формате blob
+                        })
+                        .then(blob => {
+                            const reader = new FileReader();
+                            reader.onload = function(event) {
+                                try {
+                                    const data = event.target.result;
+                                    const workbook = XLSX.read(data, { type: 'binary' });
+                                    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                                    const jsonData = XLSX.utils.sheet_to_json(sheet);
+            
+                                    // Функция для поиска по нескольким столбцам
+                                    const searchResults = jsonData.filter(p => {
+                                        const licenseMatch = p['Licences numurs'] && p['Licences numurs'].toString().includes(searchQuery);
+                                        const nameMatch = (p['Vārds'] && p['Vārds'].toUpperCase().includes(searchQuery)) || (p['Uzvārds'] && p['Uzvārds'].toUpperCase().includes(searchQuery));
+                                        const clubMatch = p['Klubs'] && p['Klubs'].toUpperCase().includes(searchQuery);
+                                        const birthYearMatch = p['Dzimšanas gads'] && p['Dzimšanas gads'].toString().includes(searchQuery);
+            
+                                        return licenseMatch || nameMatch || clubMatch || birthYearMatch;
+                                    });
+            
+                                    const participantInfoDiv = document.getElementById('participant-info');
+                                    participantInfoDiv.innerHTML = '';
+            
+                                    if (searchResults.length > 0) {
+                                        const ul = document.createElement('ul');
+                                        searchResults.forEach((p) => {
+                                            const li = document.createElement('li');
+                                            li.innerHTML = `
+                                                ${p['Vārds']} ${p['Uzvārds']} | ${p['Dzimšanas gads']} | ${p['Klubs']}
+                                                <button class="submit" onclick="selectParticipant(${index}, '${p['Uzvārds']}', '${p['Vārds']}', '${p['Dzimšanas gads']}')">Select</button>
+                                            `;
+                                            ul.appendChild(li);
+                                        });
+                                        participantInfoDiv.appendChild(ul);
+                                    } else {
+                                        participantInfoDiv.innerHTML = '<p>Šim vaicājumam nav pieejami dati.</p>';
+                                    }
+                                } catch (error) {
+                                    console.error('Error processing Excel file:', error);
+                                    document.getElementById('participant-info').innerHTML = '<p>Šim vaicājumam nav pieejami dati.</p>';
+                                }
+                            };
+                            reader.readAsBinaryString(blob);
+                        })
+                        .catch(error => {
+                            console.error('Error fetching participant data:', error);
+                            const participantInfoDiv = document.getElementById('participant-info');
+                            participantInfoDiv.innerHTML = '<p>Šim vaicājumam nav pieejami dati.</p>';
+                        });
+                } 
+            }                     
+            
+            async function loadLicenseMapping(eventName, eventDate) {
+                try {
+                    const response = await fetch(`/entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/licences.xlsx`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch the licenses file');
                     }
-                }).join(' / '); // Join with slash
+                
+                    const blob = await response.blob();
+                    const reader = new FileReader();
+                
+                    return new Promise((resolve, reject) => {
+                        reader.onload = function(event) {
+                            try {
+                                const data = event.target.result;
+                                const workbook = XLSX.read(data, { type: 'binary' });
+                                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                                const jsonData = XLSX.utils.sheet_to_json(sheet);
+                
+                                licenseMapping = jsonData.reduce((acc, item) => {
+                                    if (item['Licences numurs']) {
+                                        const birthYear = item['Dzimšanas gads'] ? item['Dzimšanas gads'].toString() : '';
+                                        const lastName = item['Uzvārds'] ? item['Uzvārds'].toUpperCase() : '';
+                                        const formatted = `${lastName} ${item['Vārds'] || ''} ${birthYear.slice(-2)}`;
+                                        acc[item['Licences numurs']] = formatted;
+                                    }
+                                    return acc;
+                                }, {});
+                                
+                                resolve();
+                            } catch (error) {
+                                console.error('Error processing Excel file:', error);
+                                reject('Error processing Excel file');
+                            }
+                        };
+                        reader.onerror = function(error) {
+                            console.error('Error reading the file:', error);
+                            reject('Error reading the file');
+                        };
+                        reader.readAsBinaryString(blob);
+                    });
+                } catch (error) {
+                    console.error('Error loading license mapping:', error);
+                    throw new Error('Error loading license mapping');
+                }
+            }
             
-                // Ensure trimmedParticipants is not empty before using it
-                const trimmedParticipants = formattedParticipants.trim();
+            async function sendEmail(formData, eventName) {
+                try {
+                    // Загрузка сопоставления лицензий
+                    await loadLicenseMapping(eventName, document.getElementById('modal-title').textContent.split(' - ')[1].trim());
             
-                const boatClass = formData.boatClass;
-                const contactInformation = formData.contactInformation;
-                const emailSubject = `Pieteikšanas sacensībām - ${eventName}`;
+                    // Сбор участников
+                    const participants = Object.keys(formData)
+                        .filter(key => key.startsWith('firstName') || key.startsWith('lastName') || key.startsWith('birthYear') || key.startsWith('license') || key.startsWith('participantOrganization') || key.startsWith('otherParticipantOrganization'))
+                        .reduce((acc, key) => {
+                            const [type, index] = key.match(/[a-zA-Z]+|[0-9]+/g);
+                            if (!acc[index]) {
+                                acc[index] = {};
+                            }
+                            acc[index][type] = formData[key];
+                            return acc;
+                        }, []);
             
-                const emailBody = `${boatClass}, ${trimmedParticipants}, ${contactInformation}`;
+                    // Удаление пустого первого участника, если он есть
+                    if (!participants[0] || Object.keys(participants[0]).length === 0) {
+                        participants.shift();
+                    }
             
-                Email.send({
-                    SecureToken : "ac3745a2-47bf-470a-a3a2-7c201fd92a6c",
-                    To : 'antons.cernavskis@gmail.com',
-                    From : "antons.cernavskis@gmail.com",
-                    Subject : emailSubject,
-                    Body : emailBody
-                }).then(
-                    message => alert("Saņemts!"),
-                    error => console.error("Email sending error:", error)
-                );
-            }                                    
+                    // Форматирование участников
+                    const formattedParticipants = participants.map(participant => {
+                        const license = participant.license ? participant.license.trim() : '';
+                        const birthYear = participant.birthYear ? participant.birthYear.toString() : '';
+            
+                        // Использование лицензии для формирования имени и фамилии
+                        const formattedLicense = licenseMapping[license] || `${license} ${participant.firstName || ''} ${participant.lastName || ''} ${birthYear.slice(-2)}`;
+            
+                        // Разбиваем форматированную лицензию на части
+                        const parts = formattedLicense.split(' ');
+            
+                        // Извлекаем фамилию (может быть несколько слов), имя и год рождения из частей
+                        const lastName = parts.slice(0, -2).join(' ').toUpperCase(); // Фамилия - всё до предпоследнего слова
+                        const firstName = (parts[parts.length - 2] || ''); // Имя - предпоследнее слово
+                        const licenseBirthYear = parts[parts.length - 1] || birthYear;
+            
+                        // Форматируем организацию
+                        let organizationPart = '';
+                        if (participant.participantOrganization === 'Other') {
+                            // Если указана дополнительная организация
+                            organizationPart = participant.otherParticipantOrganization || '';
+                        } else {
+                            // Если дополнительная организация не указана
+                            organizationPart = participant.participantOrganization || '';
+                        }
+            
+                        // Форматируем поле лицензии
+                        let licenseField = `${license || ''} ${participant.lastName ? participant.lastName.toUpperCase() : ''} ${participant.firstName || ''} ${birthYear ? birthYear.slice(-2) : ''}`;
+                        if (organizationPart) {
+                            licenseField = `${organizationPart} | ${licenseField}`;
+                        }
+            
+                        // Возвращаем форматированного участника
+                        return {
+                            firstName: firstName || '',
+                            lastName: lastName || '',
+                            birthYear: licenseBirthYear,
+                            license: licenseField
+                        };
+                    });
+            
+                    // Подготовка данных для отправки
+                    const dataToSend = {
+                        eventDate: document.getElementById('modal-title').textContent.split(' - ')[1].trim(),
+                        eventName: eventName,
+                        formData: {
+                            boatClass: formData.boatClass,
+                            contactInformation: formData.contactInformation,
+                            coachInformation: formData.coachInformation,
+                            organization: formData.organization,
+                            otherOrganization: formData.otherOrganization,
+                            participants: formattedParticipants
+                        }
+                    };
+            
+                    // Отправка данных
+                    const response = await fetch('/submit-entry', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(dataToSend),
+                    });
+            
+                    if (response.ok) {
+                        showConfirmationModal(formData, formattedParticipants);
+                    } else {
+                        throw new Error('Failed to submit entry');
+                    }
+                } catch (error) {
+                    console.error("Error sending entry data:", error);
+                    alert("Failed to submit entry: " + error.message);
+                }
+            }            
+            
+            function showConfirmationModal(formData, formattedParticipants) {
+                // Assuming you have a modal element with id 'confirmation-modal'
+                const modal = document.getElementById('confirmation-modal');
+                const modalContent = document.querySelector('#confirmation-modal .modal-content');
+                
+                // Populate the modal with confirmation details
+                modalContent.innerHTML = `
+                    <h2>Reģistrācijas apstiprināšana</h2><br>
+                    <h4>${formData.organization} - ${formData.boatClass}</h4><br><hr><br>
+                    Dalībnieki:
+                    <div>
+                        ${formattedParticipants.map(participant => `
+                            <p>
+                                ${participant.license}
+                            </p>
+                        `).join('')}
+                    </div><br>
+                    <hr><br>
+                    Trenere - ${formData.coachInformation}<br>
+                    Konktaktinformācija - ${formData.contactInformation}<br><br><hr><br>
+                    Par izmaiņām ziņot <a>pieteiksanas@sportdss.eu</a>
+                    <button class="close-modal-conf">Close</button>
+                `;
+                
+                // Show the modal
+                modal.style.display = 'flex';
+                
+                // Add event listener to close the modal
+                document.querySelector('.close-modal').addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }                                                                                
         });
 
     const modal = document.getElementById('registration-modal');
@@ -417,12 +787,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     closeModalBtn.addEventListener('click', function () {
         modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
     });
 
     applyInactiveButtonStyles();
@@ -438,4 +802,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
-

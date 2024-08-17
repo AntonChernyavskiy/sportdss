@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSS Sport System</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="results.css">
-    <link rel="stylesheet" href="menu.css">
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="hover.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,400,700|Maven+Pro:400,700|Montserrat:300,400,700|Titillium+Web:300,400,700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=430px" />
+    <meta charset="utf-8">
     <style>
-        .scrollMenu {
-            overflow-y: auto;
-            max-height: 40vh;
-            width: 100%;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            max-width: 80%;
-            height: 80%;
-            overflow-y: auto;
-            position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.5em;
+        .event-element {
+            background-color: #eee;
+            padding: 8px 10px;
+            margin: 4px 3px;
+            display: inline-block;
+            color: #0967ac;
+            text-decoration: none;
             cursor: pointer;
         }
 
+        /* Стили для элементов файлов */
+        .file-element {
+            display: block;
+            color: #000000;
+            border-bottom: 1px dashed #bbb;
+            padding: 10px;
+            font-weight: 350;
+            cursor: pointer;
+            text-decoration: none;
+            background: #f9f9f9;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            background-color: #eee;
+            margin: 4px 3px;
+        }
+
+        .file-element:hover {
+            background-color: #eee;
+            color: #000;
+        }
+
+        .file-element img {
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
+        .file-element span {
+            margin-left: 8px;
+        }
+
+        /* Стили для кнопок категорий */
         .category-buttons {
             margin-top: 10px;
             display: flex;
@@ -65,28 +73,136 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            background-color: rgba(0, 136, 169, 1);
+            background-color: #0967ac;
             color: white;
-            /* Initially hide category buttons */
-            display: none;
+            display: none; /* Изначально скрыты кнопки категорий */
         }
 
         .category-buttons button:hover {
-            background-color: rgba(0, 136, 169, 0.8);
+            background-color: #0967ac;
         }
 
+        /* Стили для эффекта подчеркивания при наведении */
+        .hvr-underline-from-left {
+            display: inline-block;
+            vertical-align: middle;
+            transform: perspective(1px) translateZ(0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hvr-underline-from-left:before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            left: 0;
+            right: 100%;
+            bottom: 0;
+            background: #2098D1;
+            height: 4px;
+            transition: right 0.3s ease-out;
+        }
+
+        .hvr-underline-from-left:hover:before,
+        .hvr-underline-from-left:focus:before,
+        .hvr-underline-from-left:active:before {
+            right: 0;
+        }
+
+        /* Стили для информации о гонках */
+        .race-info {
+            display: flex;
+            flex-wrap: wrap; /* Позволяет элементам переноситься на новые строки на узких экранах */
+            gap: 10px; /* Расстояние между элементами */
+        }
+
+        .race-info span {
+            color: #2098D1; /* Цвет текста */
+            font-weight: bold; /* Жирный текст */
+        }
+
+        .race-info .label {
+            font-weight: normal; /* Метки не должны быть жирными */
+            color: #000; /* Цвет меток */
+        }
+
+        .eta {
+            font-weight: bold;
+        }
+
+        /* Стили для меню прокрутки */
+        .scrollMenu {
+            overflow-y: auto;
+            max-height: 40vh;
+            width: 100%;
+        }
+
+        /* Стили для модального окна */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 70% !important;
+            height: 80%;
+            overflow-y: auto;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        /* Стили для результатов новостей в модальном окне */
+        .newsResults {
+            flex: 1 1 100%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .newsResults h2 {
+            margin-bottom: 15px;
+        }
+
+        /* Стили для разделов модального окна */
         .modal-section {
+            margin-bottom: 20px;
             flex: 1 1 calc(50% - 40px);
         }
 
         .modal-section h2 {
+            font-size: 24px;
+            font-weight: bold;
             margin-top: 0;
+            margin-bottom: 10px;
         }
 
         .modal-section ul {
             list-style: none;
             padding: 0;
-            margin: 0; /* Added margin reset */
+            margin: 0; /* Добавлен сброс отступов */
         }
 
         .modal-section ul li {
@@ -95,135 +211,120 @@
 
         .modal-section ul li a {
             text-decoration: none;
-            color: rgba(0, 136, 169, 1);
+            color: #0967ac;
         }
 
         .modal-section ul li a:hover {
             text-decoration: underline;
         }
 
-        /* Styles for competitions table */
-        table {
-            width: 80%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            margin-left: 10%;
+        /* Адаптивные стили для модального окна */
+        @media (max-width: 991px) {
+            .modal-box {
+                width: 90% !important;
+                height: auto;
+                max-height: 90%;
+                overflow-y: auto;
+            }
         }
 
-        table thead {
-            background-color: rgba(0, 136, 169, 1);
-            color: white;
+        @media (max-width: 767px) {
+            .modal-box {
+                width: 100% !important;
+                height: auto;
+                max-height: 90%;
+                overflow-y: auto;
+                padding: 10px;
+            }
+
+            .modal-close {
+                font-size: 1.2em;
+                top: 5px;
+                right: 5px;
+            }
+
+            .modal-section {
+                flex: 1 1 100%;
+                margin-bottom: 10px;
+            }
         }
 
-        table th, table td {
-            padding: 10px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
-        table th {
-            cursor: pointer;
-        }
-
-        table button {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: rgba(0, 136, 169, 1);
-            color: white;
-            font-weight: bold;
-        }
-
-        table button:hover {
-            background-color: rgba(0, 136, 169, 0.8);
-        }
     </style>
 </head>
 <body>
-    <header>
-        <a class="cta" href="/">DSS Sport System</a>
-        <nav>
-            <ul class="nav__links">
-                <li><a href="index.html">Dashboard</a></li>
-                <li><a href="calendar.html">Calendar</a></li>
-                <li><a href="results.html">Results</a></li>
-                <li></li>
-                <li><a href="lv_results.html">Latviski</a></li>
-                <li></li>
-                <li><a id="loginBtn" href="/login">Log in</a></li>
-                <li><a id="logoutBtn" href="/logout">Log out</a></li>
-            </ul>
-        </nav>
-        <p class="menu cta">Menu</p>
-    </header>
-    <div class="overlay">
-        <a class="close">&times;</a>
-        <div class="overlay__content">
-            <a href="index.html">Dashboard</a>
-            <a href="calendar.html">Calendar</a>
-            <a href="results.html">Results</a>
-            <br><br>
-            <a href="lv_results.html">Latviski</a>
-            <br><br>
-            <a id="loginBtn" href="/login">Log in</a>
-            <a id="logoutBtn" href="/logout">Log out</a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <div class="navbar-brand" href="/">
+                <span>
+                    DSS Sport System
+                </span>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav" style="padding-right: 10px; margin-right: 10px;">
+                    <li class="nav-item hvr-underline-from-left active">
+                        <a class="nav-link" href="results.html">Rezultāti</a>
+                    </li>
+                    <li class="nav-item hvr-underline-from-left">
+                        <a class="nav-link" href="index.html">Pieteikšanas</a>
+                    </li>
+                    <li class="nav-item hvr-underline-from-left">
+                        <a class="nav-link" href="live_results.html">Dzīvie rezultāti</a>
+                    </li>
+                </ul>
+            </div>
+            <input type="text" id="search-input" placeholder="Search for competitions..." class="form-inline my-2 my-lg-0 search-place">
         </div>
-    </div>
-    <!-- Modal for results -->
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-section">
-                <div class="newsResults">
-                    <h2>Start lists</h2>
-                    <div class="scrollMenu">
-                        <ul id="startlists"></ul>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-section">
-                <div class="newsResults">
-                    <h2>Races</h2>
-                    <div class="scrollMenu">
-                        <ul id="results-list"></ul>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-section">
-                <div class="newsResults">
-                    <h2>Results</h2>
-                    <div class="category-buttons" id="category-buttons"></div>
-                </div>
-            </div>
-            <div class="modal-section">
-                <div class="newsResults">
-                    <h2>Other files</h2>
-                    <div class="scrollMenu">
-                        <ul id="other-files"></ul>
-                    </div>
-                </div>
+    </nav>
+    <div class="container main-content">
+        <h4>Results / Rezultāti</h4>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped table-hover table-bordered" style="width: 100%" id="competitions-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Datums</th>
+                            <th>Pasākums</th>
+                        </tr>
+                    </thead>
+                    <tbody id="competitions-files">
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
 
-    <div class="main-content">
-        <div class="news">
-            <h2>Results</h2>
-            <table id="competitions-table">
-                <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Event</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody id="competitions-files">
-                <!-- Rows will be dynamically added here -->
-                </tbody>
-            </table>
+    <!--modal-overlay -> modal, modal-box -> modal-content, modal-close -> close-modal, modal-section -> newsResults, -->
+    <div id="myModal" class="modal-overlay">
+        <div class="modal-box">
+            <span class="modal-close">&times;</span>
+            <div class="modal-section">
+                <h2>Start lists / Starta protokoli</h2>
+                <div class="scrollMenu">
+                    <ul id="startlists"></ul>
+                </div>
+            </div>
+            <div class="modal-section">
+                <h2>Races / Braucieni</h2>
+                <div class="scrollMenu">
+                    <ul id="results-list"></ul>
+                </div>
+            </div>
+            <div class="modal-section">
+                <h2>Results / Rezultāti</h2>
+                <div class="category-buttons" id="category-buttons"></div>
+            </div>
+            <div class="modal-section">
+                <h2>Other files / Citi dokumenti</h2>
+                <div class="scrollMenu">
+                    <ul id="other-files"></ul>
+                </div>
+            </div>
         </div>
     </div>
-
+    
     <script src="filter.js"></script>
     <script src="mobile.js"></script>
     <script>
@@ -233,136 +334,302 @@
                 .then(data => {
                     const competitionsTable = document.getElementById('competitions-table');
                     const categoryButtonsContainer = document.getElementById('category-buttons');
-
+    
                     const events = data.map(entry => {
                         const [date, eventName] = entry.split('  ');
                         return { date: date, name: eventName };
                     });
-
+    
                     events.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-                    events.forEach(event => {
+    
+                    events.forEach((event, index) => {
                         const tr = document.createElement('tr');
+                        tr.classList.add('event-row');
+    
+                        const tdNumber = document.createElement('td');
+                        tdNumber.textContent = index + 1;
+    
                         const tdDate = document.createElement('td');
-                        const tdEventName = document.createElement('td');
-                        const tdActions = document.createElement('td');
-
                         tdDate.textContent = event.date;
-                        tdEventName.textContent = event.name;
-
-                        const button = document.createElement('button');
-                        button.textContent = 'View results';
-                        button.addEventListener('click', function() {
+    
+                        const tdEventName = document.createElement('td');
+                        const eventNameLink = document.createElement('a');
+                        eventNameLink.textContent = event.name;
+                        eventNameLink.classList.add('hvr-bubble-float-left');
+                        eventNameLink.href = '#';
+                        eventNameLink.onclick = function () {
                             fetchAndDisplayResults(event.name, event.date);
                             const modal = document.getElementById('myModal');
                             modal.style.display = 'flex';
-                        });
-
-                        tdActions.appendChild(button);
-
+                            document.getElementById('search-input').value = '';
+                            return false; // Prevent default anchor behavior
+                        };
+    
+                        tdEventName.appendChild(eventNameLink);
+    
+                        tr.appendChild(tdNumber);
                         tr.appendChild(tdDate);
                         tr.appendChild(tdEventName);
-                        tr.appendChild(tdActions);
-
                         competitionsTable.querySelector('tbody').appendChild(tr);
                     });
-
-                    function fetchAndDisplayResults(eventName, eventDate) {
-                        const modalStartlistsContainer = document.getElementById('startlists');
-                        const modalResultsListContainer = document.getElementById('results-list');
-                        const modalOtherFilesContainer = document.getElementById('other-files');
-
-                        modalStartlistsContainer.innerHTML = '';
-                        modalResultsListContainer.innerHTML = '';
-                        modalOtherFilesContainer.innerHTML = '';
-                        categoryButtonsContainer.innerHTML = '';
-
-                        fetch(`/files/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/`)
-                            .then(response => response.json())
-                            .then(files => {
-                                const categories = new Set();
-                                files.forEach(file => {
-                                    const li = document.createElement('li');
-                                    const a = document.createElement('a');
-                                    const fileUrl = `/files/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/${encodeURIComponent(file)}`;
-
-                                    a.href = fileUrl;
-                                    a.textContent = file;
-
-                                    // Check if the user is on a mobile device
-                                    if (isMobileDevice()) {
-                                        a.setAttribute('download', ''); // Force download on mobile
-                                    }
-
-                                    li.appendChild(a);
-
-                                    if (file.includes('-')) {
-                                    modalOtherFilesContainer.appendChild(li);
-                                } else if (file.includes('race_')) {
-                                    li.classList.add('race-item');
-                                    modalResultsListContainer.appendChild(li);
-                                    const category = file.split('__')[1];
-                                    categories.add(category);
-                                } else {
-                                    modalStartlistsContainer.appendChild(li);
-                                }
-                            });
-
-                            // Add buttons for each category
-                            categories.forEach(category => {
-                                const button = document.createElement('button');
-                                button.textContent = category;
-                                button.addEventListener('click', function() {
-                                    filterResultsByCategory(category);
-                                });
-                                categoryButtonsContainer.appendChild(button);
-                            });
-
-                            // Show category buttons
-                            categoryButtonsContainer.querySelectorAll('button').forEach(btn => {
-                                btn.style.display = 'inline-block';
-                            });
-                        })
-                        .catch(error => console.error('Error loading results:', error));
-                }
-
-                function filterResultsByCategory(category) {
-                    const resultItems = document.querySelectorAll('#results-list .race-item');
-                    resultItems.forEach(item => {
-                        if (item.textContent.includes(category)) {
-                            item.style.display = '';
-                        } else {
-                            item.style.display = 'none';
-                        }
+    
+                    const searchInput = document.getElementById('search-input');
+                    searchInput.addEventListener('input', function () {
+                        const searchInputValue = searchInput.value.toLowerCase();
+                        filterCompetitions(searchInputValue);
                     });
-                }
-
-                const spanClose = document.getElementsByClassName('close')[0];
-                spanClose.onclick = function() {
-                    const modal = document.getElementById('myModal');
-                    modal.style.display = 'none';
-                };
-
-                window.onclick = function(event) {
-                    const modal = document.getElementById('myModal');
-                    if (event.target == modal) {
-                        modal.style.display = 'none';
+    
+                    function filterCompetitions(query) {
+                        const rows = competitionsTable.querySelectorAll('tbody tr');
+                        rows.forEach(row => {
+                            const eventName = row.cells[2].textContent.toLowerCase();
+                            if (eventName.includes(query)) {
+                                row.style.display = '';
+                            } else {
+                                row.style.display = 'none';
+                            }
+                        });
                     }
+    
+                    function typeName(type) {
+                        switch (type) {
+                            case 'T': return 'Time Trials / Handikapi';
+                            case 'H': return 'Heats / Priekšbraucieni';
+                            case 'R': return 'Reps';
+                            case 'K': return 'Knockouts';
+                            case 'Q': return 'Quarterfinals';
+                            case 'S': return 'Semifinals / Pusfināli';
+                            case 'F': return 'Finals / Fināli';
+                            default: return '';
+                        }
+                    }
+    
+                   function fetchAndDisplayResults(eventName, eventDate) {
+    const modalStartlistsContainer = document.getElementById('startlists');
+    const modalResultsListContainer = document.getElementById('results-list');
+    const modalOtherFilesContainer = document.getElementById('other-files');
+    const categoryButtonsContainer = document.getElementById('category-buttons');
+
+    modalStartlistsContainer.innerHTML = '';
+    modalResultsListContainer.innerHTML = '';
+    modalOtherFilesContainer.innerHTML = '';
+    categoryButtonsContainer.innerHTML = '';
+
+    const urlPath = `${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}`;
+
+    fetch(`/files/${urlPath}/`)
+        .then(response => response.json())
+        .then(({ baseFiles, resultsFiles, startlistsFiles }) => {
+            const categories = new Set();
+            const raceFiles = [];
+
+            // Обработка базовых файлов (которые не находятся в папках Results и Startlists)
+            baseFiles.forEach(file => {
+                const fileUrl = `/files/${urlPath}/${encodeURIComponent(file)}`;
+
+                const fileElement = document.createElement('a');
+                fileElement.classList.add('file-element');
+                fileElement.href = fileUrl;
+                fileElement.target = '_blank';
+
+                if (isMobileDevice()) {
+                    fileElement.setAttribute('download', '');
+                }
+
+                const span = document.createElement('span');
+                span.textContent = file;
+                fileElement.appendChild(span);
+
+                modalOtherFilesContainer.appendChild(fileElement);
+            });
+
+            // Обработка файлов Startlists
+            startlistsFiles.forEach(file => {
+                const fileUrl = `/files/${urlPath}/Startlists/${encodeURIComponent(file)}`;
+
+                const fileElement = document.createElement('a');
+                fileElement.classList.add('file-element');
+                fileElement.href = fileUrl;
+                fileElement.target = '_blank';
+
+                if (isMobileDevice()) {
+                    fileElement.setAttribute('download', '');
+                }
+
+                const span = document.createElement('span');
+                span.textContent = file;
+                fileElement.appendChild(span);
+
+                modalStartlistsContainer.appendChild(fileElement);
+            });
+
+
+            // Обработка файлов Results, но не отображаем их сразу
+            resultsFiles.forEach(file => {
+                const fileUrl = `/files/${urlPath}/Results/${encodeURIComponent(file)}`;
+
+                const fileElement = document.createElement('a');
+                fileElement.classList.add('file-element');
+                fileElement.href = fileUrl;
+                fileElement.target = '_blank';
+
+                if (isMobileDevice()) {
+                    fileElement.setAttribute('download', '');
+                }
+
+                const span = document.createElement('span');
+                span.textContent = file;
+                fileElement.appendChild(span);
+
+                // Проверка, если файл относится к заездам
+                const raceMatch = file.match(/race-(\d+)___event-(\d+)___name-([A-Za-z0-9\-]+)___eta-([A-Z]+)/);
+                if (raceMatch) {
+                    fileElement.classList.add('race-item');
+                    raceFiles.push({ file, fileElement });
+
+                    const category = raceMatch[3]; // Извлечение категории
+                    categories.add(category); // Добавление категории в Set для фильтрации
+                }
+
+                // Не добавляем элемент в контейнер результатов сразу
+                // добавим их позже, когда пользователь выберет категорию
+            });
+
+            // Сортировка и создание категорий
+            categories.forEach(category => {
+                const button = document.createElement('span');
+                button.classList.add('event-element', 'hvr-underline-from-left'); // Apply both classes
+
+                const innerSpan = document.createElement('span');
+                innerSpan.textContent = category; // Название кнопки здесь
+                innerSpan.onclick = function () {
+                    displayResultsForCategory(category, raceFiles, eventDate, eventName);
+                    categoryButtonsContainer.querySelectorAll('span').forEach(btn => {
+                        btn.classList.remove('results-active');
+                    });
+                    button.classList.add('results-active'); // Highlight active category
                 };
 
-                // Function to detect if the device is a mobile device
-                function isMobileDevice() {
-                    return /Mobi/i.test(navigator.userAgent);
-                }
-            })
-            .catch(error => console.error('Error loading files:', error));
+                button.appendChild(innerSpan);
+                categoryButtonsContainer.appendChild(button);
+            });
+
+            // Показываем кнопки категорий
+            categoryButtonsContainer.querySelectorAll('span').forEach(span => {
+                span.style.display = 'inline-block';
+            });
+
+            // Обновляем URL без перезагрузки страницы
+            const newUrl = new URL(window.location);
+            newUrl.searchParams.set('event', eventName);
+            newUrl.searchParams.set('date', eventDate);
+            window.history.pushState({}, '', newUrl);
+        })
+        .catch(error => console.error('Error loading results:', error));
+}
+
+function displayResultsForCategory(category, raceFiles, eventDate, eventName) {
+    const modalResultsListContainer = document.getElementById('results-list');
+    modalResultsListContainer.innerHTML = '';
+
+    const groupedResults = {
+        T: [],
+        H: [],
+        R: [],
+        K: [],
+        Q: [],
+        S: [],
+        F: []
+    };
+
+    raceFiles.forEach(({ file }) => {
+        const [, raceNo, eventNo, fileCategory, eta] = file.match(/race-(\d+)___event-(\d+)___name-([A-Za-z0-9\-]+)___eta-([A-Za-z0-9]+)/);
+        if (fileCategory === category) {
+            let etaType = eta[0]; // берем первую букву из eta для определения типа
+
+            if (etaType === 'F' && eta.length > 1) { 
+                etaType = 'F'; // устанавливаем "F" для всех комбинаций, начинающихся с "F"
+            }
+
+            if (!groupedResults[etaType]) {
+                groupedResults[etaType] = []; // Убедитесь, что массив существует
+            }
+            groupedResults[etaType].push(file); // Добавляем файлы в соответствующую категорию
+        }
     });
-</script>
-<footer style="text-align: center;">
-    <br>
-    <hr>
-    Report any problems at <a href="">antons.cernavskis@gmail.com</a><br>
-    © 2024 DSS Sport System. All rights reserved.
-</footer>
+
+    Object.keys(groupedResults).forEach(raceType => {
+        if (groupedResults[raceType].length > 0) {
+            const typeHeader = document.createElement('h5');
+            typeHeader.textContent = typeName(raceType);
+            modalResultsListContainer.appendChild(typeHeader);
+
+            groupedResults[raceType].forEach(file => {
+                const [, raceNo, eventNo, fileCategory, eta] = file.match(/race-(\d+)___event-(\d+)___name-([A-Za-z0-9\-]+)___eta-([A-Za-z0-9]+)/);
+
+                const raceElement = document.createElement('a');
+                raceElement.classList.add('file-element');
+                raceElement.href = `/files/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/Results/${encodeURIComponent(file)}`;
+                raceElement.target = '_blank';
+
+                const raceInfo = document.createElement('div');
+                raceInfo.classList.add('race-info');
+
+                // Этап
+                const etaElement = document.createElement('span');
+                etaElement.textContent = `[${eta}]`;
+
+                // Номер заезда
+                const raceNoElement = document.createElement('span');
+                raceNoElement.innerHTML = `<span class="label">race no / brauciena nr:</span> ${raceNo}`;
+
+                // Номер конкурса
+                const eventNoElement = document.createElement('span');
+                eventNoElement.innerHTML = `<span class="label">event no / konkurences nr:</span> ${eventNo}`;
+
+                raceInfo.appendChild(etaElement);
+                raceInfo.appendChild(raceNoElement);
+                raceInfo.appendChild(eventNoElement);
+
+                raceElement.appendChild(raceInfo);
+
+                modalResultsListContainer.appendChild(raceElement);
+            });
+        }
+    });
+}
+                    const spanClose = document.getElementsByClassName('modal-close')[0];
+                    spanClose.onclick = function () {
+                        const modal = document.getElementById('myModal');
+                        modal.style.display = 'none';
+                    };
+    
+                    window.onclick = function (event) {
+                        const modal = document.getElementById('myModal');
+                        if (event.target == modal) {
+                            modal.style.display = 'none';
+                        }
+                    };
+    
+                    function isMobileDevice() {
+                        return /Mobi/i.test(navigator.userAgent);
+                    }
+    
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const eventParam = urlParams.get('event');
+                    const dateParam = urlParams.get('date');
+                    if (eventParam && dateParam) {
+                        fetchAndDisplayResults(eventParam, dateParam);
+                        const modal = document.getElementById('myModal');
+                        modal.style.display = 'flex';
+                    }
+                });
+        });
+    </script>    
+    <footer style="text-align: center;">
+        <br>
+        <hr>
+        © 2024 DSS Sport System. All rights reserved.
+    </footer>
 </body>
 </html>

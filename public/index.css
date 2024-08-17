@@ -1,0 +1,234 @@
+.event-element {
+    background-color: #eee;
+    padding: 8px 10px;
+    margin: 4px 3px;
+    display: inline-block;
+    color: #0967ac;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Стили для элементов файлов */
+.file-element {
+    display: block;
+    color: #000000;
+    border-bottom: 1px dashed #bbb;
+    padding: 10px;
+    font-weight: 350;
+    cursor: pointer;
+    text-decoration: none;
+    background: #f9f9f9;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #eee;
+    margin: 4px 3px;
+}
+
+.file-element:hover {
+    background-color: #eee;
+    color: #000;
+}
+
+.file-element img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.file-element span {
+    margin-left: 8px;
+}
+
+/* Стили для кнопок категорий */
+.category-buttons {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.category-buttons button {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #0967ac;
+    color: white;
+    display: none; /* Изначально скрыты кнопки категорий */
+}
+
+.category-buttons button:hover {
+    background-color: #0967ac;
+}
+
+/* Стили для эффекта подчеркивания при наведении */
+.hvr-underline-from-left {
+    display: inline-block;
+    vertical-align: middle;
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    overflow: hidden;
+}
+
+.hvr-underline-from-left:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    right: 100%;
+    bottom: 0;
+    background: #2098D1;
+    height: 4px;
+    transition: right 0.3s ease-out;
+}
+
+.hvr-underline-from-left:hover:before,
+.hvr-underline-from-left:focus:before,
+.hvr-underline-from-left:active:before {
+    right: 0;
+}
+
+/* Стили для информации о гонках */
+.race-info {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет элементам переноситься на новые строки на узких экранах */
+    gap: 10px; /* Расстояние между элементами */
+}
+
+.race-info span {
+    color: #2098D1; /* Цвет текста */
+    font-weight: bold; /* Жирный текст */
+}
+
+.race-info .label {
+    font-weight: normal; /* Метки не должны быть жирными */
+    color: #000; /* Цвет меток */
+}
+
+.eta {
+    font-weight: bold;
+}
+
+/* Стили для меню прокрутки */
+.scrollMenu {
+    overflow-y: auto;
+    max-height: 40vh;
+    width: 100%;
+}
+
+/* Стили для модального окна */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 70% !important;
+    height: 80%;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+/* Стили для результатов новостей в модальном окне */
+.newsResults {
+    flex: 1 1 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.newsResults h2 {
+    margin-bottom: 15px;
+}
+
+/* Стили для разделов модального окна */
+.modal-section {
+    margin-bottom: 20px;
+    flex: 1 1 calc(50% - 40px);
+}
+
+.modal-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.modal-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Добавлен сброс отступов */
+}
+
+.modal-section ul li {
+    margin-bottom: 5px;
+}
+
+.modal-section ul li a {
+    text-decoration: none;
+    color: #0967ac;
+}
+
+.modal-section ul li a:hover {
+    text-decoration: underline;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Адаптивные стили для модального окна */
+@media (max-width: 991px) {
+    .modal-box {
+        width: 90% !important;
+        height: auto;
+        max-height: 90%;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .modal-box {
+        width: 100% !important;
+        height: auto;
+        max-height: 90%;
+        overflow-y: auto;
+        padding: 10px;
+    }
+
+    .modal-close {
+        font-size: 1.2em;
+        top: 5px;
+        right: 5px;
+    }
+
+    .modal-section {
+        flex: 1 1 100%;
+        margin-bottom: 10px;
+    }
+}

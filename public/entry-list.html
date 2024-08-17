@@ -297,20 +297,63 @@
                 renderTable(boatClassTables);
             }
         
-            function sortByClub() {
+            function checkImageExists(url) {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => resolve(true);
+                    img.onerror = () => resolve(false);
+                    img.src = url;
+                });
+            }
+
+            async function sortByClub() {
                 const clubTables = {};
 
-                // Process the CSV data
-                Object.entries(boatClassTables).forEach(([boatClass, entries]) => {
-                    entries.forEach(row => {
-                        const participants = row[2].split('<br>').map(participant => participant.trim());
-                        const organization = row[1];
+                try {
+                    // Формируем путь к файлу participants.csv
+                    const filePath = `entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/participants.csv`;
+                    console.log(`Attempting to fetch: ${filePath}`); // Отладочная информация
+
+                    const response = await fetch(filePath);
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch participants.csv: ${response.status} ${response.statusText}`);
+                    }
+                    const csvText = await response.text();
+
+                    // Разделяем CSV текст на строки и обрабатываем их
+                    const lines = csvText.split('\n').map(line => line.split(',').map(cell => cell.trim()));
+                    const headers = lines[0];
+
+                    // Находим индексы необходимых колонок
+                    const boatClassIndex = headers.indexOf('Event Abbrev');
+                    const organizationIndex = headers.indexOf('Crew');
+                    const participantsIndex = headers.indexOf('Stroke');
+
+                    if (boatClassIndex === -1 || organizationIndex === -1 || participantsIndex === -1) {
+                        console.error('Required columns are missing in participants.csv');
+                        return;
+                    }
+
+                    // Проходим по каждой строке данных
+                    lines.slice(1).forEach(row => {
+                        const boatClass = row[boatClassIndex] || 'Unknown'; // Обработка случая, если значение undefined
+                        let organization = row[organizationIndex] || 'Unknown'; // Обработка случая, если значение undefined
+                        let participants = row[participantsIndex] || ''; // Обработка случая, если значение undefined
+
+                        // Если есть " | ", то организация перед ним
+                        if (participants.includes(' | ')) {
+                            const parts = participants.split(' | ');
+                            organization = parts[0] || organization; // Используем значение из CSV или 'Unknown'
+                            participants = parts[1] || ''; // Используем значение из CSV или пустую строку
+                        }
 
                         if (!clubTables[organization]) {
                             clubTables[organization] = [];
                         }
 
-                        participants.forEach(participant => {
+                        const participantList = participants.split('<br>').map(participant => participant.trim());
+                        participantList.forEach(participant => {
                             const match = participant.match(/(\d{2})$/);
                             if (match) {
                                 const year = parseInt(match[1], 10);
@@ -318,7 +361,7 @@
                                 const fullYear = (year >= currentYear % 100) ? 1900 + year : 2000 + year;
                                 const name = participant.replace(/\d{2}$/, '').trim();
                                 
-                                // Use name + year as the unique key
+                                // Используйте name + year в качестве уникального ключа
                                 clubTables[organization].push({
                                     name,
                                     year: fullYear,
@@ -327,186 +370,353 @@
                             }
                         });
                     });
-                });
 
-                // Deduplicate entries based on name
-                const uniqueClubTables = {};
-                Object.keys(clubTables).forEach(club => {
-                    const entries = clubTables[club];
-                    const uniqueEntries = {};
+                    // Удаление дубликатов
+                    const uniqueClubTables = {};
+                    Object.keys(clubTables).forEach(club => {
+                        const entries = clubTables[club];
+                        const uniqueEntries = {};
 
-                    entries.forEach(entry => {
-                        if (!uniqueEntries[entry.name]) {
-                            uniqueEntries[entry.name] = [];
-                        }
-                        uniqueEntries[entry.name].push(entry.boatClass);
-                    });
-
-                    uniqueClubTables[club] = Object.keys(uniqueEntries).map(name => ({
-                        name,
-                        year: entries.find(entry => entry.name === name).year,
-                        boatClasses: uniqueEntries[name].join('<br>')
-                    }));
-                });
-
-                // Sort entries alphabetically by name
-                Object.keys(uniqueClubTables).forEach(club => {
-                    uniqueClubTables[club].sort((a, b) => a.name.localeCompare(b.name));
-                });
-
-                // Render the table
-                entryListContainer.innerHTML = '';
-
-                Object.keys(uniqueClubTables).forEach((club, clubIndex) => {
-                    // Create the main container div similar to the structure of containerDiv
-                    const containerDiv = document.createElement('div');
-                    containerDiv.classList.add('row'); // Applying the 'row' class to the container
-                    containerDiv.id = `club-${clubIndex}`;
-
-                    // Create a column div similar to colDiv
-                    const colDiv = document.createElement('div');
-                    colDiv.classList.add('col');
-
-                    // Create the table element
-                    const table = document.createElement('table');
-                    table.classList.add('table', 'table-hover', 'table-bordered');
-
-                    // Create the header row similar to categoryHeaderRow
-                    const clubHeaderRow = document.createElement('tr');
-                    const clubHeaderCell = document.createElement('th');
-                    clubHeaderCell.classList.add('club-header'); // Add the 'club-header' class
-                    clubHeaderCell.style.borderTop = '2px solid #aaa'; // Set the top border style
-                    clubHeaderCell.colSpan = '3'; // Set the colSpan to match the number of columns
-                    clubHeaderCell.innerHTML = `
-                        <span class="competition-number">${clubIndex + 1}</span>
-                        <span class="competition-symbol">${club}</span>
-                        <span class="competition-description" style="font-weight: normal;"> </span>
-                    `;
-
-                    // Append the header cell to the header row, and the row to the table
-                    clubHeaderRow.appendChild(clubHeaderCell);
-                    table.appendChild(clubHeaderRow);
-
-                    // Create and append the table header row similar to the example
-                    const headerRow = document.createElement('tr');
-                    ['Dalībnieki', 'Dzimšanas gads', 'Klase'].forEach((header) => {
-                        const th = document.createElement('th');
-                        th.textContent = header;
-                        // Apply column-specific CSS classes
-                        if (header === 'Dalībnieki') {
-                            th.classList.add('table-column-participant');
-                        } else if (header === 'Dzimšanas gads') {
-                            th.classList.add('table-column-birthyear');
-                        } else if (header === 'Klase') {
-                            th.classList.add('table-column-boatclass');
-                        }
-                        headerRow.appendChild(th);
-                    });
-                    table.appendChild(headerRow);
-
-                    // Append rows with participant data
-                    uniqueClubTables[club].forEach((entry) => {
-                        const tr = document.createElement('tr');
-                        const cells = [
-                            entry.name,
-                            entry.year,
-                            entry.boatClasses
-                        ];
-
-                        cells.forEach((cell, cellIndex) => {
-                            const td = document.createElement('td');
-                            td.innerHTML = cell;
-                            // Apply column-specific CSS classes
-                            if (cellIndex === 0) {
-                                td.classList.add('table-column-participant');
-                            } else if (cellIndex === 1) {
-                                td.classList.add('table-column-birthyear');
-                            } else if (cellIndex === 2) {
-                                td.classList.add('table-column-boatclass');
+                        entries.forEach(entry => {
+                            if (!uniqueEntries[entry.name]) {
+                                uniqueEntries[entry.name] = [];
                             }
-                            tr.appendChild(td);
+                            uniqueEntries[entry.name].push(entry.boatClass);
                         });
 
-                        table.appendChild(tr);
+                        uniqueClubTables[club] = Object.keys(uniqueEntries).map(name => ({
+                            name,
+                            year: entries.find(entry => entry.name === name).year,
+                            boatClasses: uniqueEntries[name].join('<br>')
+                        }));
                     });
 
-                    // Append the table to the column div, and the column div to the container div
-                    colDiv.appendChild(table);
-                    containerDiv.appendChild(colDiv);
+                    // Сортировка по имени
+                    Object.keys(uniqueClubTables).forEach(club => {
+                        uniqueClubTables[club].sort((a, b) => a.name.localeCompare(b.name));
+                    });
 
-                    // Finally, append the container div to the main entry list container
-                    entryListContainer.appendChild(containerDiv);
-                });
+                    // Отображение таблицы
+                    entryListContainer.innerHTML = '';
 
+                    Object.keys(uniqueClubTables).forEach((club, clubIndex) => {
+                        const containerDiv = document.createElement('div');
+                        containerDiv.classList.add('row');
+                        containerDiv.id = `club-${clubIndex}`;
+
+                        const colDiv = document.createElement('div');
+                        colDiv.classList.add('col');
+
+                        const table = document.createElement('table');
+                        table.classList.add('table', 'table-hover', 'table-bordered');
+
+                        const clubHeaderRow = document.createElement('tr');
+                        const clubHeaderCell = document.createElement('th');
+                        clubHeaderCell.classList.add('club-header');
+                        clubHeaderCell.style.borderTop = '2px solid #aaa';
+                        clubHeaderCell.colSpan = '3';
+
+                        // Проверка наличия файла с флагом
+                        const flagPath = `entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/flags/${club}.svg`;
+                        const flagImg = new Image();
+                        flagImg.src = flagPath;
+                        flagImg.alt = `${club} Flag`;
+                        flagImg.style.width = '30px';
+                        flagImg.style.height = 'auto';
+                        flagImg.style.verticalAlign = 'middle';
+                        flagImg.style.marginRight = '10px';
+                        flagImg.style.display = 'inline-block';
+
+                        flagImg.onload = () => {
+                            // Если изображение загружено, обновите содержимое ячейки
+                            clubHeaderCell.innerHTML = `
+                                <span style="display: flex; align-items: center;">
+                                    <span class="competition-number">${clubIndex + 1}</span>
+                                    <img src="${flagImg.src}" alt="${flagImg.alt}" style="${flagImg.style.cssText}" />
+                                    <span class="competition-symbol">${club}</span>
+                                    <span class="competition-description" style="font-weight: normal;"> </span>
+                                </span>
+                            `;
+                            clubHeaderRow.appendChild(clubHeaderCell);
+                            table.appendChild(clubHeaderRow);
+
+                            // Заголовки таблицы
+                            const headerRow = document.createElement('tr');
+                            ['Dalībnieki', 'Dzimšanas gads', 'Klase'].forEach((header) => {
+                                const th = document.createElement('th');
+                                th.textContent = header;
+                                if (header === 'Dalībnieki') {
+                                    th.classList.add('table-column-participant');
+                                } else if (header === 'Dzimšanas gads') {
+                                    th.classList.add('table-column-birthyear');
+                                } else if (header === 'Klase') {
+                                    th.classList.add('table-column-boatclass');
+                                }
+                                headerRow.appendChild(th);
+                            });
+                            table.appendChild(headerRow);
+
+                            // Добавление данных участников
+                            uniqueClubTables[club].forEach((entry) => {
+                                const tr = document.createElement('tr');
+                                const cells = [entry.name, entry.year, entry.boatClasses];
+
+                                cells.forEach((cell, cellIndex) => {
+                                    const td = document.createElement('td');
+                                    td.innerHTML = cell;
+                                    if (cellIndex === 0) {
+                                        td.classList.add('table-column-participant');
+                                    } else if (cellIndex === 1) {
+                                        td.classList.add('table-column-birthyear');
+                                    } else if (cellIndex === 2) {
+                                        td.classList.add('table-column-boatclass');
+                                    }
+                                    tr.appendChild(td);
+                                });
+
+                                table.appendChild(tr);
+                            });
+
+                            colDiv.appendChild(table);
+                            containerDiv.appendChild(colDiv);
+                            entryListContainer.appendChild(containerDiv);
+                        };
+
+                        flagImg.onerror = () => {
+                            // Если изображение не удалось загрузить, просто используйте название клуба
+                            clubHeaderCell.innerHTML = `
+                                <span style="display: flex; align-items: center;">
+                                    <span class="competition-number">${clubIndex + 1}</span>
+                                    <span class="competition-symbol">${club}</span>
+                                    <span class="competition-description" style="font-weight: normal;"> </span>
+                                </span>
+                            `;
+                            clubHeaderRow.appendChild(clubHeaderCell);
+                            table.appendChild(clubHeaderRow);
+
+                            // Заголовки таблицы
+                            const headerRow = document.createElement('tr');
+                            ['Dalībnieki', 'Dzimšanas gads', 'Klase'].forEach((header) => {
+                                const th = document.createElement('th');
+                                th.textContent = header;
+                                if (header === 'Dalībnieki') {
+                                    th.classList.add('table-column-participant');
+                                } else if (header === 'Dzimšanas gads') {
+                                    th.classList.add('table-column-birthyear');
+                                } else if (header === 'Klase') {
+                                    th.classList.add('table-column-boatclass');
+                                }
+                                headerRow.appendChild(th);
+                            });
+                            table.appendChild(headerRow);
+
+                            // Добавление данных участников
+                            uniqueClubTables[club].forEach((entry) => {
+                                const tr = document.createElement('tr');
+                                const cells = [entry.name, entry.year, entry.boatClasses];
+
+                                cells.forEach((cell, cellIndex) => {
+                                    const td = document.createElement('td');
+                                    td.innerHTML = cell;
+                                    if (cellIndex === 0) {
+                                        td.classList.add('table-column-participant');
+                                    } else if (cellIndex === 1) {
+                                        td.classList.add('table-column-birthyear');
+                                    } else if (cellIndex === 2) {
+                                        td.classList.add('table-column-boatclass');
+                                    }
+                                    tr.appendChild(td);
+                                });
+
+                                table.appendChild(tr);
+                            });
+
+                            colDiv.appendChild(table);
+                            containerDiv.appendChild(colDiv);
+                            entryListContainer.appendChild(containerDiv);
+                        };
+                    });
+                } catch (error) {
+                    console.error('Error processing or displaying club data:', error);
+                    entryListContainer.innerHTML = 'Failed to load club data';
+                }
             }
 
-            function showStats() {
+            async function showStats() {
                 const stats = {};
-                const allParticipants = new Set(); // For counting unique athletes across the entire list
-        
-                Object.entries(boatClassTables).forEach(([boatClass, entries]) => {
-                    entries.forEach(row => {
-                        const organization = row[1];
+                const allParticipants = new Set(); // Для подсчета уникальных участников
+
+                try {
+                    // Формируем путь к файлу participants.csv
+                    const filePath = `entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/participants.csv`;
+                    console.log(`Attempting to fetch: ${filePath}`); // Отладочная информация
+
+                    const response = await fetch(filePath);
+
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch participants.csv: ${response.status} ${response.statusText}`);
+                    }
+                    const csvText = await response.text();
+
+                    // Разделяем CSV текст на строки и обрабатываем их
+                    const lines = csvText.split('\n').map(line => line.split(',').map(cell => cell.trim()));
+                    const headers = lines[0];
+
+                    // Находим индексы необходимых колонок
+                    const boatClassIndex = headers.indexOf('Event Abbrev');
+                    const organizationIndex = headers.indexOf('Crew');
+                    const participantsIndex = headers.indexOf('Stroke');
+
+                    if (boatClassIndex === -1 || organizationIndex === -1 || participantsIndex === -1) {
+                        console.error('Required columns are missing in participants.csv');
+                        return;
+                    }
+
+                    // Проходим по каждой строке данных
+                    lines.slice(1).forEach(row => {
+                        const boatClass = row[boatClassIndex] || 'Unknown'; // Обработка случая, если значение undefined
+                        let organization = row[organizationIndex] || 'Unknown'; // Обработка случая, если значение undefined
+                        let participants = row[participantsIndex] || ''; // Обработка случая, если значение undefined
+
+                        // Если есть " | ", то организация перед ним
+                        if (participants.includes(' | ')) {
+                            const parts = participants.split(' | ');
+                            organization = parts[0] || organization; // Используем значение из CSV или 'Unknown'
+                            participants = parts[1] || ''; // Используем значение из CSV или пустую строку
+                        }
+
                         if (!stats[organization]) {
                             stats[organization] = { boatClasses: 0, uniqueAthletes: new Set(), totalAthletes: 0 };
                         }
                         stats[organization].boatClasses += 1;
-        
-                        // Count all athletes
-                        const participants = row[2].split('<br>').map(participant => participant.trim());
-                        stats[organization].totalAthletes += participants.length;
-        
-                        // Track unique athletes by club
-                        participants.forEach(participant => {
+
+                        // Подсчитываем всех участников
+                        const participantList = participants.split('<br>').map(participant => participant.trim());
+                        stats[organization].totalAthletes += participantList.length;
+
+                        // Отслеживаем уникальных участников по клубу
+                        participantList.forEach(participant => {
                             stats[organization].uniqueAthletes.add(participant);
-                            allParticipants.add(participant); // Track unique athletes globally
+                            allParticipants.add(participant); // Отслеживаем уникальных участников глобально
                         });
                     });
-                });
-        
-                entryListContainer.innerHTML = '';
-                const table = document.createElement('table');
-                table.classList.add('table', 'table-hover', 'table-bordered');
-        
-                const headerRow = document.createElement('tr');
-                ['#', 'Klubs', 'Laivas', 'Dalībnieki', 'Dalībnieki/Laivas'].forEach(header => {
-                    const th = document.createElement('th');
-                    th.textContent = header;
-                    headerRow.appendChild(th);
-                });
-                table.appendChild(headerRow);
-        
-                let index = 1;
-                Object.keys(stats).forEach(club => {
-                    const tr = document.createElement('tr');
-                    const boatClassesCount = stats[club].boatClasses;
-                    const uniqueAthletesCount = stats[club].uniqueAthletes.size;
-                    const totalAthletesCount = stats[club].totalAthletes;
-        
-                    [index++, club, boatClassesCount, uniqueAthletesCount, totalAthletesCount].forEach(cell => {
-                        const td = document.createElement('td');
-                        td.textContent = cell;
-                        tr.appendChild(td);
+
+                    entryListContainer.innerHTML = '';
+                    const table = document.createElement('table');
+                    table.classList.add('table', 'table-hover', 'table-bordered');
+
+                    // Добавляем заголовок таблицы
+                    const headerRow = document.createElement('tr');
+                    ['#', 'Klubs', 'Laivas', 'Dalībnieki', 'Dalībnieki/Laivas'].forEach(header => {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+                        headerRow.appendChild(th);
                     });
-        
-                    table.appendChild(tr);
-                });
-        
-                // Summary row
-                const summaryRow = document.createElement('tr');
-                const totalBoatClasses = Object.values(stats).reduce((sum, clubStats) => sum + clubStats.boatClasses, 0);
-                const totalParticipants = Object.values(stats).reduce((sum, clubStats) => sum + clubStats.totalAthletes, 0);
-        
-                ['Kopā', '', totalBoatClasses, allParticipants.size, totalParticipants].forEach((cell, index) => {
-                    const td = document.createElement('td');
-                    td.textContent = cell;
-                    summaryRow.appendChild(td);
-                });
-                table.appendChild(summaryRow);
-        
-                entryListContainer.appendChild(table);
+                    table.appendChild(headerRow);
+
+                    // Создаем массив для хранения строк таблицы
+                    const rows = [];
+                    let index = 1;
+
+                    const promises = Object.keys(stats).map(club => {
+                        return new Promise((resolve) => {
+                            const tr = document.createElement('tr');
+
+                            // Добавляем ячейку с индексом
+                            const indexCell = document.createElement('td');
+                            indexCell.textContent = index++;
+                            tr.appendChild(indexCell);
+
+                            // Создаем ячейку с изображением флага клуба и названием
+                            const flagAndNameCell = document.createElement('td');
+                            const flagImg = document.createElement('img');
+                            const flagPath = `entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/flags/${club}.svg`;
+                            flagImg.src = flagPath; // Путь к SVG изображению
+                            flagImg.alt = `${club} Flag`; // Альтернативный текст для доступности
+                            flagImg.style.width = '30px'; // Установите фиксированную ширину изображения (при необходимости)
+                            flagImg.style.height = 'auto'; // Сохранение пропорций
+                            flagImg.style.verticalAlign = 'middle'; // Выравнивание изображения с текстом
+                            flagImg.style.marginRight = '10px'; // Пробел между изображением и текстом
+                            flagImg.style.display = 'inline-block'; // Убедитесь, что изображение не нарушает макет
+
+                            // Проверяем, существует ли изображение флага
+                            fetch(flagPath, { method: 'HEAD' })
+                                .then(response => {
+                                    if (response.ok) {
+                                        // Изображение существует
+                                        flagAndNameCell.innerHTML = `<span style="display: flex; align-items: center;">
+                                            <img src="${flagImg.src}" alt="${flagImg.alt}" style="${flagImg.style.cssText}" />
+                                            <span>${club}</span>
+                                        </span>`;
+                                    } else {
+                                        // Альтернативный вариант, если изображение не существует
+                                        flagAndNameCell.innerHTML = `<span style="display: flex; align-items: center;">
+                                            <span>${club}</span>
+                                        </span>`;
+                                    }
+
+                                    tr.appendChild(flagAndNameCell);
+
+                                    // Добавляем другие ячейки в правильном порядке
+                                    const boatClassesCount = stats[club].boatClasses;
+                                    const uniqueAthletesCount = stats[club].uniqueAthletes.size;
+                                    const totalAthletesCount = stats[club].totalAthletes;
+
+                                    [boatClassesCount, uniqueAthletesCount, totalAthletesCount].forEach(cell => {
+                                        const td = document.createElement('td');
+                                        td.textContent = cell;
+                                        tr.appendChild(td);
+                                    });
+
+                                    rows.push(tr);
+                                    resolve();
+                                })
+                                .catch(() => {
+                                    // Обработка ошибок fetch
+                                    flagAndNameCell.innerHTML = `<span style="display: flex; align-items: center;">
+                                        <span>${club}</span>
+                                    </span>`;
+                                    tr.appendChild(flagAndNameCell);
+
+                                    // Добавляем другие ячейки в правильном порядке
+                                    const boatClassesCount = stats[club].boatClasses;
+                                    const uniqueAthletesCount = stats[club].uniqueAthletes.size;
+                                    const totalAthletesCount = stats[club].totalAthletes;
+
+                                    [boatClassesCount, uniqueAthletesCount, totalAthletesCount].forEach(cell => {
+                                        const td = document.createElement('td');
+                                        td.textContent = cell;
+                                        tr.appendChild(td);
+                                    });
+
+                                    rows.push(tr);
+                                    resolve();
+                                });
+                        });
+                    });
+
+                    // Ждем завершения всех запросов fetch
+                    Promise.all(promises).then(() => {
+                        // Добавляем строки для клубов
+                        rows.forEach(row => table.appendChild(row));
+
+                        // Строка резюме
+                        const summaryRow = document.createElement('tr');
+                        const totalBoatClasses = Object.values(stats).reduce((sum, clubStats) => sum + clubStats.boatClasses, 0);
+                        const totalParticipants = Object.values(stats).reduce((sum, clubStats) => sum + clubStats.totalAthletes, 0);
+
+                        summaryRow.innerHTML = `<td>Kopā</td><td></td><td>${totalBoatClasses}</td><td>${allParticipants.size}</td><td>${totalParticipants}</td>`;
+                        table.appendChild(summaryRow);
+
+                        // Добавляем таблицу в контейнер
+                        entryListContainer.appendChild(table);
+                    });
+                } catch (error) {
+                    console.error('Error displaying stats:', error);
+                    entryListContainer.innerHTML = 'Failed to load stats';
+                }
             }
-        
+
             fetchData();
         
             const buttons = document.querySelectorAll('.btn-group .btn');

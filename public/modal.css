@@ -63,7 +63,7 @@
     box-sizing: border-box;
 }
 
-#entryForm button[type="submit"] {
+#entryForm button[type="submit"], .dialog-modal-close {
     width: 100%;
     color: #555;
     border: 2px solid #555;
@@ -77,6 +77,13 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: 15px;
 }
+
+#entryForm button[type="submit"]:hover, .dialog-modal-close:hover {
+    background-color: #444;
+    color: #fff;
+}
+
+
 
 .submit {
     width: 10%;
@@ -94,11 +101,6 @@
 }
 
 .submit:hover {
-    background-color: #444;
-    color: #fff;
-}
-
-#entryForm button[type="submit"]:hover {
     background-color: #444;
     color: #fff;
 }

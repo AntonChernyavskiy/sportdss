@@ -654,7 +654,7 @@ document.addEventListener('DOMContentLoaded', function () {
             async function sendEmail(formData, eventName) {
                 try {
                     // Загрузка сопоставления лицензий
-                    await loadLicenseMapping(eventName, document.getElementById('modal-title').textContent.split(' - ')[1].trim());
+                    await loadLicenseMapping(eventName, document.getElementById('dialog-title').textContent.split(' - ')[1].trim());
             
                     // Сбор участников
                     const participants = Object.keys(formData)
@@ -716,7 +716,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
                     // Подготовка данных для отправки
                     const dataToSend = {
-                        eventDate: document.getElementById('modal-title').textContent.split(' - ')[1].trim(),
+                        eventDate: document.getElementById('dialog-title').textContent.split(' - ')[1].trim(),
                         eventName: eventName,
                         formData: {
                             boatClass: formData.boatClass,
@@ -749,37 +749,31 @@ document.addEventListener('DOMContentLoaded', function () {
             }            
             
             function showConfirmationModal(formData, formattedParticipants) {
-                // Assuming you have a modal element with id 'confirmation-modal'
+                // Получаем элемент модального окна
                 const modal = document.getElementById('confirmation-modal');
-                const modalContent = document.querySelector('#confirmation-modal .modal-content');
+                const modalContent = document.querySelector('#confirmation-modal .dialog-box');
                 
-                // Populate the modal with confirmation details
+                // Заполняем модальное окно деталями
                 modalContent.innerHTML = `
-                    <h2>Reģistrācijas apstiprināšana</h2><br>
-                    <h4>${formData.organization} - ${formData.boatClass}</h4><br><hr><br>
-                    Dalībnieki:
-                    <div>
-                        ${formattedParticipants.map(participant => `
-                            <p>
-                                ${participant.license}
-                            </p>
-                        `).join('')}
-                    </div><br>
-                    <hr><br>
+                    <h2><b>Reģistrācijas apstiprināšana</b></h2>
+                    <h4>${formData.organization} - ${formData.boatClass}</h4><hr>
+                    Dalībnieki:<br>
+                        ${formattedParticipants.map(participant => `${participant.license}`).join('<br>')}
+                    <hr>
                     Trenere - ${formData.coachInformation}<br>
-                    Konktaktinformācija - ${formData.contactInformation}<br><br><hr><br>
-                    Par izmaiņām ziņot <a>pieteiksanas@sportdss.eu</a>
-                    <button class="close-modal-conf">Close</button>
+                    Konktaktinformācija - ${formData.contactInformation}<br><hr>
+                    Par izmaiņām ziņot <b>pieteiksanas@sportdss.eu</b><br>
+                    <button class="dialog-modal-close">Close</button>
                 `;
                 
-                // Show the modal
+                // Отображаем модальное окно
                 modal.style.display = 'flex';
                 
-                // Add event listener to close the modal
-                document.querySelector('.close-modal').addEventListener('click', () => {
+                // Добавляем обработчик события для закрытия модального окна после добавления кнопки в DOM
+                document.querySelector('.dialog-modal-close').addEventListener('click', () => {
                     modal.style.display = 'none';
                 });
-            }                                                                                
+            }                                                                                           
         });
 
     const modal = document.getElementById('registration-modal');

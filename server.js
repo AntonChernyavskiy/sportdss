@@ -164,7 +164,7 @@ app.post('/create-folder_entrySys', async (req, res) => {
 
         await fs.writeFile(configPath, JSON.stringify(defaultConfig, null, 2), 'utf8');
 
-        const csvData = `Event Abbrev, Crew, Stroke, ContactInfo, Coach, Time`;
+        const csvData = `Event Abbrev,Crew,Stroke,Contact Information,Coach,Time`;
 
         await fs.writeFile(csvPath, csvData, 'utf8');
 
@@ -370,7 +370,7 @@ app.post('/submit-entry', async (req, res) => {
         const otherOrganization = formData.otherOrganization;
 
         // Extract and format coach information
-        const coachInformation = (formData.coachInformation || '').toUpperCase().replace(/,/g, '/');
+        const coachInformation = (formData.coachInformation || '').toUpperCase().replace(/,/g, '<br>');
 
         // Get the current server time in YYYY-MM-DD HH:MM:SS format
         const now = new Date();

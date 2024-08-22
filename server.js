@@ -3,7 +3,6 @@ const path = require('path');
 const fs = require('fs').promises;
 const fileUpload = require('express-fileupload');
 const moment = require('moment');
-const bodyParser = require('body-parser');
 const etag = require('etag');
 
 const { requiresAuth } = require('express-openid-connect');
@@ -13,11 +12,9 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.json());
 app.use(fileUpload());
 
-// Auth0 configuration
 const config = {
     authRequired: false,
     auth0Logout: true,
@@ -29,7 +26,6 @@ const config = {
 
 app.use(auth(config));
 
-// Middleware to protect specific static files
 app.use((req, res, next) => {
     const protectedPaths = ['/admin.html', '/admin_entries.html'];
     if (protectedPaths.includes(req.path) && (!req.oidc.isAuthenticated() || req.oidc.user.sub !== 'google-oauth2|102340706795534265787')) {
@@ -38,20 +34,21 @@ app.use((req, res, next) => {
     next();
 });
 
-// Generate a version string for cache-busting
-const version = Date.now(); // You can use any versioning strategy you prefer
+const version = Date.now();
 
-// Serve static files with cache-busting
 app.use((req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
     if (req.url.startsWith('/public/')) {
         req.url = `${req.url}?v=${version}`;
     }
     next();
 }, express.static(path.join(__dirname, 'public'), {
-    etag: false, // Disable default ETag generation
+    etag: false,
     setHeaders: (res, path) => {
-        res.setHeader('Cache-Control', 'no-store'); // Ensure no caching
-        res.setHeader('ETag', etag(path)); // Generate a new ETag
+        res.setHeader('Cache-Control', 'no-store');
+        res.setHeader('ETag', etag(path));
     }
 }));
 
@@ -87,8 +84,8 @@ app.get('/files', async (req, res) => {
         const files = await fs.readdir(filesDirectory);
         res.json(files);
     } catch (err) {
-        console.error('Error reading files directory:', err);
-        res.status(500).send('Unable to scan files directory');
+        // console.error('Error reading files directory:', err);
+        // res.status(500).send('Unable to scan files directory');
     }
 });
 
@@ -111,8 +108,8 @@ app.get('/files/:eventName', async (req, res) => {
             startlistsFiles
         });
     } catch (err) {
-        console.error('Error reading event directory:', err);
-        res.status(500).send('Unable to scan event directory');
+        // console.error('Error reading event directory:', err);
+        // res.status(500).send('Unable to scan event directory');
     }
 });
 
@@ -170,8 +167,8 @@ app.post('/create-folder_entrySys', async (req, res) => {
 
         res.status(200).send('Folder, config.json, and entries.csv created successfully');
     } catch (err) {
-        console.error('Error creating folder, config.json, or entries.csv:', err);
-        res.status(500).send('Failed to create folder, config.json, or entries.csv');
+        // console.error('Error creating folder, config.json, or entries.csv:', err);
+        // res.status(500).send('Failed to create folder, config.json, or entries.csv');
     }
 });
 
@@ -237,8 +234,8 @@ app.get('/entrySys', async (req, res) => {
         const files = await fs.readdir(entrySysDirectory);
         res.json(files);
     } catch (err) {
-        console.error('Error reading entrySys directory:', err);
-        res.status(500).send('Unable to scan entrySys directory');
+        // console.error('Error reading entrySys directory:', err);
+        // res.status(500).send('Unable to scan entrySys directory');
     }
 });
 
@@ -250,8 +247,8 @@ app.get('/entrySys/:eventName', async (req, res) => {
         const files = await fs.readdir(eventDirectory);
         res.json(files);
     } catch (err) {
-        console.error('Error reading entrySys event directory:', err);
-        res.status(500).send('Unable to scan entrySys event directory');
+        // console.error('Error reading entrySys event directory:', err);
+        // res.status(500).send('Unable to scan entrySys event directory');
     }
 });
 
@@ -263,8 +260,8 @@ app.get('/entrySys/:eventName/config.json', async (req, res) => {
         const configData = await fs.readFile(configPath, 'utf8');
         res.json(JSON.parse(configData));
     } catch (err) {
-        console.error('Error reading config.json:', err);
-        res.status(500).send('Unable to read config.json');
+        // console.error('Error reading config.json:', err);
+        // res.status(500).send('Unable to read config.json');
     }
 });
 

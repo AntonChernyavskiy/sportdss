@@ -225,11 +225,11 @@ span.competition-number {
     color: #fff;
 }
 
-/* #pagination-container {
+#pagination-container {
     overflow: auto;
     height: calc(100vh - 400px);
     padding-right: 10px;
-} */
+}
 
 @media print {
     .main-content {

@@ -13,23 +13,35 @@ document.addEventListener('DOMContentLoaded', function () {
             const pastEvents = [];
 
             let cachedUTCDate = null;
+            let lastFetchTime = null;
+            const fetchInterval = 10 * 60 * 1000; // 10 минут в миллисекундах
 
-            function fetchCurrentUTC() {
-                if (cachedUTCDate) {
-                    return Promise.resolve(cachedUTCDate);
+            function getCurrentUTC() {
+                if (cachedUTCDate && (performance.now() - lastFetchTime < fetchInterval)) {
+                    return cachedUTCDate;
                 }
 
                 return fetch('https://worldtimeapi.org/api/timezone/Etc/UTC')
                     .then(response => response.json())
                     .then(data => {
                         cachedUTCDate = new Date(data.utc_datetime);
+                        lastFetchTime = performance.now();
                         return cachedUTCDate;
                     })
                     .catch(error => {
                         console.error('Error fetching current UTC time:', error);
                         cachedUTCDate = new Date(); // В случае ошибки возвращаем локальное время
+                        lastFetchTime = performance.now();
                         return cachedUTCDate;
                     });
+            }
+
+            function fetchCurrentUTC() {
+                if (cachedUTCDate) {
+                    return Promise.resolve(cachedUTCDate);
+                } else {
+                    return getCurrentUTC();
+                }
             }
 
             data.forEach(entry => {
@@ -72,43 +84,37 @@ document.addEventListener('DOMContentLoaded', function () {
             
                 const resultBtn = document.createElement('a');
                 resultBtn.classList.add('btn', 'btn-secondary');
-                resultBtn.href = 'results.html';
+                resultBtn.href = 'https://sportdss.eu/results';
                 resultBtn.textContent = 'Rezultāti';
                 resultBtn.setAttribute('data-event', event.name);
             
                 btnGroupDiv.appendChild(resultBtn);
             
-                const entriesCsvPath = `/entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/entries.csv`;
+                const entriesCsvPath = `../entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/entries.csv`;
             
                 checkFileExists(entriesCsvPath).then(fileExists => {
                     if (fileExists) {
                         const entryListBtn = document.createElement('a');
                         entryListBtn.classList.add('btn', 'btn-secondary');
-                        entryListBtn.href = `entry-list.html?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}`;
+                        entryListBtn.href = `https://sportdss.eu/entrylist/?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}`;
                         entryListBtn.textContent = 'Dalībnieki';
                         btnGroupDiv.appendChild(entryListBtn);
                     }
             
-                    if (!isPastEvent) {
-                        fetch(`/entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/config.json`)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Failed to fetch event configuration');
-                                }
-                                return response.json();
-                            })
-                            .then(config => {
-                                fetchCurrentUTC().then(currentDate => {
-                                    const registrationStartDate = new Date(config.registrationStartDate);
-                                    const registrationEndDate = new Date(config.registrationEndDate);
+                    // Fetch config and handle registration logic
+                    fetch(`../entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/config.json`)
+                        .then(response => response.json())
+                        .then(config => {
+                            fetchCurrentUTC().then(currentDate => {
+                                const registrationStartDate = new Date(config.registrationStartDate);
+                                const registrationEndDate = new Date(config.registrationEndDate);
             
-                                    if (currentDate < registrationStartDate) {
-                                        cardDiv.classList.add('registration-not-started');
-                                    } else if (currentDate > registrationEndDate) {
-                                        cardDiv.classList.add('registration-ended');
-                                    } else {
-                                        cardDiv.classList.add('registration-open');
-                                    }
+                                if (currentDate < registrationStartDate) {
+                                    cardDiv.classList.add('registration-not-started');
+                                } else if (currentDate > registrationEndDate) {
+                                    cardDiv.classList.add('registration-ended');
+                                } else {
+                                    cardDiv.classList.add('registration-open');
             
                                     const registrationInfo = document.createElement('div');
                                     registrationInfo.textContent = `Pieteikšanas termiņš ${registrationStartDate.toLocaleDateString()} - ${registrationEndDate.toLocaleDateString()}`;
@@ -117,38 +123,41 @@ document.addEventListener('DOMContentLoaded', function () {
             
                                     const registerBtn = document.createElement('a');
                                     registerBtn.classList.add('btn', 'btn-secondary', 'register-btn');
-                                    if (currentDate < registrationStartDate || currentDate > registrationEndDate) {
-                                        registerBtn.classList.add('inactive', 'hidden');
-                                    } else {
-                                        registerBtn.classList.add('register-btn');
-                                    }
-                                    registerBtn.href = '#'; // Избегайте перезагрузки страницы
+                                    registerBtn.href = '#'; // Avoid page reload
                                     registerBtn.textContent = 'Pieteikties';
                                     registerBtn.setAttribute('data-event', event.name);
                                     registerBtn.setAttribute('data-date', event.date);
             
                                     btnGroupDiv.appendChild(registerBtn);
             
-                                    // Добавление обработчика только если регистрация открыта
-                                    if (currentDate >= registrationStartDate && currentDate <= registrationEndDate) {
-                                        registerBtn.addEventListener('click', function (event) {
-                                            event.preventDefault();
-                                            const eventName = event.target.getAttribute('data-event');
-                                            const eventDate = event.target.getAttribute('data-date');
-                                            if (eventName && eventDate) {
-                                                fetchAndDisplayRegistrationForm(eventName, eventDate);
-                                            } else {
-                                                console.error('Missing eventName or eventDate');
-                                            }
-                                        });
+                                    // Add event handler for registration button
+                                    registerBtn.addEventListener('click', function (event) {
+                                        event.preventDefault();
+                                        const eventName = event.target.getAttribute('data-event');
+                                        const eventDate = event.target.getAttribute('data-date');
+                                        if (eventName && eventDate) {
+                                            fetchAndDisplayRegistrationForm(eventName, eventDate);
+                                        } else {
+                                            console.error('Missing eventName or eventDate');
+                                        }
+                                    });
+                                }
+            
+                                // Clean up if registration is closed
+                                if (currentDate > registrationEndDate) {
+                                    // Remove all registration-related elements and styles
+                                    cardDiv.classList.remove('registration-open', 'registration-not-started', 'registration-ended');
+                                    if (cardBodyDiv.querySelector('.registration-info')) {
+                                        cardBodyDiv.querySelector('.registration-info').remove();
                                     }
-                                });
-                            })
-                            .catch(error => {
-                                console.error('Error fetching event configuration:', error);
-                                // Кнопка Pieteikties не создается, если не удалось получить конфигурацию
+                                    if (btnGroupDiv.querySelector('.register-btn')) {
+                                        btnGroupDiv.querySelector('.register-btn').remove();
+                                    }
+                                }
                             });
-                    } else {
+                        });
+            
+                    if (isPastEvent) {
                         btnGroupDiv.classList.add('past-event-buttons');
                     }
                 });
@@ -159,8 +168,8 @@ document.addEventListener('DOMContentLoaded', function () {
             
                 cardDiv.appendChild(cardBodyDiv);
                 container.appendChild(cardDiv);
-            }                       
-        
+            }            
+
             upcomingEvents.forEach(event => createEventListItem(event, startlistsContainer, false));
             pastEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
             pastEvents.forEach(event => createEventListItem(event, competitionsContainer, true));
@@ -176,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
             
-                fetch(`/entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/config.json`)
+                fetch(`../entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/config.json`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Form not found');
@@ -547,7 +556,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const searchQuery = searchInput ? searchInput.value.trim().toUpperCase() : '';
             
                 if (searchQuery) {
-                    fetch(`/entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/licences.xlsx`)
+                    fetch(`../entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/licences.xlsx`)
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error('Failed to fetch the licenses file');
@@ -607,7 +616,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             async function loadLicenseMapping(eventName, eventDate) {
                 try {
-                    const response = await fetch(`/entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/licences.xlsx`);
+                    const response = await fetch(`../entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/licences.xlsx`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch the licenses file');
                     }
@@ -777,7 +786,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     const modal = document.getElementById('registration-modal');
-    const closeModalBtn = document.getElementsByClassName('close-modal')[0];
+    const closeModalBtn = document.getElementsByClassName('dialog-close')[0];
 
     closeModalBtn.addEventListener('click', function () {
         modal.style.display = 'none';

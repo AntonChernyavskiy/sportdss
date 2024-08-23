@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const startlistsContainer = document.getElementById('startlists');
             const competitionsContainer = document.getElementById('competitions-files');
 
+            const ignoredFolders = ['.cl.selector', '.cagefs'];
             const upcomingEvents = [];
             const pastEvents = [];
 
@@ -45,12 +46,15 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             data.forEach(entry => {
-                const [date, eventName] = entry.split('  ');
-                const event = { date: date, name: eventName };
-                if (new Date(date) >= new Date()) {
-                    upcomingEvents.push(event);
-                } else {
-                    pastEvents.push(event);
+                // Check if the folder is in the ignored list
+                if (!ignoredFolders.includes(entry.trim())) {
+                    const [date, eventName] = entry.split('  ');
+                    const event = { date: date, name: eventName };
+                    if (new Date(date) >= new Date()) {
+                        upcomingEvents.push(event);
+                    } else {
+                        pastEvents.push(event);
+                    }
                 }
             });
 
@@ -101,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         btnGroupDiv.appendChild(entryListBtn);
                     }
             
-                    // Fetch config and handle registration logic
                     fetch(`../entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/config.json`)
                         .then(response => response.json())
                         .then(config => {
@@ -130,7 +133,6 @@ document.addEventListener('DOMContentLoaded', function () {
             
                                     btnGroupDiv.appendChild(registerBtn);
             
-                                    // Add event handler for registration button
                                     registerBtn.addEventListener('click', function (event) {
                                         event.preventDefault();
                                         const eventName = event.target.getAttribute('data-event');
@@ -143,9 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     });
                                 }
             
-                                // Clean up if registration is closed
                                 if (currentDate > registrationEndDate) {
-                                    // Remove all registration-related elements and styles
                                     cardDiv.classList.remove('registration-open', 'registration-not-started', 'registration-ended');
                                     if (cardBodyDiv.querySelector('.registration-info')) {
                                         cardBodyDiv.querySelector('.registration-info').remove();

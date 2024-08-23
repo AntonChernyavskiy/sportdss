@@ -19,7 +19,6 @@
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="results-but.css">
 
     <meta name="viewport" content="width=430px" />
     <meta charset="utf-8">
@@ -354,6 +353,11 @@
             fetch('/files')
                 .then(response => response.json())
                 .then(data => {
+                    // Фильтруем данные, исключая папки .cagefs и .cl.selector
+                    const filteredData = data.filter(entry => {
+                        return !entry.includes('.cagefs') && !entry.includes('.cl.selector');
+                    });
+
                     const competitionsTable = document.getElementById('competitions-table');
                     const competitionsBody = competitionsTable.querySelector('tbody');
                     const paginationButtonsContainer = document.getElementById('pagination-buttons');
@@ -361,27 +365,27 @@
                     const rowsPerPage = 10;
                     let currentPage = 1;
 
-                    // Sort data from newest to oldest
-                    data.sort((a, b) => {
+                    // Сортировка данных от новых к старым
+                    filteredData.sort((a, b) => {
                         const dateA = new Date(a.split('  ')[0]);
                         const dateB = new Date(b.split('  ')[0]);
                         return dateB - dateA;
                     });
 
-                    const totalPages = Math.ceil(data.length / rowsPerPage);
+                    const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
                     function updateInfoText() {
                         const start = (currentPage - 1) * rowsPerPage + 1;
-                        const end = Math.min(currentPage * rowsPerPage, data.length);
-                        infoDiv.textContent = `Pozīcijas ${start} no ${end} līdz ${data.length} ieskaitot`;
+                        const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+                        infoDiv.textContent = `Pozīcijas no ${start} līdz ${end} no ${filteredData.length} kopā`;
                     }
 
                     function displayPage(page) {
                         competitionsBody.innerHTML = '';
                         const start = (page - 1) * rowsPerPage;
-                        const end = Math.min(start + rowsPerPage, data.length);
+                        const end = Math.min(start + rowsPerPage, filteredData.length);
 
-                        const pageData = data.slice(start, end);
+                        const pageData = filteredData.slice(start, end);
 
                         pageData.forEach((entry, index) => {
                             const [date, eventName] = entry.split('  ');

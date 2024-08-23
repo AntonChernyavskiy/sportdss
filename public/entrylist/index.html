@@ -547,48 +547,55 @@
                 const allParticipants = new Set(); // Для подсчета уникальных участников
 
                 try {
-                    // Формируем путь к файлу participants.csv
-                    const filePath = `../entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/participants.csv`;
-                    console.log(`Attempting to fetch: ${filePath}`); // Отладочная информация
+                    // Формируем путь к файлам participants.csv и entries.csv
+                    const basePath = `../entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/`;
+                    const participantsFilePath = `${basePath}participants.csv`;
+                    const entriesFilePath = `${basePath}entries.csv`;
 
-                    const response = await fetch(filePath);
+                    console.log(`Attempting to fetch: ${participantsFilePath}, ${entriesFilePath}`); // Отладочная информация
 
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch participants.csv: ${response.status} ${response.statusText}`);
+                    // Загружаем файл participants.csv
+                    const participantsResponse = await fetch(participantsFilePath);
+                    if (!participantsResponse.ok) {
+                        throw new Error(`Failed to fetch participants.csv: ${participantsResponse.status} ${participantsResponse.statusText}`);
                     }
-                    const csvText = await response.text();
+                    const participantsCsvText = await participantsResponse.text();
 
-                    // Разделяем CSV текст на строки и обрабатываем их
-                    const lines = csvText.split('\n').map(line => line.split(',').map(cell => cell.trim()));
-                    const headers = lines[0];
+                    // Загружаем файл entries.csv
+                    const entriesResponse = await fetch(entriesFilePath);
+                    if (!entriesResponse.ok) {
+                        throw new Error(`Failed to fetch entries.csv: ${entriesResponse.status} ${entriesResponse.statusText}`);
+                    }
+                    const entriesCsvText = await entriesResponse.text();
 
-                    // Находим индексы необходимых колонок
-                    const boatClassIndex = headers.indexOf('Event Abbrev');
-                    const organizationIndex = headers.indexOf('Crew');
-                    const participantsIndex = headers.indexOf('Stroke');
+                    // Обрабатываем файл participants.csv
+                    const participantLines = participantsCsvText.split('\n').map(line => line.split(',').map(cell => cell.trim()));
+                    const participantHeaders = participantLines[0];
+
+                    // Находим индексы необходимых колонок в participants.csv
+                    const boatClassIndex = participantHeaders.indexOf('Event Abbrev');
+                    const organizationIndex = participantHeaders.indexOf('Crew');
+                    const participantsIndex = participantHeaders.indexOf('Stroke');
 
                     if (boatClassIndex === -1 || organizationIndex === -1 || participantsIndex === -1) {
                         console.error('Required columns are missing in participants.csv');
                         return;
                     }
 
-                    // Проходим по каждой строке данных
-                    lines.slice(1).forEach(row => {
-                        const boatClass = row[boatClassIndex] || 'Unknown'; // Обработка случая, если значение undefined
-                        let organization = row[organizationIndex] || 'Unknown'; // Обработка случая, если значение undefined
+                    // Проходим по каждой строке данных participants.csv
+                    participantLines.slice(1).forEach(row => {
+                        const organization = row[organizationIndex] || 'Unknown'; // Обработка случая, если значение undefined
                         let participants = row[participantsIndex] || ''; // Обработка случая, если значение undefined
 
                         // Если есть " | ", то организация перед ним
                         if (participants.includes(' | ')) {
                             const parts = participants.split(' | ');
-                            organization = parts[0] || organization; // Используем значение из CSV или 'Unknown'
                             participants = parts[1] || ''; // Используем значение из CSV или пустую строку
                         }
 
                         if (!stats[organization]) {
                             stats[organization] = { boatClasses: 0, uniqueAthletes: new Set(), totalAthletes: 0 };
                         }
-                        stats[organization].boatClasses += 1;
 
                         // Подсчитываем всех участников
                         const participantList = participants.split('<br>').map(participant => participant.trim());
@@ -601,6 +608,31 @@
                         });
                     });
 
+                    // Обрабатываем файл entries.csv
+                    const entryLines = entriesCsvText.split('\n').map(line => line.split(',').map(cell => cell.trim()));
+                    const entryHeaders = entryLines[0];
+
+                    // Находим индексы необходимых колонок в entries.csv
+                    const entryOrganizationIndex = entryHeaders.indexOf('Crew');
+
+                    if (entryOrganizationIndex === -1) {
+                        console.error('Required columns are missing in entries.csv');
+                        return;
+                    }
+
+                    // Проходим по каждой строке данных entries.csv и считаем количество лодок
+                    entryLines.slice(1).forEach(row => {
+                        const organization = row[entryOrganizationIndex] || 'Unknown'; // Обработка случая, если значение undefined
+
+                        if (!stats[organization]) {
+                            stats[organization] = { boatClasses: 0, uniqueAthletes: new Set(), totalAthletes: 0 };
+                        }
+
+                        // Увеличиваем количество лодок
+                        stats[organization].boatClasses += 1;
+                    });
+
+                    // Отображаем статистику
                     entryListContainer.innerHTML = '';
                     const table = document.createElement('table');
                     table.classList.add('table', 'table-hover', 'table-bordered');
@@ -630,7 +662,7 @@
                             // Создаем ячейку с изображением флага клуба и названием
                             const flagAndNameCell = document.createElement('td');
                             const flagImg = document.createElement('img');
-                            const flagPath = `entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/flags/${club}.svg`;
+                            const flagPath = `${basePath}flags/${club}.svg`;
                             flagImg.src = flagPath; // Путь к SVG изображению
                             flagImg.alt = `${club} Flag`; // Альтернативный текст для доступности
                             flagImg.style.width = '30px'; // Установите фиксированную ширину изображения (при необходимости)

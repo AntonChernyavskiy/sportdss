@@ -64,111 +64,227 @@ document.addEventListener('DOMContentLoaded', function () {
                     .catch(() => false);
             }
 
-            function createEventListItem(event, container, isPastEvent) {
+            function createUpcomingEventListItem(event, container) {
                 const cardDiv = document.createElement('div');
-                cardDiv.classList.add('card');
-                cardDiv.style.marginBottom = '10px';
+                cardDiv.classList.add('card', 'mb-3');
+                cardDiv.style.borderColor = '#2d8401'; // Зеленая рамка по умолчанию
             
                 const cardBodyDiv = document.createElement('div');
                 cardBodyDiv.classList.add('card-body');
                 cardBodyDiv.style.padding = '0.9rem';
             
+                const h5Title = document.createElement('h5');
+                h5Title.classList.add('card-title');
+                h5Title.textContent = event.name;
+            
+                const h6Subtitle = document.createElement('h6');
+                h6Subtitle.classList.add('card-subtitle', 'mb-2', 'text-muted');
+                h6Subtitle.textContent = event.date;
+            
+                cardBodyDiv.appendChild(h5Title);
+                cardBodyDiv.appendChild(h6Subtitle);
+                cardBodyDiv.appendChild(document.createElement('hr'));
+            
+                // Отображаем мероприятие, даже если папка не существует
+                fetch(`../entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/config.json`)
+                    .then(response => response.json())
+                    .then(config => {
+                        fetchCurrentUTC().then(currentDate => {
+                            const registrationStartDate = new Date(config.registrationStartDate);
+                            const registrationEndDate = new Date(config.registrationEndDate);
+                            const statusIndicator = document.createElement('span');
+                            statusIndicator.classList.add('status-indicator');
+            
+                            const registrationInfo = document.createElement('p');
+                            registrationInfo.style.fontSize = 'small';
+                            registrationInfo.classList.add('card-text');
+            
+                            let registrationStatus;
+                            let borderColor = '#2d8401'; // Зеленый по умолчанию
+            
+                            if (currentDate < registrationStartDate) {
+                                registrationStatus = 'pieteikšanas nav sākušas';
+                                borderColor = '#ffc107'; // Светло-желтый цвет для не начавшихся мероприятий
+                            } else if (currentDate > registrationEndDate) {
+                                registrationStatus = 'pieteikšanas ir slēgtas';
+                                borderColor = '#dc3545'; // Красный цвет для закрытых регистраций
+                            } else {
+                                registrationStatus = 'pieteikšanas aktīvas';
+                            }
+            
+                            statusIndicator.style.backgroundColor = borderColor;
+                            registrationInfo.innerHTML = `${statusIndicator.outerHTML} ${registrationStatus}<br>`;
+                            cardBodyDiv.appendChild(registrationInfo);
+                            cardBodyDiv.appendChild(document.createElement('hr'));
+            
+                            const registrationTerm = document.createElement('div');
+                            registrationTerm.innerHTML = `
+                                <i class="far fa-edit"></i>
+                                <span style="font-size: small;">pieteikšanas termiņš: </span>
+                                <span style="font-weight: bold; font-size: small;">${registrationStartDate.toLocaleDateString()} | ${registrationEndDate.toLocaleDateString()}</span>
+                            `;
+                            cardBodyDiv.appendChild(registrationTerm);
+            
+                            const btnGroupDiv = document.createElement('div');
+                            btnGroupDiv.classList.add('btn-group', 'btn-group-sm');
+                            btnGroupDiv.setAttribute('role', 'group');
+            
+                            // Добавляем кнопку регистрации, если регистрация активна
+                            if (registrationStatus === 'pieteikšanas aktīvas') {
+                                const registerBtn = document.createElement('a');
+                                registerBtn.classList.add('btn', 'btn-secondary');
+                                registerBtn.href = '#'; // Избегаем перезагрузки страницы
+                                registerBtn.textContent = 'pieteikties';
+                                registerBtn.setAttribute('data-event', event.name);
+                                registerBtn.setAttribute('data-date', event.date);
+                                btnGroupDiv.appendChild(registerBtn);
+            
+                                // Event listener для кнопки регистрации
+                                registerBtn.addEventListener('click', function (event) {
+                                    event.preventDefault();
+                                    const eventName = event.target.getAttribute('data-event');
+                                    const eventDate = event.target.getAttribute('data-date');
+                                    if (eventName && eventDate) {
+                                        fetchAndDisplayRegistrationForm(eventName, eventDate);
+                                    } else {
+                                        console.error('Missing eventName or eventDate');
+                                    }
+                                });
+                            }
+            
+                            // Всегда добавляем кнопку "dalībnieku saraksts"
+                            const entryListBtn = document.createElement('a');
+                            entryListBtn.classList.add('btn', 'btn-secondary');
+                            entryListBtn.href = `https://sportdss.eu/entrylist/?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}`;
+                            entryListBtn.textContent = 'dalībnieku saraksts';
+                            btnGroupDiv.appendChild(entryListBtn);
+            
+                            cardBodyDiv.appendChild(document.createElement('hr'));
+                            cardBodyDiv.appendChild(btnGroupDiv);
+            
+                            cardDiv.style.borderColor = borderColor; // Установка цвета рамки в зависимости от состояния
+                            cardDiv.appendChild(cardBodyDiv);
+                            container.appendChild(cardDiv);
+                        });
+                    })
+                    .catch(error => {
+                        console.warn('Config file not found or error fetching config:', error);
+                        // Добавляем карточку без конфигурации
+                        container.appendChild(cardDiv);
+                    });
+            }            
+            
+            function createPastEventListItem(event, container) {
+                const cardDiv = document.createElement('div');
+                cardDiv.classList.add('card');
+                cardDiv.style.marginBottom = '10px';
+                
+                const cardBodyDiv = document.createElement('div');
+                cardBodyDiv.classList.add('card-body');
+                cardBodyDiv.style.padding = '0.9rem';
+                
                 const h6Title = document.createElement('h6');
                 h6Title.classList.add('card-title');
                 h6Title.textContent = event.name;
-            
+                
                 const h6Subtitle = document.createElement('h6');
                 h6Subtitle.classList.add('card-subtitle', 'mb-2', 'text-muted');
                 h6Subtitle.style.fontSize = 'small';
                 h6Subtitle.textContent = event.date;
-            
+                
                 const btnGroupDiv = document.createElement('div');
                 btnGroupDiv.classList.add('btn-group', 'btn-group-sm');
                 btnGroupDiv.setAttribute('role', 'group');
-            
+                
                 const resultBtn = document.createElement('a');
                 resultBtn.classList.add('btn', 'btn-secondary');
                 resultBtn.href = 'https://sportdss.eu/results';
-                resultBtn.textContent = 'Rezultāti';
+                resultBtn.textContent = 'starta un finiša protokoli';
                 resultBtn.setAttribute('data-event', event.name);
-            
+                
                 btnGroupDiv.appendChild(resultBtn);
-            
+                
                 const entriesCsvPath = `../entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/entries.csv`;
-            
+                
                 checkFileExists(entriesCsvPath).then(fileExists => {
                     if (fileExists) {
                         const entryListBtn = document.createElement('a');
                         entryListBtn.classList.add('btn', 'btn-secondary');
                         entryListBtn.href = `https://sportdss.eu/entrylist/?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}`;
-                        entryListBtn.textContent = 'Dalībnieki';
+                        entryListBtn.textContent = 'dalībnieku saraksts';
                         btnGroupDiv.appendChild(entryListBtn);
                     }
+                    
+                    // Добавляем карточку в контейнер до проверки доступности регистрации
+                    cardBodyDiv.appendChild(h6Title);
+                    cardBodyDiv.appendChild(h6Subtitle);
+                    cardBodyDiv.appendChild(btnGroupDiv);
+                    cardDiv.appendChild(cardBodyDiv);
+                    container.appendChild(cardDiv);
             
+                    // Попробуйте загрузить конфигурацию мероприятия
                     fetch(`../entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/config.json`)
                         .then(response => response.json())
                         .then(config => {
                             fetchCurrentUTC().then(currentDate => {
                                 const registrationStartDate = new Date(config.registrationStartDate);
                                 const registrationEndDate = new Date(config.registrationEndDate);
-            
-                                if (currentDate < registrationStartDate) {
-                                    cardDiv.classList.add('registration-not-started');
-                                } else if (currentDate > registrationEndDate) {
-                                    cardDiv.classList.add('registration-ended');
-                                } else {
-                                    cardDiv.classList.add('registration-open');
-            
-                                    const registrationInfo = document.createElement('div');
-                                    registrationInfo.textContent = `Pieteikšanas termiņš ${registrationStartDate.toLocaleDateString()} - ${registrationEndDate.toLocaleDateString()}`;
-                                    registrationInfo.classList.add('registration-info');
-                                    cardBodyDiv.appendChild(registrationInfo);
+                                
+                                // Проверка срока подачи заявок
+                                if (currentDate >= registrationStartDate && currentDate <= registrationEndDate) {
+                                    // Если регистрация доступна
+                                    cardDiv.style.borderColor = '#2d8401'; // Зелёная рамка для мероприятий с валидным сроком
             
                                     const registerBtn = document.createElement('a');
-                                    registerBtn.classList.add('btn', 'btn-secondary', 'register-btn');
-                                    registerBtn.href = '#'; // Avoid page reload
-                                    registerBtn.textContent = 'Pieteikties';
+                                    registerBtn.classList.add('btn', 'btn-secondary');
+                                    registerBtn.href = '#'; // Избегаем перезагрузки страницы
+                                    registerBtn.textContent = 'pieteikties';
                                     registerBtn.setAttribute('data-event', event.name);
                                     registerBtn.setAttribute('data-date', event.date);
-            
                                     btnGroupDiv.appendChild(registerBtn);
             
-                                    registerBtn.addEventListener('click', function (event) {
-                                        event.preventDefault();
-                                        const eventName = event.target.getAttribute('data-event');
-                                        const eventDate = event.target.getAttribute('data-date');
+                                    // Event listener для кнопки регистрации
+                                    registerBtn.addEventListener('click', function (e) {
+                                        e.preventDefault();
+                                        const eventName = e.target.getAttribute('data-event');
+                                        const eventDate = e.target.getAttribute('data-date');
                                         if (eventName && eventDate) {
                                             fetchAndDisplayRegistrationForm(eventName, eventDate);
                                         } else {
                                             console.error('Missing eventName or eventDate');
                                         }
                                     });
-                                }
-            
-                                if (currentDate > registrationEndDate) {
-                                    cardDiv.classList.remove('registration-open', 'registration-not-started', 'registration-ended');
-                                    if (cardBodyDiv.querySelector('.registration-info')) {
-                                        cardBodyDiv.querySelector('.registration-info').remove();
-                                    }
-                                    if (btnGroupDiv.querySelector('.register-btn')) {
-                                        btnGroupDiv.querySelector('.register-btn').remove();
-                                    }
+                                    
+                                    // Добавляем информацию о сроке регистрации
+                                    const registrationTerm = document.createElement('div');
+                                    registrationTerm.innerHTML = `
+                                        <i class="far fa-edit"></i>
+                                        <span style="font-size: small;">pieteikšanas termiņš: </span>
+                                        <span style="font-weight: bold; font-size: small;">${registrationStartDate.toLocaleDateString()} | ${registrationEndDate.toLocaleDateString()}</span>
+                                    `;
+                                    cardBodyDiv.appendChild(registrationTerm);
+                                } else {
+                                    // Если регистрация не доступна, рамка остается серой
+                                    cardDiv.style.borderColor = '#e0e0e0'; // Серый цвет по умолчанию
                                 }
                             });
+                        })
+                        .catch(error => {
+                            console.warn('Config file not found or error fetching config:', error);
+                            // Ничего не меняем в случае ошибки, карточка уже добавлена
                         });
-            
-                    if (isPastEvent) {
-                        btnGroupDiv.classList.add('past-event-buttons');
-                    }
                 });
-            
-                cardBodyDiv.appendChild(h6Title);
-                cardBodyDiv.appendChild(h6Subtitle);
-                cardBodyDiv.appendChild(btnGroupDiv);
-            
-                cardDiv.appendChild(cardBodyDiv);
-                container.appendChild(cardDiv);
-            }            
+            }
+                   
+            // Основная функция, которая вызывает соответствующую функцию для каждого мероприятия
+            function createEventListItem(event, container, isPastEvent) {
+                if (isPastEvent) {
+                    createPastEventListItem(event, container);
+                } else {
+                    createUpcomingEventListItem(event, container);
+                }
+            }
+                        
 
             upcomingEvents.forEach(event => createEventListItem(event, startlistsContainer, false));
             pastEvents.sort((a, b) => new Date(b.date) - new Date(a.date));

@@ -4,9 +4,8 @@ const fs = require('fs').promises;
 const fileUpload = require('express-fileupload');
 const moment = require('moment');
 const etag = require('etag');
+const bodyParser = require('body-parser');
 
-const { requiresAuth } = require('express-openid-connect');
-const { auth } = require('express-openid-connect');
 require('dotenv').config();
 
 const app = express();
@@ -15,26 +14,11 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(fileUpload());
 
-const config = {
-    authRequired: false,
-    auth0Logout: true,
-    secret: process.env.SECRET || 'a long, randomly-generated string stored in env',
-    baseURL: process.env.BASE_URL || 'https://sportdss.eu',
-    clientID: process.env.CLIENT_ID || 'yT2he6zIWN8rXoC2YouxeA0WrpLp0KL1',
-    issuerBaseURL: process.env.ISSUER_BASE_URL || 'https://dev-xuenlyj535dnppsd.us.auth0.com'
-};
-
-app.use(auth(config));
-
-app.use((req, res, next) => {
-    const protectedPaths = ['/admin.html', '/admin_entries.html'];
-    if (protectedPaths.includes(req.path) && (!req.oidc.isAuthenticated() || req.oidc.user.sub !== 'google-oauth2|102340706795534265787')) {
-        return res.status(403).send('Access Forbidden');
-    }
-    next();
-});
-
 const version = Date.now();
+
+app.get('/server-time', (req, res) => {
+    res.json({ utcTime: new Date().toISOString() });
+});
 
 app.use((req, res, next) => {
     res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
@@ -51,31 +35,6 @@ app.use((req, res, next) => {
         res.setHeader('ETag', etag(path));
     }
 }));
-
-// Serve protected admin.html
-app.get('/admin.html', requiresAuth(), (req, res) => {
-    const sub = req.oidc.user.sub;
-    if (sub === 'google-oauth2|102340706795534265787') {
-        res.sendFile(path.join(__dirname, 'public', 'admin.html'));
-    } else {
-        res.status(403).send('Access Forbidden'); // Unauthorized access
-    }
-});
-
-// Serve protected admin_entries.html
-app.get('/admin_entries.html', requiresAuth(), (req, res) => {
-    const sub = req.oidc.user.sub;
-    if (sub === 'google-oauth2|102340706795534265787') {
-        res.sendFile(path.join(__dirname, 'public', 'admin_entries.html'));
-    } else {
-        res.status(403).send('Access Forbidden'); // Unauthorized access
-    }
-});
-
-// Logout route
-app.get('/logout', (req, res) => {
-    res.oidc.logout();
-});
 
 // Get list of files in the files directory
 app.get('/files', async (req, res) => {
@@ -110,120 +69,6 @@ app.get('/files/:eventName', async (req, res) => {
     } catch (err) {
         // console.error('Error reading event directory:', err);
         // res.status(500).send('Unable to scan event directory');
-    }
-});
-
-// Create folder and config file for events
-app.post('/create-folder_entrySys', async (req, res) => {
-    const { date, name, path: basePath } = req.body;
-    const folderName = `${date}  ${name}`;
-    const folderPath = path.join(__dirname, 'public', basePath, folderName);
-
-    try {
-        await fs.mkdir(folderPath, { recursive: true });
-
-        const registrationStartDate = moment().add(1, 'days').format();
-        const registrationEndDate = moment(date, 'YYYY-MM-DD').subtract(2, 'days').set({ hour: 20, minute: 59, second: 59 }).format();
-
-        const configPath = path.join(folderPath, 'config.json');
-        const csvPath = path.join(folderPath, 'entries.csv');
-
-        const defaultConfig = {
-            organizations: [
-                "MSĢ TSV SASS",
-                "MSĢ TSV Jūrmala",
-                "Daugavpils Sporta skola",
-                "Jelgavas BJSS",
-                "LATC",
-                "Rīgas Airētāju klubs",
-                "Lielupes airēšanas klubs",
-                "Airusports",
-                "Other"
-            ],
-            boatClasses: [
-                { class: "Select" },
-                { class: "M1x", participants: 1 },
-                { class: "W1x", participants: 1 },
-                { class: "M2x", participants: 2 },
-                { class: "W2x", participants: 2 },
-                { class: "M2-", participants: 2 },
-                { class: "W2-", participants: 2 },
-                { class: "M4x", participants: 4 },
-                { class: "W4x", participants: 4 },
-                { class: "M4-", participants: 4 },
-                { class: "W4-", participants: 4 },
-                { class: "M8+", participants: 9, coxswainIndex: 8, coxswainName: "Sturmanis" },
-                { class: "W8+", participants: 9, coxswainIndex: 8, coxswainName: "Sturmanis" }
-            ],
-            registrationStartDate: registrationStartDate,
-            registrationEndDate: registrationEndDate
-        };
-
-        await fs.writeFile(configPath, JSON.stringify(defaultConfig, null, 2), 'utf8');
-
-        const csvData = `Event Abbrev,Crew,Stroke,Contact Information,Coach,Time`;
-
-        await fs.writeFile(csvPath, csvData, 'utf8');
-
-        res.status(200).send('Folder, config.json, and entries.csv created successfully');
-    } catch (err) {
-        // console.error('Error creating folder, config.json, or entries.csv:', err);
-        // res.status(500).send('Failed to create folder, config.json, or entries.csv');
-    }
-});
-
-// Delete a folder
-app.post('/delete-folder_entrySys', async (req, res) => {
-    const { date, name } = req.body;
-    const folderName = `${date}  ${name}`;
-    const folderPath = path.join(__dirname, 'public', 'entrySys', folderName);
-
-    try {
-        await fs.rmdir(folderPath, { recursive: true });
-        res.status(200).send('Folder deleted successfully');
-    } catch (err) {
-        console.error('Error deleting folder:', err);
-        res.status(500).send('Failed to delete folder');
-    }
-});
-
-// Upload a file
-app.post('/upload-file', requiresAuth(), async (req, res) => {
-    try {
-        if (!req.files || Object.keys(req.files).length === 0) {
-            return res.status(400).send('No files were uploaded.');
-        }
-
-        const { eventDate, eventName } = req.body;
-        const eventFolder = `${eventDate}  ${eventName}`;
-        const uploadDir = path.join(__dirname, 'public', 'files', eventFolder);
-
-        await fs.mkdir(uploadDir, { recursive: true });
-
-        const uploadedFile = req.files.file;
-        const filePath = path.join(uploadDir, uploadedFile.name);
-
-        await uploadedFile.mv(filePath);
-
-        res.status(200).send('File uploaded successfully');
-    } catch (err) {
-        console.error('Error uploading file:', err);
-        res.status(500).send('Failed to upload file');
-    }
-});
-
-// Delete a file
-app.delete('/delete-file/:eventName/:fileName', requiresAuth(), async (req, res) => {
-    try {
-        const { eventName, fileName } = req.params;
-        const eventDirectory = path.join(__dirname, 'public', 'files', eventName);
-        const filePath = path.join(eventDirectory, fileName);
-
-        await fs.unlink(filePath);
-        res.status(200).send('File deleted successfully');
-    } catch (err) {
-        console.error('Error deleting file:', err);
-        res.status(500).send('Failed to delete file');
     }
 });
 
@@ -263,68 +108,6 @@ app.get('/entrySys/:eventName/config.json', async (req, res) => {
         // console.error('Error reading config.json:', err);
         // res.status(500).send('Unable to read config.json');
     }
-});
-
-// Update config.json for a specific event
-app.put('/entrySys/:eventName/config.json', requiresAuth(), async (req, res) => {
-    try {
-        const eventName = req.params.eventName;
-        const configPath =  path.join(__dirname, 'public', 'entrySys', eventName, 'config.json');
-        const configData = JSON.stringify(req.body, null, 2);
-        await fs.writeFile(configPath, configData, 'utf8');
-        res.status(200).send('Config.json saved successfully');
-    } catch (err) {
-        console.error('Error saving config.json:', err);
-        res.status(500).send('Unable to save config.json');
-    }
-});
-
-// Delete an event folder
-app.delete('/entrySys/:eventName', requiresAuth(), async (req, res) => {
-    try {
-        const eventName = req.params.eventName;
-        const eventDirectory = path.join(__dirname, 'public', 'entrySys', eventName);
-        await fs.rmdir(eventDirectory, { recursive: true });
-        res.status(200).send('Event folder deleted successfully');
-    } catch (err) {
-        console.error('Error deleting event folder:', err);
-        res.status(500).send('Failed to delete event folder');
-    }
-});
-
-// Create a folder in files directory
-app.post('/create-folder', async (req, res) => {
-    const { date, name } = req.body;
-    const folderName = `${date}  ${name}`;
-    const folderPath = path.join(__dirname, 'public', 'files', folderName);
-
-    try {
-        await fs.mkdir(folderPath, { recursive: true });
-        res.status(200).send('Folder created successfully');
-    } catch (err) {
-        console.error('Error creating folder:', err);
-        res.status(500).send('Failed to create folder');
-    }
-});
-
-// Delete a folder in files directory
-app.post('/delete-folder', async (req, res) => {
-    const { date, name } = req.body;
-    const folderName = `${date}  ${name}`;
-    const folderPath = path.join(__dirname, 'public', 'files', folderName);
-
-    try {
-        await fs.rmdir(folderPath, { recursive: true });
-        res.status(200).send('Folder deleted successfully');
-    } catch (err) {
-        console.error('Error deleting folder:', err);
-        res.status(500).send('Failed to delete folder');
-    }
-});
-
-// Get user profile
-app.get('/profile', requiresAuth(), (req, res) => {
-    res.send(JSON.stringify(req.oidc.user));
 });
 
 // Submit an entry
@@ -413,16 +196,23 @@ app.post('/submit-entry', async (req, res) => {
     }
 });
 
-// Download entries.csv for a specific event
-app.get('/download-entries/:eventName', requiresAuth(), async (req, res) => {
-    try {
-        const eventName = req.params.eventName;
-        const csvPath = path.join(__dirname, 'public', 'entrySys', eventName, 'entries.csv');
-        res.download(csvPath);
-    } catch (err) {
-        console.error('Error downloading entries.csv:', err);
-        res.status(500).send('Unable to download entries.csv');
-    }
+// app.use((req, res, next) => {
+//     res.redirect('https://sportdss.eu/');
+// });
+
+app.use(bodyParser.urlencoded({ extended: true })); // Для обработки данных формы
+
+// Маршрут для обработки данных опроса
+app.post('/submit-survey', (req, res) => {
+    const surveyResults = req.body;
+
+    // Обработка результатов
+    console.log('Ответы опроса:', surveyResults);
+
+    // Здесь можно добавить логику сохранения данных в базу
+    // Например, с использованием MongoDB или другой базы данных
+
+    res.send('Данные опроса успешно получены');
 });
 
 // Start the server

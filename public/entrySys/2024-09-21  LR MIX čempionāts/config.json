@@ -1,0 +1,24 @@
+{
+  "organizations": [
+    "AK Lielupe",
+    "AK Daugava",
+    "Daugavpils Sporta skola",
+    "Jelgavas BJSS",
+    "LATC",
+    "MSĢ TSV Jūrmala",
+    "MSĢ TSV SASS",
+    "RAK1872",
+    "Other"
+  ],
+  "boatClasses": [
+    {
+      "class": "Select"
+    },
+    {
+      "class": "Mix2x",
+      "participants": 2
+    }
+  ],
+  "registrationStartDate": "2024-09-08T21:00:00Z",
+  "registrationEndDate": "2024-09-18T19:00:00Z"
+}

@@ -1,0 +1,98 @@
+.table-header {
+    text-align: left;
+    background-color: #f0f0f0; /* Серый фон */
+    box-sizing: border-box;
+    padding: 12px;
+    vertical-align: bottom;
+    font-size: 16px;
+    border-collapse: collapse;
+    font-family: "Exo 2";
+    color: rgb(33, 37, 41);
+    font-weight: 700;
+    line-height: normal;
+    border: 1px 1px 2px solid rgb(222, 226, 230);
+}
+
+.club-header {
+    text-align: left;
+    background-color: #f0f0f0; /* Серый фон */
+    box-sizing: border-box;
+    padding: 12px;
+    vertical-align: bottom;
+    font-size: 16px;
+    border-collapse: collapse;
+    font-family: "Exo 2";
+    color: rgb(33, 37, 41);
+    font-weight: 700;
+    line-height: normal;
+    border: 1px 1px 2px solid rgb(222, 226, 230);
+}
+
+.table-header .competition-number {
+    text-align: left;
+    background-color: #f0f0f0; /* Серый фон */
+    box-sizing: border-box;
+    padding: 12px;
+    vertical-align: bottom;
+    font-size: 16px;
+    border-collapse: collapse;
+    font-family: "Exo 2";
+    color: rgb(33, 37, 41);
+    font-weight: 700;
+    line-height: normal;
+    border: 1px 1px 2px solid rgb(222, 226, 230);
+}
+
+.table-header .competition-symbol {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.table-header .competition-description {
+    font-weight: normal;
+}
+
+.table-header-time {
+    color: rgb(119, 119, 119);
+    font-size: 12px;
+    font-weight: 400;
+    background-color: rgb(243, 243, 243);
+    padding: 12px;
+    box-sizing: border-box;
+    text-align: start;
+    border: 1px solid rgb(222, 226, 230);
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden; /* Hide overflowed content */
+    text-overflow: ellipsis; /* Show ellipsis for overflowed content */
+}
+
+.btn-group .btn {
+    border-radius: 0;
+    margin-right: 5px;
+    padding: 8px 16px; /* Add padding for better touch area */
+    font-size: 14px; /* Slightly increase font size */
+}
+
+.btn-group .btn.active,
+.btn-group .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: 1px solid #007bff; /* Add border for better visibility */
+}
+
+.btn-group .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+    border: 1px solid #6c757d; /* Add border for better visibility */
+}
+
+.btn-group .btn:not(.active):not(.btn-primary) {
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 1px solid #dee2e6; /* Add border for better visibility */
+}
+
+.table td,
+.table th {
+    padding: 8px; /* Adjust padding for better readability */
+}

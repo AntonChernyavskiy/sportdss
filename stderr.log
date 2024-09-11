@@ -6977,3 +6977,2477 @@ Error reading config.json: Error: ENOENT: no such file or directory, open '/var/
   syscall: 'open',
   path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-16 Test/config.json'
 }
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+(node:2511846) [DEP0147] DeprecationWarning: In future versions of Node.js, fs.rmdir(path, { recursive: true }) will be removed. Use fs.rm(path, { recursive: true }) instead
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1245:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:252:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:263:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-09-14  LR čempionāts sprintā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-07-20  Daugavpils VI Starptautiskais Dragon Boat festivāls/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2024-05-18  Daugavpils Sporta skolas slēgtais čempionāts airēšanā/config.json'
+}
+Error reading config.json: Error: ENOENT: no such file or directory, open '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+    at async open (node:internal/fs/promises:638:25)
+    at async Object.readFile (node:internal/fs/promises:1238:14)
+    at async /var/www/vhosts/sportdss.eu/httpdocs/server.js:260:28 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '/var/www/vhosts/sportdss.eu/httpdocs/public/entrySys/2023-12-29  Daugavpils Sporta skolas Ziemassvētku sacensības airēšanā/config.json'
+}
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0
+/var/www/vhosts/sportdss.eu/httpdocs/server.js:17
+app.use(auth(config));
+    ^
+
+ReferenceError: auth is not defined
+    at Object.<anonymous> (/var/www/vhosts/sportdss.eu/httpdocs/server.js:17:5)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10)
+    at Module.load (node:internal/modules/cjs/loader:1317:32)
+    at Module._load (node:internal/modules/cjs/loader:1127:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:126:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+
+Node.js v22.7.0

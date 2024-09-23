@@ -724,11 +724,14 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const eventParam = urlParams.get('event');
                     const dateParam = urlParams.get('date');
+
                     if (eventParam && dateParam) {
-                        fetchAndDisplayResults(eventParam, dateParam);
+                        const novelty = ''; // Укажите здесь значение novelty, если оно фиксировано, или получите его из другого источника
+                        fetchAndDisplayResults(eventParam, dateParam, novelty);
                         const modal = document.getElementById('myModal');
                         modal.style.display = 'flex';
                     }
+
                 });
         });
     </script>    

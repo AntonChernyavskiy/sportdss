@@ -303,7 +303,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 			// Создание элементов списка для предстоящих и прошедших мероприятий
 			upcomingEvents.forEach(event => createEventListItem(event, startlistsContainer, false));
-            pastEvents.sort((a, b) => new Date(b.date) - new Date(a.date));
+            pastEvents.sort((a, b) => {
+				const dateA = new Date(a.date);
+				const dateB = new Date(b.date);
+				return dateB - dateA;
+			});
             pastEvents.forEach(event => createEventListItem(event, competitionsContainer, true));
 
             let boatClasses = [];
@@ -509,7 +513,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             <div id="participant-info" class="participant-info"></div>
                         </div><br>
                         <div class="">
-                            <label for="coach-information">Coach / Treneris:</label>
+                            <label for="coach-information">Coach / Treneris <i>(Atsevišķus cilvēkus norādīt caur komatu)</i>: </label>
                             <input type="text" id="coach-information" name="coachInformation">
                         </div>
                         <div class="">

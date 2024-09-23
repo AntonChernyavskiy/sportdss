@@ -7,20 +7,20 @@ JW1x,Jelgavas BJSS,SADIGOVA Liāna 08
 JM1x,Jelgavas BJSS,SAVEĻJEVS Makims 08
 JM1x,Jelgavas BJSS,LIEPIŅŠ Kristers 09
 JM1x,Jelgavas BJSS,GAROZA Jānis 09
-JM2x,Jelgavas BJSS,GAROZA Jānis 09
 JW2x,Jelgavas BJSS,SADIGOVA Liāna 08
 JW2x,Jelgavas BJSS,MINAJEVA Alija 09
 JW2x,Jelgavas BJSS,LIEPINA Rebeka 14
 JW2x,Jelgavas BJSS,BONDARE Beāte 08   
 JW2x,Jelgavas BJSS,VOVERE Nora 10   
-JW4x,Jelgavas BJSS,SADIGOVA Liāna 08   
-JW4x,Jelgavas BJSS,VOVERE Nora 10   
-JW4x,Jelgavas BJSS,MINAJEVA Alija 09
+JW2x,Jelgavas BJSS,PLŪDUMA Marta 09   
+JM2x,Jelgavas BJSS,GAROZA Jānis 09
+JM2x,Jelgavas BJSS,LIEPIŅŠ Kristers 09   
 JM4x,Jelgavas BJSS,SAVEĻJEVS Makims 08   
 JM4x,Jelgavas BJSS,LULBERGS HERMANIS Toms 12   
 JM4x,Jelgavas BJSS,LIEPIŅŠ Kristers 09
-JW2x,Jelgavas BJSS,PLŪDUMA Marta 09   
-JM2x,Jelgavas BJSS,LIEPIŅŠ Kristers 09   
+JW4x,Jelgavas BJSS,MINAJEVA Alija 09
+JW4x,Jelgavas BJSS,VOVERE Nora 10   
+JW4x,Jelgavas BJSS,SADIGOVA Liāna 08   
 JW4x,Jelgavas BJSS,BONDARE Beāte 08   
 JM4x,Jelgavas BJSS,GAROZA Jānis 09   
 JM1x,MSĢ TSV SASS,RASA Henriks 08
@@ -37,15 +37,6 @@ JM1x,MSĢ TSV SASS,ĶEKSIS Henrijs Oto 09
 JM1x,MSĢ TSV SASS,FREIMANIS Linards 09
 JM1x,MSĢ TSV SASS,KRIEVĀNS Renārs 09
 JM1x,MSĢ TSV SASS,BOZDORFS Raivo 08
-JM2x,MSĢ TSV SASS,RASA Henriks 08
-JM2x,MSĢ TSV SASS,RASA Frederiks 09
-JM2x,MSĢ TSV SASS,EZERS Edvards 08
-JM2x,MSĢ TSV SASS,ELSTS Eduards 09
-JM2x,MSĢ TSV SASS,KUPLIS Jānis  09
-JM2x,MSĢ TSV SASS,KRŪMIŅŠ Mareks 09
-JM2x,MSĢ TSV SASS,KRIEVĀNS Renārs 09
-JM2x,MSĢ TSV SASS,KĻAVIŅS Edvards 09
-JM2x,MSĢ TSV SASS,BOZDORFS Raivo 08
 JM2x,MSĢ TSV SASS,SKIRMANTS Henrijs 08
 JM2x,MSĢ TSV SASS,BĒRZIŅŠ Krists 08
 JM2x,MSĢ TSV SASS,RAFAELS Ralfs 09
@@ -55,10 +46,6 @@ JM2x,MSĢ TSV SASS,ĶEKSIS Henrijs Oto 09
 JM2x,MSĢ TSV SASS,FREIMANIS Linards 09
 JM2x,MSĢ TSV SASS,TEICĀNS Edgars 09
 JM2x,MSĢ TSV SASS,GRINŠTEINS Ralfs 09
-JM4x,MSĢ TSV SASS,RASA Frederiks 09
-JM4x,MSĢ TSV SASS,ELSTS Eduards 09
-JM4x,MSĢ TSV SASS,KRŪMIŅŠ Mareks 09
-JM4x,MSĢ TSV SASS,FREIMANIS Linards 09
 JM4x,MSĢ TSV SASS,BĒRZIŅŠ Krists 08
 JM4x,MSĢ TSV SASS,PAMOVSKIS Elgars 09
 JM4x,MSĢ TSV SASS,MORIS Emīls 08
@@ -67,6 +54,19 @@ JM4x,MSĢ TSV SASS,RASA Henriks 08
 JM4x,MSĢ TSV SASS,RAFAELS Ralfs 09
 JM4x,MSĢ TSV SASS,ĶEKSIS Henrijs Oto 09
 JM4x,MSĢ TSV SASS,TEICĀNS Edgars 09
+JM4x,MSĢ TSV SASS,RASA Frederiks 09
+JM4x,MSĢ TSV SASS,ELSTS Eduards 09
+JM4x,MSĢ TSV SASS,KRŪMIŅŠ Mareks 09
+JM4x,MSĢ TSV SASS,FREIMANIS Linards 09
+JM2x,MSĢ TSV SASS,RASA Henriks 08
+JM2x,MSĢ TSV SASS,RASA Frederiks 09
+JM2x,MSĢ TSV SASS,EZERS Edvards 08
+JM2x,MSĢ TSV SASS,ELSTS Eduards 09
+JM2x,MSĢ TSV SASS,KUPLIS Jānis  09
+JM2x,MSĢ TSV SASS,KRŪMIŅŠ Mareks 09
+JM2x,MSĢ TSV SASS,KRIEVĀNS Renārs 09
+JM2x,MSĢ TSV SASS,KĻAVIŅS Edvards 09
+JM2x,MSĢ TSV SASS,BOZDORFS Raivo 08
 JM4x,MSĢ TSV SASS,SKIRMANTS Henrijs 08
 JM4x,MSĢ TSV SASS,EZERS Edvards 08
 JM4x,MSĢ TSV SASS,KUPLIS Jānis  09
@@ -74,6 +74,12 @@ JM4x,MSĢ TSV SASS,KRIEVĀNS Renārs 09
 JW1x,MSĢ TSV SASS,INDĀNE Līva 08
 JW2x,MSĢ TSV SASS,RAČKO Evelīna 09
 JW2x,MSĢ TSV SASS,INDĀNE Līva 08
+JM2-,Daugavpils Sporta skola,JEGOROVS Maksims 09
+JM2-,Daugavpils Sporta skola,MIHAILOVS Timurs 09
+JM2-,Daugavpils Sporta skola,DOKTOROVS Artjoms 08
+JM2-,Daugavpils Sporta skola,LEDAKS Vladislavs 08   
+JM2-,Daugavpils Sporta skola,MURAVSKIS Grigorijs 08   
+JM2-,Daugavpils Sporta skola,PUŠKELIS Nikita 08   
 JM4x,Daugavpils Sporta skola,JEGOROVS Maksims 09
 JM4x,Daugavpils Sporta skola,UTĀNS Dainis 10
 JM4x,Daugavpils Sporta skola,MURAVSKIS Grigorijs 08   
@@ -82,17 +88,14 @@ JM4x,Daugavpils Sporta skola,MIHAILOVS Timurs 09
 JM4x,Daugavpils Sporta skola,DOKTOROVS Artjoms 08   
 JW2x,Daugavpils Sporta skola,VOLOSOVA Anastasija 09
 JW2x,Daugavpils Sporta skola,KAČALOVA Anastasija 12
-JM2-,Daugavpils Sporta skola,JEGOROVS Maksims 09
-JM2-,Daugavpils Sporta skola,MIHAILOVS Timurs 09
-JM2-,Daugavpils Sporta skola,DOKTOROVS Artjoms 08
-JM2-,Daugavpils Sporta skola,LEDAKS Vladislavs 08   
-JM2-,Daugavpils Sporta skola,MURAVSKIS Grigorijs 08   
-JM2-,Daugavpils Sporta skola,PUŠKELIS Nikita 08   
 JW2x,Daugavpils Sporta skola,SUŠKO Zlatolina 09   
 JW2x,Daugavpils Sporta skola,MAHLINA Marta 11   
 JM4x,Daugavpils Sporta skola,LEDAKS Vladislavs 08   
 JM4x,Daugavpils Sporta skola,PUŠKELIS Nikita 08   
 JW1x,Daugavpils Sporta skola,VOLOSOVA Anastasija 09
+JW4x,Daugavpils Sporta skola,ANCIFEROVA Jelizaveta 09   
+JW4x,Daugavpils Sporta skola,VOLOSOVA Anastasija 09    
+JW4x,Daugavpils Sporta skola,DANČONOKA Milana 10
 JM2x,Daugavpils Sporta skola,JEFREMOVS Andrejs 11
 JM2x,Daugavpils Sporta skola,UTĀNS Dainis 10
 JM2x,Daugavpils Sporta skola,MIHAILOVS Timurs 09
@@ -100,16 +103,13 @@ JM2x,Daugavpils Sporta skola,GOLOVKO Mihails 10
 JM2x,Daugavpils Sporta skola,BOGDANS Ričards 10   
 JM2x,Daugavpils Sporta skola,MURAVSKIS Grigorijs 08   
 JW4x,Daugavpils Sporta skola,SUŠKO Zlatolina 09   
-JW4x,Daugavpils Sporta skola,ANCIFEROVA Jelizaveta 09   
-JW4x,Daugavpils Sporta skola,VOLOSOVA Anastasija 09    
-JW4x,Daugavpils Sporta skola,DANČONOKA Milana 10
 JM1x,MSĢ TSV SASS,TRIŠKINS Ignatijs 08
 JM1x,MSĢ TSV SASS,TRIŠKINS Matvejs 08
 JW1x,MSĢ TSV SASS,RAČKO Evelīna 09
 JM2x,MSĢ TSV SASS,TRIŠKINS Matvejs 08
 JM2x,MSĢ TSV SASS,TRIŠKINS Ignatijs 08
+JM4x,MSĢ TSV SASS,HOFMANIS Markuss 08
+JM1x,MSĢ TSV SASS,PAMOVSKIS Elgars 09
 JM4x,MSĢ TSV SASS,RAGS Mātiss Roberts 08
 JM4x,MSĢ TSV SASS,VERDENS Marks 08
 JM4x,MSĢ TSV SASS,RAGS Normunds Dāvids 09
-JM4x,MSĢ TSV SASS,HOFMANIS Markuss 08
-JM1x,MSĢ TSV SASS,PAMOVSKIS Elgars 09

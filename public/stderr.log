@@ -1,0 +1,198 @@
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/var/www/vhosts/sportdss.eu/httpdocs/public//server.js'
+Require stack:
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:135:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnode.js:16:1)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/usr/local/lsws/fcgi-bin/lsnode.js' ]
+}
+
+Node.js v22.8.0
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/var/www/vhosts/sportdss.eu/httpdocs/public//server.js'
+Require stack:
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:135:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnode.js:16:1)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/usr/local/lsws/fcgi-bin/lsnode.js' ]
+}
+
+Node.js v22.8.0
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/var/www/vhosts/sportdss.eu/httpdocs/public//server.js'
+Require stack:
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:135:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnode.js:16:1)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/usr/local/lsws/fcgi-bin/lsnode.js' ]
+}
+
+Node.js v22.8.0
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/var/www/vhosts/sportdss.eu/httpdocs/public//server.js'
+Require stack:
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:135:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnode.js:16:1)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/usr/local/lsws/fcgi-bin/lsnode.js' ]
+}
+
+Node.js v22.8.0
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/var/www/vhosts/sportdss.eu/httpdocs/public//server.js'
+Require stack:
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:135:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnode.js:16:1)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/usr/local/lsws/fcgi-bin/lsnode.js' ]
+}
+
+Node.js v22.8.0
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/var/www/vhosts/sportdss.eu/httpdocs/public//server.js'
+Require stack:
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:135:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnode.js:16:1)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/usr/local/lsws/fcgi-bin/lsnode.js' ]
+}
+
+Node.js v22.8.0
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/var/www/vhosts/sportdss.eu/httpdocs/public//server.js'
+Require stack:
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:135:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnode.js:16:1)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/usr/local/lsws/fcgi-bin/lsnode.js' ]
+}
+
+Node.js v22.8.0
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/var/www/vhosts/sportdss.eu/httpdocs/public//server.js'
+Require stack:
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:135:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnode.js:16:1)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/usr/local/lsws/fcgi-bin/lsnode.js' ]
+}
+
+Node.js v22.8.0
+node:internal/modules/cjs/loader:1251
+  throw err;
+  ^
+
+Error: Cannot find module '/var/www/vhosts/sportdss.eu/httpdocs/public//server.js'
+Require stack:
+- /usr/local/lsws/fcgi-bin/lsnode.js
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1248:15)
+    at Module._load (node:internal/modules/cjs/loader:1074:27)
+    at TracingChannel.traceSync (node:diagnostics_channel:315:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:217:24)
+    at Module.require (node:internal/modules/cjs/loader:1339:12)
+    at require (node:internal/modules/helpers:135:16)
+    at startApplication (/usr/local/lsws/fcgi-bin/lsnode.js:48:15)
+    at Object.<anonymous> (/usr/local/lsws/fcgi-bin/lsnode.js:16:1)
+    at Module._compile (node:internal/modules/cjs/loader:1546:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1691:10) {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: [ '/usr/local/lsws/fcgi-bin/lsnode.js' ]
+}
+
+Node.js v22.8.0

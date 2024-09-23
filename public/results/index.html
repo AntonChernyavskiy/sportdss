@@ -367,10 +367,16 @@
 
                     // Сортировка данных от новых к старым
                     filteredData.sort((a, b) => {
-                        const dateA = new Date(a.split('  ')[0]);
-                        const dateB = new Date(b.split('  ')[0]);
-                        return dateB - dateA;
+                        const noveltyA = parseInt(a.split('___')[0], 10);
+                        const noveltyB = parseInt(b.split('___')[0], 10);
+                        const dateA = new Date(a.split('___')[1].split('-').reverse().join('-')); // Преобразуем формат DD-MM-YYYY в YYYY-MM-DD
+                        const dateB = new Date(b.split('___')[1].split('-').reverse().join('-'));
+                        if (noveltyB === noveltyA) {
+                            return dateB - dateA; // Сортировка по дате, если новизна одинакова
+                        }
+                        return noveltyB - noveltyA; // Сортировка по новизне
                     });
+
 
                     const totalPages = Math.ceil(filteredData.length / rowsPerPage);
 
@@ -388,7 +394,7 @@
                         const pageData = filteredData.slice(start, end);
 
                         pageData.forEach((entry, index) => {
-                            const [date, eventName] = entry.split('  ');
+                            const [novelty, date, eventName] = entry.split('___'); // Получаем новизну, дату и название
 
                             const tr = document.createElement('tr');
                             tr.classList.add('event-row');
@@ -404,8 +410,11 @@
                             eventNameLink.textContent = eventName;
                             eventNameLink.classList.add('hvr-bubble-float-left');
                             eventNameLink.href = '#';
+
+                            // Передаем novelty, date и eventName в обработчик
                             eventNameLink.onclick = function () {
-                                fetchAndDisplayResults(eventName, date);
+                                fetchAndDisplayResults(eventName, date, novelty); // Передаем новизну в функцию
+                                
                                 const modal = document.getElementById('myModal');
                                 modal.style.display = 'flex';
                                 document.getElementById('search-input').value = '';
@@ -520,7 +529,7 @@
                         }
                     }
     
-                   function fetchAndDisplayResults(eventName, eventDate) {
+                    function fetchAndDisplayResults(eventName, eventDate, novelty) {
                         const modalStartlistsContainer = document.getElementById('startlists');
                         const modalResultsListContainer = document.getElementById('results-list');
                         const modalOtherFilesContainer = document.getElementById('other-files');
@@ -531,18 +540,28 @@
                         modalOtherFilesContainer.innerHTML = '';
                         categoryButtonsContainer.innerHTML = '';
 
-                        const urlPath = `${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}`;
+                        const [year, month, day] = eventDate.split('-');
+                        const formattedDate = `${year}-${month}-${day}`; // Форматируем как DD-MM-YYYY
+                        console.log(formattedDate);
+                        const formattedEventName = encodeURIComponent(eventName);
+                        const urlPath = `${novelty}___${formattedDate}___${formattedEventName}`;
+
+                        console.log('Fetching data from:', `/files/${urlPath}/`);
 
                         fetch(`/files/${urlPath}/`)
-                            .then(response => response.json())
-                            .then(({ baseFiles, resultsFiles, startlistsFiles }) => {
-                                const categories = new Set();
-                                const raceFiles = [];
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Received data:', data);
 
-                                // Обработка базовых файлов (которые не находятся в папках Results и Startlists)
+                                const { baseFiles, resultsFiles, startlistsFiles } = data;
+
                                 baseFiles.forEach(file => {
                                     const fileUrl = `/files/${urlPath}/${encodeURIComponent(file)}`;
-
                                     const fileElement = document.createElement('a');
                                     fileElement.classList.add('file-element');
                                     fileElement.href = fileUrl;
@@ -559,10 +578,8 @@
                                     modalOtherFilesContainer.appendChild(fileElement);
                                 });
 
-                                // Обработка файлов Startlists
                                 startlistsFiles.forEach(file => {
                                     const fileUrl = `/files/${urlPath}/Startlists/${encodeURIComponent(file)}`;
-
                                     const fileElement = document.createElement('a');
                                     fileElement.classList.add('file-element');
                                     fileElement.href = fileUrl;
@@ -579,11 +596,8 @@
                                     modalStartlistsContainer.appendChild(fileElement);
                                 });
 
-
-                                // Обработка файлов Results, но не отображаем их сразу
                                 resultsFiles.forEach(file => {
                                     const fileUrl = `/files/${urlPath}/Results/${encodeURIComponent(file)}`;
-
                                     const fileElement = document.createElement('a');
                                     fileElement.classList.add('file-element');
                                     fileElement.href = fileUrl;
@@ -597,56 +611,17 @@
                                     span.textContent = file;
                                     fileElement.appendChild(span);
 
-                                    // Проверка, если файл относится к заездам
-                                    const raceMatch = file.match(/race-(\d+)___event-(\d+)___name-([A-Za-z0-9\-]+)___eta-([A-Z]+)/);
-                                    if (raceMatch) {
-                                        fileElement.classList.add('race-item');
-                                        raceFiles.push({ file, fileElement });
-
-                                        const category = raceMatch[3]; // Извлечение категории
-                                        categories.add(category); // Добавление категории в Set для фильтрации
-                                    }
-
-                                    // Не добавляем элемент в контейнер результатов сразу
-                                    // добавим их позже, когда пользователь выберет категорию
+                                    modalResultsListContainer.appendChild(fileElement);
                                 });
-
-                                // Сортировка и создание категорий
-                                categories.forEach(category => {
-                                    const button = document.createElement('span');
-                                    button.classList.add('event-element', 'hvr-underline-from-left'); // Apply both classes
-
-                                    const innerSpan = document.createElement('span');
-                                    innerSpan.textContent = category; // Название кнопки здесь
-                                    innerSpan.onclick = function () {
-                                        displayResultsForCategory(category, raceFiles, eventDate, eventName);
-                                        categoryButtonsContainer.querySelectorAll('span').forEach(btn => {
-                                            btn.classList.remove('results-active');
-                                        });
-                                        button.classList.add('results-active'); // Highlight active category
-                                    };
-
-                                    button.appendChild(innerSpan);
-                                    categoryButtonsContainer.appendChild(button);
-                                });
-
-                                // Показываем кнопки категорий
-                                categoryButtonsContainer.querySelectorAll('span').forEach(span => {
-                                    span.style.display = 'inline-block';
-                                });
-
-                                // Обновляем URL без перезагрузки страницы
-                                const newUrl = new URL(window.location);
-                                newUrl.searchParams.set('event', eventName);
-                                newUrl.searchParams.set('date', eventDate);
-                                window.history.pushState({}, '', newUrl);
                             })
                             .catch(error => console.error('Error loading results:', error));
                     }
 
-                    function displayResultsForCategory(category, raceFiles, eventDate, eventName) {
+                    function displayResultsForCategory(category, raceFiles, eventDate, eventName, novelty) {
                         const modalResultsListContainer = document.getElementById('results-list');
+                        const categoryButtonsContainer = document.getElementById('category-buttons');
                         modalResultsListContainer.innerHTML = '';
+                        categoryButtonsContainer.innerHTML = ''; // Очищаем контейнер с кнопками категорий
 
                         const groupedResults = {
                             T: [],
@@ -659,18 +634,21 @@
                         };
 
                         raceFiles.forEach(({ file }) => {
-                            const [, raceNo, eventNo, fileCategory, eta] = file.match(/race-(\d+)___event-(\d+)___name-([A-Za-z0-9\-]+)___eta-([A-Za-z0-9]+)/);
-                            if (fileCategory === category) {
-                                let etaType = eta[0]; // берем первую букву из eta для определения типа
+                            const match = file.match(/race-(\d+)___event-(\d+)___name-([A-Za-z0-9\-]+)___eta-([A-Za-z0-9]+)/);
+                            if (match) {
+                                const [, raceNo, eventNo, fileCategory, eta] = match;
+                                if (fileCategory === category) {
+                                    let etaType = eta[0];
 
-                                if (etaType === 'F' && eta.length > 1) { 
-                                    etaType = 'F'; // устанавливаем "F" для всех комбинаций, начинающихся с "F"
-                                }
+                                    if (etaType === 'F' && eta.length > 1) {
+                                        etaType = 'F';
+                                    }
 
-                                if (!groupedResults[etaType]) {
-                                    groupedResults[etaType] = []; // Убедитесь, что массив существует
+                                    if (!groupedResults[etaType]) {
+                                        groupedResults[etaType] = [];
+                                    }
+                                    groupedResults[etaType].push(file);
                                 }
-                                groupedResults[etaType].push(file); // Добавляем файлы в соответствующую категорию
                             }
                         });
 
@@ -681,39 +659,49 @@
                                 modalResultsListContainer.appendChild(typeHeader);
 
                                 groupedResults[raceType].forEach(file => {
-                                    const [, raceNo, eventNo, fileCategory, eta] = file.match(/race-(\d+)___event-(\d+)___name-([A-Za-z0-9\-]+)___eta-([A-Za-z0-9]+)/);
+                                    const raceMatch = file.match(/race-(\d+)___event-(\d+)___name-([A-Za-z0-9\-]+)___eta-([A-Za-z0-9]+)/);
+                                    const [, raceNo, eventNo, fileCategory, eta] = raceMatch;
 
                                     const raceElement = document.createElement('a');
                                     raceElement.classList.add('file-element');
-                                    raceElement.href = `/files/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/Results/${encodeURIComponent(file)}`;
+                                    raceElement.href = `/files/${novelty}___${eventDate}___${encodeURIComponent(eventName)}/Results/${encodeURIComponent(file)}`;
                                     raceElement.target = '_blank';
 
                                     const raceInfo = document.createElement('div');
                                     raceInfo.classList.add('race-info');
 
-                                    // Этап
                                     const etaElement = document.createElement('span');
                                     etaElement.textContent = `[${eta}]`;
 
-                                    // Номер заезда
                                     const raceNoElement = document.createElement('span');
                                     raceNoElement.innerHTML = `<span class="label">race no / brauciena nr:</span> ${raceNo}`;
 
-                                    // Номер конкурса
                                     const eventNoElement = document.createElement('span');
                                     eventNoElement.innerHTML = `<span class="label">event no / konkurences nr:</span> ${eventNo}`;
 
                                     raceInfo.appendChild(etaElement);
                                     raceInfo.appendChild(raceNoElement);
                                     raceInfo.appendChild(eventNoElement);
-
                                     raceElement.appendChild(raceInfo);
 
                                     modalResultsListContainer.appendChild(raceElement);
                                 });
                             }
                         });
+
+                        Object.keys(groupedResults).forEach(type => {
+                            if (groupedResults[type].length > 0) {
+                                const button = document.createElement('span');
+                                button.classList.add('event-element', 'hvr-underline-from-left');
+                                button.textContent = typeName(type);
+                                button.onclick = function() {
+                                    displayResultsForCategory(type, groupedResults[type], eventDate, eventName, novelty);
+                                };
+                                categoryButtonsContainer.appendChild(button);
+                            }
+                        });
                     }
+
                     const spanClose = document.getElementsByClassName('modal-close')[0];
                     spanClose.onclick = function () {
                         const modal = document.getElementById('myModal');

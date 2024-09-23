@@ -4,8 +4,9 @@ const fs = require('fs').promises;
 const fileUpload = require('express-fileupload');
 const moment = require('moment');
 const etag = require('etag');
-const bodyParser = require('body-parser');
 
+const { requiresAuth } = require('express-openid-connect');
+const { auth } = require('express-openid-connect');
 require('dotenv').config();
 
 const app = express();
@@ -13,6 +14,17 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(fileUpload());
+
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: process.env.SECRET || 'a long, randomly-generated string stored in env',
+    baseURL: process.env.BASE_URL || 'https://sportdss.eu',
+    clientID: process.env.CLIENT_ID || 'yT2he6zIWN8rXoC2YouxeA0WrpLp0KL1',
+    issuerBaseURL: process.env.ISSUER_BASE_URL || 'https://dev-xuenlyj535dnppsd.us.auth0.com'
+};
+
+app.use(auth(config));
 
 const version = Date.now();
 
@@ -110,6 +122,68 @@ app.get('/entrySys/:eventName/config.json', async (req, res) => {
     }
 });
 
+// Update config.json for a specific event
+app.put('/entrySys/:eventName/config.json', requiresAuth(), async (req, res) => {
+    try {
+        const eventName = req.params.eventName;
+        const configPath =  path.join(__dirname, 'public', 'entrySys', eventName, 'config.json');
+        const configData = JSON.stringify(req.body, null, 2);
+        await fs.writeFile(configPath, configData, 'utf8');
+        res.status(200).send('Config.json saved successfully');
+    } catch (err) {
+        console.error('Error saving config.json:', err);
+        res.status(500).send('Unable to save config.json');
+    }
+});
+
+// Delete an event folder
+app.delete('/entrySys/:eventName', requiresAuth(), async (req, res) => {
+    try {
+        const eventName = req.params.eventName;
+        const eventDirectory = path.join(__dirname, 'public', 'entrySys', eventName);
+        await fs.rmdir(eventDirectory, { recursive: true });
+        res.status(200).send('Event folder deleted successfully');
+    } catch (err) {
+        console.error('Error deleting event folder:', err);
+        res.status(500).send('Failed to delete event folder');
+    }
+});
+
+// Create a folder in files directory
+app.post('/create-folder', async (req, res) => {
+    const { date, name } = req.body;
+    const folderName = `${date}  ${name}`;
+    const folderPath = path.join(__dirname, 'public', 'files', folderName);
+
+    try {
+        await fs.mkdir(folderPath, { recursive: true });
+        res.status(200).send('Folder created successfully');
+    } catch (err) {
+        console.error('Error creating folder:', err);
+        res.status(500).send('Failed to create folder');
+    }
+});
+
+// Delete a folder in files directory
+app.post('/delete-folder', async (req, res) => {
+    const { date, name } = req.body;
+    const folderName = `${date}  ${name}`;
+    const folderPath = path.join(__dirname, 'public', 'files', folderName);
+
+    try {
+        await fs.rmdir(folderPath, { recursive: true });
+        res.status(200).send('Folder deleted successfully');
+    } catch (err) {
+        console.error('Error deleting folder:', err);
+        res.status(500).send('Failed to delete folder');
+    }
+});
+
+// Get user profile
+app.get('/profile', requiresAuth(), (req, res) => {
+    res.send(JSON.stringify(req.oidc.user));
+});
+
 // Submit an entry
 app.post('/submit-entry', async (req, res) => {
     try {
@@ -196,23 +270,16 @@ app.post('/submit-entry', async (req, res) => {
     }
 });
 
-// app.use((req, res, next) => {
-//     res.redirect('https://sportdss.eu/');
-// });
-
-app.use(bodyParser.urlencoded({ extended: true })); // Для обработки данных формы
-
-// Маршрут для обработки данных опроса
-app.post('/submit-survey', (req, res) => {
-    const surveyResults = req.body;
-
-    // Обработка результатов
-    console.log('Ответы опроса:', surveyResults);
-
-    // Здесь можно добавить логику сохранения данных в базу
-    // Например, с использованием MongoDB или другой базы данных
-
-    res.send('Данные опроса успешно получены');
+// Download entries.csv for a specific event
+app.get('/download-entries/:eventName', requiresAuth(), async (req, res) => {
+    try {
+        const eventName = req.params.eventName;
+        const csvPath = path.join(__dirname, 'public', 'entrySys', eventName, 'entries.csv');
+        res.download(csvPath);
+    } catch (err) {
+        console.error('Error downloading entries.csv:', err);
+        res.status(500).send('Unable to download entries.csv');
+    }
 });
 
 // Start the server

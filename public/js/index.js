@@ -1,5 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     let licenseMapping = {};
+    let currentEventId = null;
+    let currentEventName = null;
+    let currentEventDate = null;
     let organization = '';  // Переменная для хранения организации
     let otherOrganization = '';  // Переменная для хранения другой организации
 
@@ -62,18 +65,24 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 
 			data.forEach(entry => {
-				// Check if the folder is in the ignored list
-				if (!ignoredFolders.includes(entry.trim())) {
-					const [date, eventName] = entry.split('  ');
-					const event = { date: date, name: eventName };
-					if (new Date(date) >= new Date()) {
-						upcomingEvents.push(event);
-					} else {
-						pastEvents.push(event);
-					}
-				}
-			});
-
+                const trimmedEntry = entry.trim();
+                if (trimmedEntry) {
+                    const parts = trimmedEntry.split('___');
+                    if (parts.length === 3) {
+                        const [eventNumber, date, eventName] = parts;
+                        const event = { date, name: eventName, id: eventNumber };
+                        const eventDate = parseEventDate(date);
+                        if (eventDate >= new Date()) {
+                            upcomingEvents.push(event);
+                        } else {
+                            pastEvents.push(event);
+                        }
+                    } else {
+                        console.warn('Invalid entry format:', trimmedEntry);
+                    }
+                }
+            });
+            
             function checkFileExists(url) {
                 return fetch(url, { method: 'HEAD' })
                     .then(response => response.ok)
@@ -81,216 +90,207 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             function createUpcomingEventListItem(event, container) {
-				const cardDiv = document.createElement('div');
-				cardDiv.classList.add('card', 'mb-3');
-				cardDiv.style.borderColor = '#2d8401'; // Зеленая рамка по умолчанию
-
-				const cardBodyDiv = document.createElement('div');
-				cardBodyDiv.classList.add('card-body');
-				cardBodyDiv.style.padding = '0.9rem';
-
-				const h5Title = document.createElement('h5');
-				h5Title.classList.add('card-title');
-				h5Title.textContent = event.name;
-
-				const h6Subtitle = document.createElement('h6');
-				h6Subtitle.classList.add('card-subtitle', 'mb-2', 'text-muted');
-				h6Subtitle.textContent = event.date;
-
-				cardBodyDiv.appendChild(h5Title);
-				cardBodyDiv.appendChild(h6Subtitle);
-				cardBodyDiv.appendChild(document.createElement('hr'));
-
-				// Отображаем мероприятие, даже если папка не существует
-				fetch(`../entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/config.json`)
-					.then(response => response.json())
-					.then(config => {
-						fetchCurrentUTC().then(currentDate => {
-							const registrationStartDate = new Date(config.registrationStartDate);
-							const registrationEndDate = new Date(config.registrationEndDate);
-							const statusIndicator = document.createElement('span');
-							statusIndicator.classList.add('status-indicator');
-
-							const registrationInfo = document.createElement('p');
-							registrationInfo.style.fontSize = 'small';
-							registrationInfo.classList.add('card-text');
-
-							let registrationStatus;
-							let borderColor = '#2d8401'; // Зеленый по умолчанию
-
-							if (currentDate < registrationStartDate) {
-								registrationStatus = 'pieteikšanas nav sākušas';
-								borderColor = '#ffc107'; // Светло-желтый цвет для не начавшихся мероприятий
-							} else if (currentDate > registrationEndDate) {
-								registrationStatus = 'pieteikšanas ir slēgtas';
-								borderColor = '#dc3545'; // Красный цвет для закрытых регистраций
-							} else {
-								registrationStatus = 'pieteikšanas aktīvas';
-							}
-
-							statusIndicator.style.backgroundColor = borderColor;
-							registrationInfo.innerHTML = `${statusIndicator.outerHTML} ${registrationStatus}<br>`;
-							cardBodyDiv.appendChild(registrationInfo);
-							cardBodyDiv.appendChild(document.createElement('hr'));
-
-							const registrationTerm = document.createElement('div');
-							registrationTerm.innerHTML = `
-								<i class="far fa-edit"></i>
-								<span style="font-size: small;">pieteikšanas termiņš: </span>
-								<span style="font-weight: bold; font-size: small;">${registrationStartDate.toLocaleDateString()} | ${registrationEndDate.toLocaleDateString()}</span>
-							`;
-							cardBodyDiv.appendChild(registrationTerm);
-
-							const btnGroupDiv = document.createElement('div');
-							btnGroupDiv.classList.add('btn-group', 'btn-group-sm');
-							btnGroupDiv.setAttribute('role', 'group');
-
-							// Добавляем кнопку регистрации, если регистрация активна
-							if (registrationStatus === 'pieteikšanas aktīvas') {
-								const registerBtn = document.createElement('a');
-								registerBtn.classList.add('btn', 'btn-secondary');
-								registerBtn.href = '#'; // Избегаем перезагрузки страницы
-								registerBtn.textContent = 'pieteikties';
-								registerBtn.setAttribute('data-event', event.name);
-								registerBtn.setAttribute('data-date', event.date);
-								btnGroupDiv.appendChild(registerBtn);
-
-								// Event listener для кнопки регистрации
-								registerBtn.addEventListener('click', function (event) {
-									event.preventDefault();
-									const eventName = event.target.getAttribute('data-event');
-									const eventDate = event.target.getAttribute('data-date');
-									if (eventName && eventDate) {
-										fetchAndDisplayRegistrationForm(eventName, eventDate);
-									} else {
-										console.error('Missing eventName or eventDate');
-									}
-								});
-							}
-
-							// Всегда добавляем кнопку "dalībnieku saraksts"
-							const entryListBtn = document.createElement('a');
-							entryListBtn.classList.add('btn', 'btn-secondary');
-							entryListBtn.href = `https://sportdss.eu/entrylist/?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}`;
-							entryListBtn.textContent = 'dalībnieku saraksts';
-							btnGroupDiv.appendChild(entryListBtn);
-
-							cardBodyDiv.appendChild(document.createElement('hr'));
-							cardBodyDiv.appendChild(btnGroupDiv);
-
-							cardDiv.style.borderColor = borderColor; // Установка цвета рамки в зависимости от состояния
-							cardDiv.appendChild(cardBodyDiv);
-							container.appendChild(cardDiv);
-						});
-					})
-					.catch(error => {
-						console.warn('Config file not found or error fetching config:', error);
-						// Добавляем карточку без конфигурации
-						container.appendChild(cardDiv);
-					});
-			}        
+                const cardDiv = document.createElement('div');
+                cardDiv.classList.add('card', 'mb-3');
+                cardDiv.style.borderColor = '#2d8401';
+            
+                const cardBodyDiv = document.createElement('div');
+                cardBodyDiv.classList.add('card-body');
+                cardBodyDiv.style.padding = '0.9rem';
+            
+                const h5Title = document.createElement('h5');
+                h5Title.classList.add('card-title');
+                h5Title.textContent = event.name;
+            
+                const h6Subtitle = document.createElement('h6');
+                h6Subtitle.classList.add('card-subtitle', 'mb-2', 'text-muted');
+                h6Subtitle.textContent = event.date;
+            
+                cardBodyDiv.appendChild(h5Title);
+                cardBodyDiv.appendChild(h6Subtitle);
+                cardBodyDiv.appendChild(document.createElement('hr'));
+            
+                const configPath = `../entrySys/${encodeURIComponent(event.id)}___${encodeURIComponent(event.date)}___${encodeURIComponent(event.name)}/config.json`;
+                fetch(configPath)
+                    .then(response => response.json())
+                    .then(config => {
+                        fetchCurrentUTC().then(currentDate => {
+                            const registrationStartDate = new Date(config.registrationStartDate);
+                            const registrationEndDate = new Date(config.registrationEndDate);
+                            const statusIndicator = document.createElement('span');
+                            statusIndicator.classList.add('status-indicator');
+            
+                            const registrationInfo = document.createElement('p');
+                            registrationInfo.style.fontSize = 'small';
+                            registrationInfo.classList.add('card-text');
+            
+                            let registrationStatus;
+                            let borderColor = '#2d8401';
+            
+                            if (currentDate < registrationStartDate) {
+                                registrationStatus = 'pieteikšanās nav sākušas';
+                                borderColor = '#ffc107';
+                            } else if (currentDate > registrationEndDate) {
+                                registrationStatus = 'pieteikšanās ir slēgtas';
+                                borderColor = '#dc3545';
+                            } else {
+                                registrationStatus = 'pieteikšanās aktīvas';
+                            }
+            
+                            statusIndicator.style.backgroundColor = borderColor;
+                            registrationInfo.innerHTML = `${statusIndicator.outerHTML} ${registrationStatus}<br>`;
+                            cardBodyDiv.appendChild(registrationInfo);
+                            cardBodyDiv.appendChild(document.createElement('hr'));
+            
+                            const registrationTerm = document.createElement('div');
+                            registrationTerm.innerHTML = `
+                                <i class="far fa-edit"></i>
+                                <span style="font-size: small;">pieteikšanās termiņš: </span>
+                                <span style="font-weight: bold; font-size: small;">${registrationStartDate.toLocaleDateString()} | ${registrationEndDate.toLocaleDateString()}</span>
+                            `;
+                            cardBodyDiv.appendChild(registrationTerm);
+            
+                            const btnGroupDiv = document.createElement('div');
+                            btnGroupDiv.classList.add('btn-group', 'btn-group-sm');
+                            btnGroupDiv.setAttribute('role', 'group');
+            
+                            if (registrationStatus === 'pieteikšanās aktīvas') {
+                                const registerBtn = document.createElement('a');
+                                registerBtn.classList.add('btn', 'btn-secondary');
+                                registerBtn.href = '#';
+                                registerBtn.textContent = 'pieteikties';
+                                registerBtn.setAttribute('data-id', event.id);
+                                registerBtn.setAttribute('data-event', event.name);
+                                registerBtn.setAttribute('data-date', event.date);
+                                btnGroupDiv.appendChild(registerBtn);
+            
+                                registerBtn.addEventListener('click', function (e) {
+                                    e.preventDefault();
+                                    const eventId = e.target.getAttribute('data-id');
+                                    const eventName = e.target.getAttribute('data-event');
+                                    const eventDate = e.target.getAttribute('data-date');
+                                    if (eventName && eventDate) {
+                                        fetchAndDisplayRegistrationForm(eventId, eventName, eventDate);
+                                    } else {
+                                        console.error('Missing eventName or eventDate');
+                                    }
+                                });
+                            } if(registrationStatus === 'pieteikšanās ir slēgtas') {
+                                const resultBtn = document.createElement('a');
+                                resultBtn.classList.add('btn', 'btn-secondary');
+                                resultBtn.href = `https://sportdss.eu/details/?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}&id=${event.id}`;
+                                resultBtn.textContent = 'starta un finiša protokoli';
+                                btnGroupDiv.appendChild(resultBtn);
+                            }
+            
+                            const entryListBtn = document.createElement('a');
+                            entryListBtn.classList.add('btn', 'btn-secondary');
+                            entryListBtn.href = `https://sportdss.eu/entrylist/?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}&id=${encodeURIComponent(event.id)}`;
+                            entryListBtn.textContent = 'dalībnieku saraksts';
+                            btnGroupDiv.appendChild(entryListBtn);
+            
+                            cardBodyDiv.appendChild(document.createElement('hr'));
+                            cardBodyDiv.appendChild(btnGroupDiv);
+                            cardDiv.style.borderColor = borderColor;
+                            cardDiv.appendChild(cardBodyDiv);
+                            container.appendChild(cardDiv);
+                        });
+                    })
+                    .catch(error => {
+                        console.warn('Config file not found or error fetching config:', error);
+                        container.appendChild(cardDiv);
+                    });
+            }      
 
 			function createPastEventListItem(event, container) {
-				const cardDiv = document.createElement('div');
-				cardDiv.classList.add('card');
-				cardDiv.style.marginBottom = '10px';
-
-				const cardBodyDiv = document.createElement('div');
-				cardBodyDiv.classList.add('card-body');
-				cardBodyDiv.style.padding = '0.9rem';
-
-				const h6Title = document.createElement('h6');
-				h6Title.classList.add('card-title');
-				h6Title.textContent = event.name;
-
-				const h6Subtitle = document.createElement('h6');
-				h6Subtitle.classList.add('card-subtitle', 'mb-2', 'text-muted');
-				h6Subtitle.style.fontSize = 'small';
-				h6Subtitle.textContent = event.date;
-
-				const btnGroupDiv = document.createElement('div');
-				btnGroupDiv.classList.add('btn-group', 'btn-group-sm');
-				btnGroupDiv.setAttribute('role', 'group');
-
-				const resultBtn = document.createElement('a');
-				resultBtn.classList.add('btn', 'btn-secondary');
-				resultBtn.href = 'https://sportdss.eu/results';
-				resultBtn.textContent = 'starta un finiša protokoli';
-				resultBtn.setAttribute('data-event', event.name);
-
-				btnGroupDiv.appendChild(resultBtn);
-
-				const entriesCsvPath = `../entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/entries.csv`;
-
-				checkFileExists(entriesCsvPath).then(fileExists => {
-					if (fileExists) {
-						const entryListBtn = document.createElement('a');
-						entryListBtn.classList.add('btn', 'btn-secondary');
-						entryListBtn.href = `https://sportdss.eu/entrylist/?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}`;
-						entryListBtn.textContent = 'dalībnieku saraksts';
-						btnGroupDiv.appendChild(entryListBtn);
-					}
-
-					// Добавляем карточку в контейнер до проверки доступности регистрации
-					cardBodyDiv.appendChild(h6Title);
-					cardBodyDiv.appendChild(h6Subtitle);
-					cardBodyDiv.appendChild(btnGroupDiv);
-					cardDiv.appendChild(cardBodyDiv);
-					container.appendChild(cardDiv);
-
-					// Попробуйте загрузить конфигурацию мероприятия
-					fetch(`../entrySys/${encodeURIComponent(event.date)}%20%20${encodeURIComponent(event.name)}/config.json`)
-						.then(response => response.json())
-						.then(config => {
-							fetchCurrentUTC().then(currentDate => {
-								const registrationStartDate = new Date(config.registrationStartDate);
-								const registrationEndDate = new Date(config.registrationEndDate);
-
-								// Проверка срока подачи заявок
-								if (currentDate >= registrationStartDate && currentDate <= registrationEndDate) {
-									// Если регистрация доступна
-									cardDiv.style.borderColor = '#2d8401'; // Зелёная рамка для мероприятий с валидным сроком
-
-									const registerBtn = document.createElement('a');
-									registerBtn.classList.add('btn', 'btn-secondary');
-									registerBtn.href = '#'; // Избегаем перезагрузки страницы
-									registerBtn.textContent = 'pieteikties';
-									registerBtn.setAttribute('data-event', event.name);
-									registerBtn.setAttribute('data-date', event.date);
-									btnGroupDiv.appendChild(registerBtn);
-
-									// Event listener для кнопки регистрации
-									registerBtn.addEventListener('click', function (e) {
-										e.preventDefault();
-										const eventName = e.target.getAttribute('data-event');
-										const eventDate = e.target.getAttribute('data-date');
-										if (eventName && eventDate) {
-											fetchAndDisplayRegistrationForm(eventName, eventDate);
-										} else {
-											console.error('Missing eventName or eventDate');
-										}
-									});
-
-									// Добавляем информацию о сроке регистрации
-									const registrationTerm = document.createElement('div');
-									registrationTerm.innerHTML = `
-										<i class="far fa-edit"></i>
-										<span style="font-size: small;">pieteikšanas termiņš: </span>
-										<span style="font-weight: bold; font-size: small;">${registrationStartDate.toLocaleDateString()} | ${registrationEndDate.toLocaleDateString()}</span>
-									`;
-									cardBodyDiv.appendChild(registrationTerm);
-								} else {
-									// Если регистрация не доступна, рамка остается серой
-									cardDiv.style.borderColor = '#e0e0e0'; // Серый цвет по умолчанию
-								}
-							});
-						})
-						.catch(error => {
-							console.warn('Config file not found or error fetching config:', error);
-							// Ничего не меняем в случае ошибки, карточка уже добавлена
-						});
-				});
-			}
+                const cardDiv = document.createElement('div');
+                cardDiv.classList.add('card');
+                cardDiv.style.marginBottom = '10px';
+            
+                const cardBodyDiv = document.createElement('div');
+                cardBodyDiv.classList.add('card-body');
+                cardBodyDiv.style.padding = '0.9rem';
+            
+                const h6Title = document.createElement('h6');
+                h6Title.classList.add('card-title');
+                h6Title.textContent = event.name;
+            
+                const h6Subtitle = document.createElement('h6');
+                h6Subtitle.classList.add('card-subtitle', 'mb-2', 'text-muted');
+                h6Subtitle.style.fontSize = 'small';
+                h6Subtitle.textContent = event.date;
+            
+                const btnGroupDiv = document.createElement('div');
+                btnGroupDiv.classList.add('btn-group', 'btn-group-sm');
+                btnGroupDiv.setAttribute('role', 'group');
+            
+                const resultBtn = document.createElement('a');
+                resultBtn.classList.add('btn', 'btn-secondary');
+                resultBtn.href = `https://sportdss.eu/details/?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}&id=${encodeURIComponent(event.id)}`;
+                resultBtn.textContent = 'starta un finiša protokoli';
+            
+                btnGroupDiv.appendChild(resultBtn);
+            
+                const entriesCsvPath = `../entrySys/${encodeURIComponent(event.id)}___${encodeURIComponent(event.date)}___${encodeURIComponent(event.name)}/entries.csv`;
+            
+                checkFileExists(entriesCsvPath).then(fileExists => {
+                    if (fileExists) {
+                        const entryListBtn = document.createElement('a');
+                        entryListBtn.classList.add('btn', 'btn-secondary');
+                        entryListBtn.href = `https://sportdss.eu/entrylist/?event=${encodeURIComponent(event.name)}&date=${encodeURIComponent(event.date)}&id=${encodeURIComponent(event.id)}`;
+                        entryListBtn.textContent = 'dalībnieku saraksts';
+                        btnGroupDiv.appendChild(entryListBtn);
+                    }
+            
+                    cardBodyDiv.appendChild(h6Title);
+                    cardBodyDiv.appendChild(h6Subtitle);
+                    cardBodyDiv.appendChild(btnGroupDiv);
+                    cardDiv.appendChild(cardBodyDiv);
+                    container.appendChild(cardDiv);
+            
+                    fetch(`../entrySys/${encodeURIComponent(event.id)}___${encodeURIComponent(event.date)}___${encodeURIComponent(event.name)}/config.json`)
+                        .then(response => response.json())
+                        .then(config => {
+                            fetchCurrentUTC().then(currentDate => {
+                                const registrationStartDate = new Date(config.registrationStartDate);
+                                const registrationEndDate = new Date(config.registrationEndDate);
+            
+                                if (currentDate >= registrationStartDate && currentDate <= registrationEndDate) {
+                                    cardDiv.style.borderColor = '#2d8401';
+            
+                                    const registerBtn = document.createElement('a');
+                                    registerBtn.classList.add('btn', 'btn-secondary');
+                                    registerBtn.href = '#';
+                                    registerBtn.textContent = 'pieteikties';
+                                    registerBtn.setAttribute('data-event', eventName);
+                                    registerBtn.setAttribute('data-date', eventDate);
+                                    btnGroupDiv.appendChild(registerBtn);
+            
+                                    registerBtn.addEventListener('click', function (e) {
+                                        e.preventDefault();
+                                        const eventId = e.target.getAttribute('data-id');
+                                        const eventName = e.target.getAttribute('data-event');
+                                        const eventDate = e.target.getAttribute('data-date');
+                                        if (eventName && eventDate) {
+                                            fetchAndDisplayRegistrationForm(eventId, eventName, eventDate);
+                                        } else {
+                                            console.error('Missing eventName or eventDate');
+                                        }
+                                    });
+            
+                                    const registrationTerm = document.createElement('div');
+                                    registrationTerm.innerHTML = `
+                                        <i class="far fa-edit"></i>
+                                        <span style="font-size: small;">pieteikšanās termiņš: </span>
+                                        <span style="font-weight: bold; font-size: small;">${registrationStartDate.toLocaleDateString()} | ${registrationEndDate.toLocaleDateString()}</span>
+                                    `;
+                                    cardBodyDiv.appendChild(registrationTerm);
+                                }
+                            });
+                        })
+                        .catch(error => console.warn('Error fetching past event config:', error));
+                });
+            }
 
 			// Основная функция, которая вызывает соответствующую функцию для каждого мероприятия
 			function createEventListItem(event, container, isPastEvent) {
@@ -301,18 +301,31 @@ document.addEventListener('DOMContentLoaded', function () {
 				}
 			}
 
-			// Создание элементов списка для предстоящих и прошедших мероприятий
-			upcomingEvents.forEach(event => createEventListItem(event, startlistsContainer, false));
-            pastEvents.sort((a, b) => {
-				const dateA = new Date(a.date);
-				const dateB = new Date(b.date);
-				return dateB - dateA;
-			});
+			function parseEventDate(eventString) {
+                if (!eventString || typeof eventString !== 'string') {
+                    console.error('Invalid event string:', eventString);
+                    return new Date(0);
+                }
+            
+                const [day, month, year] = eventString.split('-').map(Number);
+                if (isNaN(day) || isNaN(month) || isNaN(year)) {
+                    console.error('Invalid date components:', day, month, year);
+                    return new Date(0);
+                }
+            
+                return new Date(year, month - 1, day);
+            }
+            
+            upcomingEvents.sort((a, b) => parseEventDate(a.date) - parseEventDate(b.date));
+            pastEvents.sort((a, b) => parseEventDate(b.date) - parseEventDate(a.date));
+            
+            upcomingEvents.forEach(event => createEventListItem(event, startlistsContainer, false));
             pastEvents.forEach(event => createEventListItem(event, competitionsContainer, true));
-
+            
+            
             let boatClasses = [];
 
-            function fetchAndDisplayRegistrationForm(eventName, eventDate) {
+            function fetchAndDisplayRegistrationForm(eventId, eventName, eventDate) {
                 const dialogTitle = document.getElementById('dialog-title');
                 if (dialogTitle) {
                     dialogTitle.textContent = `${eventName} - ${eventDate}`;
@@ -321,7 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     return;
                 }
             
-                fetch(`../entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/config.json`)
+                fetch(`../entrySys/${encodeURIComponent(eventId)}___${encodeURIComponent(eventDate)}___${encodeURIComponent(eventName)}/config.json`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Form not found');
@@ -329,7 +342,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         return response.json();
                     })
                     .then(config => {
-                        // Сохраняем информацию и создаем HTML форму
                         organization = config.organization || '';
                         otherOrganization = config.otherOrganization || '';
                         boatClasses = config.boatClasses;
@@ -343,7 +355,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             return;
                         }
             
-                        // Пример обработки селекторов и чекбоксов
                         const organizationSelect = document.getElementById('organization');
                         if (organizationSelect) {
                             organizationSelect.innerHTML = '';
@@ -381,26 +392,25 @@ document.addEventListener('DOMContentLoaded', function () {
                                 boatClassSelect.appendChild(option);
                             });
                             boatClassSelect.addEventListener('change', function() {
-                                handleBoatClassChange(eventName, eventDate);
+                                handleBoatClassChange(eventId, eventName, eventDate);
                             });
                         }
             
-                        // Обработка остальных элементов
                         const licenseCheckbox = document.getElementById('has-license');
                         if (licenseCheckbox) {
                             licenseCheckbox.addEventListener('change', function() {
-                                handleBoatClassChange(eventName, eventDate);
+                                handleBoatClassChange(eventId, eventName, eventDate);
                             });
                         }
             
                         const crewCheckbox = document.getElementById('joined-crew');
                         if (crewCheckbox) {
                             crewCheckbox.addEventListener('change', function() {
-                                handleBoatClassChange(eventName, eventDate);
+                                handleBoatClassChange(eventId, eventName, eventDate);
                             });
                         }
             
-                        handleBoatClassChange(eventName, eventDate);
+                        handleBoatClassChange(eventId, eventName, eventDate);
             
                         const registrationForm = document.getElementById('registration-form');
                         if (registrationForm) {
@@ -411,7 +421,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 formData.forEach((value, key) => {
                                     serializedData[key] = value;
                                 });
-                                sendEmail(serializedData, eventName);
+                                sendEmail(serializedData, eventName, eventId);
                             });
                         }
             
@@ -421,11 +431,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         } else {
                             console.error('Element with id "registration-dialog" not found');
                         }
+            
                     })
                     .catch(error => {
                         console.error('Error loading registration form:', error);
                     });
-            }            
+            }          
                                                
             let organizationOptions = '';
             function generateFormHtml(config, eventName, eventDate) {
@@ -540,7 +551,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            function handleBoatClassChange(eventName, eventDate) {
+            function handleBoatClassChange(eventId, eventName, eventDate) {
                 const category = document.getElementById('boat-class').value;
                 const participantsTable = document.getElementById('participantsTable').getElementsByTagName('tbody')[0];
                 const participantInfoDiv = document.getElementById('participant-info');
@@ -555,7 +566,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 const joinedCrewCheckbox = document.getElementById('joined-crew');
                 const headerRow = document.querySelector('#participantsTable thead tr');
             
-                // Обновляем заголовки таблицы в зависимости от состояния чекбоксов
                 if (hasLicenseCheckbox.checked) {
                     headerRow.innerHTML = '<th>Licence</th>';
                     if (joinedCrewCheckbox.checked) {
@@ -570,12 +580,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     `;
                 }
             
-                // Генерация строк таблицы для участников
                 for (let i = 0; i < numParticipants; i++) {
                     const newRow = participantsTable.insertRow();
                     if (hasLicenseCheckbox.checked) {
                         newRow.innerHTML = `
-                            <td><input type="text" id="license${i + 1}" name="license${i + 1}" required oninput="fetchParticipantData(${i + 1}, '${eventName}', '${eventDate}')"></td>
+                            <td><input type="text" id="license${i + 1}" name="license${i + 1}" required oninput="fetchParticipantData(${i + 1}, '${eventId}', '${eventName}', '${eventDate}')"></td>
                         `;
                         if (joinedCrewCheckbox.checked) {
                             newRow.innerHTML += `
@@ -603,68 +612,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         `;
                     }
             
-                    // Устанавливаем слушатель для изменения видимости поля "Other Organization"
-                    if (joinedCrewCheckbox.checked) {
-                        const orgSelect = document.getElementById(`participantOrganization${i + 1}`);
-                        const otherOrgInput = document.getElementById(`other-participant-organization${i + 1}`);
-                        if (orgSelect) {
-                            orgSelect.addEventListener('change', function () {
-                                otherOrgInput.style.display = (this.value === 'Other') ? 'block' : 'none';
-                            });
-                        }
+                    if (i === coxswainIndex) {
+                        newRow.style.backgroundColor = 'rgba(237, 96, 0, 0.8)';
                     }
-                }
-            
-                // Обработка поля для гребца
-                if (coxswainIndex >= numParticipants) {
-                    const newRow = participantsTable.insertRow(coxswainIndex);
-                    if (hasLicenseCheckbox.checked) {
-                        newRow.innerHTML = `
-                            <td><input type="text" id="licenseCox" name="licenseCox" required oninput="fetchParticipantData('Cox', '${eventName}', '${eventDate}')"></td>
-                        `;
-                        if (joinedCrewCheckbox.checked) {
-                            newRow.innerHTML += `
-                                <td>
-                                    <select id="participantOrganizationCox" name="participantOrganizationCox">
-                                        ${organizationOptions}
-                                    </select>
-                                    <input type="text" id="other-participant-organizationCox" name="otherParticipantOrganizationCox" style="display: none;" placeholder="Enter other organization">
-                                </td>
-                            `;
-                        }
-                    } else {
-                        newRow.innerHTML = `
-                            <td><input type="number" id="birthYearCox" name="birthYearCox" required></td>
-                            <td><input type="text" id="firstNameCox" name="firstNameCox" required></td>
-                            <td><input type="text" id="lastNameCox" name="lastNameCox" required></td>
-                            ${joinedCrewCheckbox.checked ? `
-                                <td>
-                                    <select id="participantOrganizationCox" name="participantOrganizationCox">
-                                        ${organizationOptions}
-                                    </select>
-                                    <input type="text" id="other-participant-organizationCox" name="otherParticipantOrganizationCox" style="display: none;" placeholder="Enter other organization">
-                                </td>
-                            ` : ''}
-                        `;
-                    }
-            
-                    // Устанавливаем слушатель для изменения видимости поля "Other Organization" для гребца
-                    if (joinedCrewCheckbox.checked) {
-                        const orgSelect = document.getElementById('participantOrganizationCox');
-                        const otherOrgInput = document.getElementById('other-participant-organizationCox');
-                        if (orgSelect) {
-                            orgSelect.addEventListener('change', function () {
-                                otherOrgInput.style.display = (this.value === 'Other') ? 'block' : 'none';
-                            });
-                        }
-                    }
-            
-                    newRow.classList.add('coxswain-row');
                 }
             
                 updateCoxswainInfo(selectedClass);
-            }
-                                                                                  
+            }                                        
+                                                                
             function updateCoxswainInfo(selectedClass) {
                 const coxswainInfoParagraph = document.getElementById('coxswain-info');
                 if (selectedClass && selectedClass.coxswainIndex !== undefined && selectedClass.coxswainName) {
@@ -687,17 +642,22 @@ document.addEventListener('DOMContentLoaded', function () {
             }
             
 
-            window.fetchParticipantData = function fetchParticipantData(index, eventName, eventDate) {
+            window.fetchParticipantData = function fetchParticipantData(index, eventId, eventName, eventDate) {
                 const searchInput = document.getElementById(`license${index}`);
                 const searchQuery = searchInput ? searchInput.value.trim().toUpperCase() : '';
             
+                console.log("Search query:", searchQuery);
+                
                 if (searchQuery) {
-                    fetch(`../entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/licences.xlsx`)
+                    const fileUrl = `../entrySys/${encodeURIComponent(eventId)}___${encodeURIComponent(eventDate)}___${encodeURIComponent(eventName)}/licences.xlsx`;
+                    console.log("Fetching licenses file from:", fileUrl);
+                    
+                    fetch(fileUrl)
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error('Failed to fetch the licenses file');
                             }
-                            return response.blob(); // Получаем файл в формате blob
+                            return response.blob();
                         })
                         .then(blob => {
                             const reader = new FileReader();
@@ -708,7 +668,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                     const sheet = workbook.Sheets[workbook.SheetNames[0]];
                                     const jsonData = XLSX.utils.sheet_to_json(sheet);
             
-                                    // Функция для поиска по нескольким столбцам
                                     const searchResults = jsonData.filter(p => {
                                         const licenseMatch = p['Licences numurs'] && p['Licences numurs'].toString().includes(searchQuery);
                                         const nameMatch = (p['Vārds'] && p['Vārds'].toUpperCase().includes(searchQuery)) || (p['Uzvārds'] && p['Uzvārds'].toUpperCase().includes(searchQuery));
@@ -744,22 +703,23 @@ document.addEventListener('DOMContentLoaded', function () {
                         })
                         .catch(error => {
                             console.error('Error fetching participant data:', error);
-                            const participantInfoDiv = document.getElementById('participant-info');
-                            participantInfoDiv.innerHTML = '<p>Šim vaicājumam nav pieejami dati.</p>';
+                            document.getElementById('participant-info').innerHTML = '<p>Šim vaicājumam nav pieejami dati.</p>';
                         });
-                } 
-            }                     
+                } else {
+                    document.getElementById('participant-info').innerHTML = '';
+                }
+            };                        
             
-            async function loadLicenseMapping(eventName, eventDate) {
+            async function loadLicenseMapping(eventId, eventName, eventDate) {
                 try {
-                    const response = await fetch(`../entrySys/${encodeURIComponent(eventDate)}%20%20${encodeURIComponent(eventName)}/licences.xlsx`);
+                    const response = await fetch(`../entrySys/${encodeURIComponent(eventId)}___${encodeURIComponent(eventDate)}___${encodeURIComponent(eventName)}/licences.xlsx`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch the licenses file');
                     }
-                
+            
                     const blob = await response.blob();
                     const reader = new FileReader();
-                
+            
                     return new Promise((resolve, reject) => {
                         reader.onload = function(event) {
                             try {
@@ -767,7 +727,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 const workbook = XLSX.read(data, { type: 'binary' });
                                 const sheet = workbook.Sheets[workbook.SheetNames[0]];
                                 const jsonData = XLSX.utils.sheet_to_json(sheet);
-                
+            
                                 licenseMapping = jsonData.reduce((acc, item) => {
                                     if (item['Licences numurs']) {
                                         const birthYear = item['Dzimšanas gads'] ? item['Dzimšanas gads'].toString() : '';
@@ -777,7 +737,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     }
                                     return acc;
                                 }, {});
-                                
+            
                                 resolve();
                             } catch (error) {
                                 console.error('Error processing Excel file:', error);
@@ -794,14 +754,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error('Error loading license mapping:', error);
                     throw new Error('Error loading license mapping');
                 }
-            }
-            
-            async function sendEmail(formData, eventName) {
+            }            
+
+            async function sendEmail(formData, eventName, eventId) {
                 try {
-                    // Загрузка сопоставления лицензий
-                    await loadLicenseMapping(eventName, document.getElementById('dialog-title').textContent.split(' - ')[1].trim());
-            
-                    // Сбор участников
+                    const eventDate = document.getElementById('dialog-title').textContent.split(' - ')[1].trim();
+                    await loadLicenseMapping(eventId, eventName, eventDate);
                     const participants = Object.keys(formData)
                         .filter(key => key.startsWith('firstName') || key.startsWith('lastName') || key.startsWith('birthYear') || key.startsWith('license') || key.startsWith('participantOrganization') || key.startsWith('otherParticipantOrganization'))
                         .reduce((acc, key) => {
@@ -812,56 +770,32 @@ document.addEventListener('DOMContentLoaded', function () {
                             acc[index][type] = formData[key];
                             return acc;
                         }, []);
-            
-                    // Удаление пустого первого участника, если он есть
                     if (!participants[0] || Object.keys(participants[0]).length === 0) {
                         participants.shift();
                     }
-            
-                    // Форматирование участников
                     const formattedParticipants = participants.map(participant => {
                         const license = participant.license ? participant.license.trim() : '';
                         const birthYear = participant.birthYear ? participant.birthYear.toString() : '';
-            
-                        // Использование лицензии для формирования имени и фамилии
-                        const formattedLicense = licenseMapping[license] || `${license} ${participant.firstName || ''} ${participant.lastName || ''} ${birthYear.slice(-2)}`;
-            
-                        // Разбиваем форматированную лицензию на части
-                        const parts = formattedLicense.split(' ');
-            
-                        // Извлекаем фамилию (может быть несколько слов), имя и год рождения из частей
-                        const lastName = parts.slice(0, -2).join(' ').toUpperCase(); // Фамилия - всё до предпоследнего слова
-                        const firstName = (parts[parts.length - 2] || ''); // Имя - предпоследнее слово
-                        const licenseBirthYear = parts[parts.length - 1] || birthYear;
-            
-                        // Форматируем организацию
-                        let organizationPart = '';
-                        if (participant.participantOrganization === 'Other') {
-                            // Если указана дополнительная организация
-                            organizationPart = participant.otherParticipantOrganization || '';
-                        } else {
-                            // Если дополнительная организация не указана
-                            organizationPart = participant.participantOrganization || '';
+                        let formattedName = 'ERROR-EMPTY';
+                        if (license) {
+                            formattedName = license;
+                        } else if (participant.firstName && participant.lastName && birthYear) {
+                            const surname = participant.lastName.toUpperCase();
+                            const name = participant.firstName.charAt(0).toUpperCase() + participant.firstName.slice(1);
+                            const year = birthYear.slice(-2);
+                            const organization = participant.participantOrganization && participant.participantOrganization !== 'Other' ? participant.participantOrganization : participant.otherParticipantOrganization;
+                            formattedName = organization ? `${organization} / ${surname} ${name} ${year}` : `${surname} ${name} ${year}`;
                         }
-            
-                        // Форматируем поле лицензии
-                        let licenseField = `${license || ''} ${participant.lastName ? participant.lastName.toUpperCase() : ''} ${participant.firstName || ''} ${birthYear ? birthYear.slice(-2) : ''}`;
-                        if (organizationPart) {
-                            licenseField = `${organizationPart} | ${licenseField}`;
-                        }
-            
-                        // Возвращаем форматированного участника
                         return {
-                            firstName: firstName || '',
-                            lastName: lastName || '',
-                            birthYear: licenseBirthYear,
-                            license: licenseField
+                            license: formattedName,
+                            firstName: participant.firstName || '',
+                            lastName: participant.lastName || '',
+                            birthYear: birthYear
                         };
                     });
-            
-                    // Подготовка данных для отправки
                     const dataToSend = {
-                        eventDate: document.getElementById('dialog-title').textContent.split(' - ')[1].trim(),
+                        eventId: eventId,
+                        eventDate: eventDate,
                         eventName: eventName,
                         formData: {
                             boatClass: formData.boatClass,
@@ -872,8 +806,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             participants: formattedParticipants
                         }
                     };
-            
-                    // Отправка данных
                     const response = await fetch('/submit-entry', {
                         method: 'POST',
                         headers: {
@@ -881,17 +813,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         body: JSON.stringify(dataToSend),
                     });
-            
                     if (response.ok) {
                         showConfirmationModal(formData, formattedParticipants);
                     } else {
+                        const errorText = await response.text();
+                        console.error('Server response:', errorText);
                         throw new Error('Failed to submit entry');
                     }
                 } catch (error) {
                     console.error("Error sending entry data:", error);
                     alert("Failed to submit entry: " + error.message);
                 }
-            }            
+            }                                                          
             
             function showConfirmationModal(formData, formattedParticipants) {
                 // Получаем элемент модального окна

@@ -188,6 +188,10 @@ span.competition-number {
     display: inline-block;
 }
 
+.coxswain-row {
+    background-color: #ed6000;
+}
+
 .cox {
     border-color: #ed6000 !important;
 }

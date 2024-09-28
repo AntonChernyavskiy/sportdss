@@ -292,7 +292,11 @@
         </div>
     </nav>
     <div class="container main-content">
-        <h4>Results / Rezultāti</h4>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a>Rezultāti</a>
+            </li>
+        </ol>
         <div class="row">
             <div class="col-12">
                 <table class="table table-striped table-hover table-bordered" style="width: 100%" id="competitions-table">
@@ -367,14 +371,14 @@
 
                     // Сортировка данных от новых к старым
                     filteredData.sort((a, b) => {
-                        const noveltyA = parseInt(a.split('___')[0], 10);
-                        const noveltyB = parseInt(b.split('___')[0], 10);
+                        const idA = parseInt(a.split('___')[0], 10);
+                        const idB = parseInt(b.split('___')[0], 10);
                         const dateA = new Date(a.split('___')[1].split('-').reverse().join('-')); // Преобразуем формат DD-MM-YYYY в YYYY-MM-DD
                         const dateB = new Date(b.split('___')[1].split('-').reverse().join('-'));
-                        if (noveltyB === noveltyA) {
+                        if (idB === idA) {
                             return dateB - dateA; // Сортировка по дате, если новизна одинакова
                         }
-                        return noveltyB - noveltyA; // Сортировка по новизне
+                        return idB - idA; // Сортировка по новизне
                     });
 
 
@@ -394,7 +398,7 @@
                         const pageData = filteredData.slice(start, end);
 
                         pageData.forEach((entry, index) => {
-                            const [novelty, date, eventName] = entry.split('___'); // Получаем новизну, дату и название
+                            const [id, date, eventName] = entry.split('___'); // Получаем новизну, дату и название
 
                             const tr = document.createElement('tr');
                             tr.classList.add('event-row');
@@ -411,13 +415,9 @@
                             eventNameLink.classList.add('hvr-bubble-float-left');
                             eventNameLink.href = '#';
 
-                            // Передаем novelty, date и eventName в обработчик
                             eventNameLink.onclick = function () {
-                                fetchAndDisplayResults(eventName, date, novelty); // Передаем новизну в функцию
-                                
-                                const modal = document.getElementById('myModal');
-                                modal.style.display = 'flex';
-                                document.getElementById('search-input').value = '';
+                                const newUrl = `https://sportdss.eu/details/?event=${encodeURIComponent(eventName)}&date=${encodeURIComponent(date)}&id=${id}`;
+                                window.location.href = newUrl;  // Перенаправляем пользователя на новую страницу с параметрами
                                 return false;
                             };
 
@@ -529,7 +529,7 @@
                         }
                     }
     
-                    function fetchAndDisplayResults(eventName, eventDate, novelty) {
+                    function fetchAndDisplayResults(eventName, eventDate, id) {
                         const modalStartlistsContainer = document.getElementById('startlists');
                         const modalResultsListContainer = document.getElementById('results-list');
                         const modalOtherFilesContainer = document.getElementById('other-files');
@@ -543,11 +543,11 @@
                         const [year, month, day] = eventDate.split('-');
                         const formattedDate = `${year}-${month}-${day}`;
                         const formattedEventName = encodeURIComponent(eventName);
-                        const urlPath = `${novelty}___${formattedDate}___${formattedEventName}`;
+                        const urlPath = `${id}___${formattedDate}___${formattedEventName}`;
 
                         // Обновляем адресную строку
-                        const newUrl = `${window.location.pathname}?event=${formattedEventName}&date=${formattedDate}`;
-                        history.pushState({ event: eventName, date: eventDate }, '', newUrl);
+                        const newUrl = `${window.location.pathname}?event=${formattedEventName}&date=${formattedDate}&id=${id}`;
+                        history.pushState({ event: eventName, date: eventDate, id }, '', newUrl);
 
                         fetch(`/files/${urlPath}/`)
                             .then(response => {
@@ -612,7 +612,7 @@
                                     button.classList.add('event-element', 'hvr-underline-from-left');
                                     button.textContent = category;
                                     button.onclick = function () {
-                                        displayResultsForCategory(category, raceFiles, eventDate, eventName, novelty);
+                                        displayResultsForCategory(category, raceFiles, eventDate, eventName, id);
                                         categoryButtonsContainer.querySelectorAll('span').forEach(btn => btn.classList.remove('results-active'));
                                         button.classList.add('results-active');
                                     };
@@ -622,7 +622,7 @@
                             .catch(error => console.error('Error loading results:', error));
                     }
 
-                    function displayResultsForCategory(category, raceFiles, eventDate, eventName, novelty) {
+                    function displayResultsForCategory(category, raceFiles, eventDate, eventName, id) {
                         const modalResultsListContainer = document.getElementById('results-list');
                         const categoryButtonsContainer = document.getElementById('category-buttons');
                         modalResultsListContainer.innerHTML = ''; // Очищаем контейнер результатов
@@ -668,7 +668,7 @@
 
                                     const raceElement = document.createElement('a');
                                     raceElement.classList.add('file-element');
-                                    raceElement.href = `/files/${novelty}___${eventDate}___${encodeURIComponent(eventName)}/Results/${encodeURIComponent(file)}`;
+                                    raceElement.href = `/files/${id}___${eventDate}___${encodeURIComponent(eventName)}/Results/${encodeURIComponent(file)}`;
                                     raceElement.target = '_blank';
 
                                     const raceInfo = document.createElement('div');
@@ -724,10 +724,11 @@
                     const urlParams = new URLSearchParams(window.location.search);
                     const eventParam = urlParams.get('event');
                     const dateParam = urlParams.get('date');
-                    if (eventParam && dateParam) {
-                        fetchAndDisplayResults(eventParam, dateParam);
-                        const modal = document.getElementById('myModal');
-                        modal.style.display = 'flex';
+                    const idParam = urlParams.get('id');
+
+                    if (eventParam && dateParam && idParam) {
+                        const newUrl = `https://sportdss.eu/details/?event=${encodeURIComponent(eventParam)}&date=${encodeURIComponent(dateParam)}&id=${idParam}`;
+                        window.location.href = newUrl;  // Перенаправляем пользователя на страницу с параметрами
                     }
                 });
         });

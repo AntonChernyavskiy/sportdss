@@ -1,9 +1,13 @@
 {
   "organizations": [
-    "MSĢ TSV SASS",
-    "MSĢ TSV Jūrmala",
+    "AK Lielupe",
+    "AK Daugava",
     "Daugavpils Sporta skola",
+    "Individuāli",
     "Jelgavas BJSS",
+    "MSĢ TSV Jūrmala",
+    "MSĢ TSV SASS",
+    "RAK1872",
     "Other"
   ],
   "boatClasses": [
@@ -11,46 +15,42 @@
       "class": "Select"
     },
     {
-      "class": "JM1x",
+      "class": "M1x",
       "participants": 1
     },
     {
-      "class": "JW1x",
+      "class": "W1x",
       "participants": 1
+    },
+    {
+      "class": "M2-",
+      "participants": 2
+    },
+    {
+      "class": "W2-",
+      "participants": 2
     },
     {
       "class": "JM2x",
       "participants": 2
     },
     {
-      "class": "JW2x",
-      "participants": 2
-    },
-    {
-      "class": "JM2-",
-      "participants": 2
-    },
-    {
-      "class": "JW2-",
-      "participants": 2
-    },
-    {
-      "class": "JM4x",
-      "participants": 4
-    },
-    {
-      "class": "JW4x",
-      "participants": 4
-    },
-    {
       "class": "JM4-",
       "participants": 4
     },
     {
+      "class": "JW2x",
+      "participants": 2
+    },
+    {
       "class": "JW4-",
+      "participants": 4
+    },
+    {
+      "class": "MMix2x",
       "participants": 4
     }
   ],
-  "registrationStartDate": "2024-08-17T09:00:00Z",
-  "registrationEndDate": "2024-08-19T21:59:59Z"
+  "registrationStartDate": "2024-09-27T21:00:00Z",
+  "registrationEndDate": "2024-10-03T19:01:00Z"
 }

@@ -184,22 +184,18 @@ app.get('/profile', requiresAuth(), (req, res) => {
     res.send(JSON.stringify(req.oidc.user));
 });
 
-// Submit an entry
 app.post('/submit-entry', async (req, res) => {
     try {
-        const { eventDate, eventName, formData } = req.body;
+        const { eventId, eventDate, eventName, formData } = req.body;
 
-        // Validate formData, eventName, and eventDate
-        if (!formData || !eventName || !eventDate) {
-            return res.status(400).send('formData, eventName, and eventDate are required');
+        if (!formData || !eventName || !eventDate || !eventId) {
+            return res.status(400).send('formData, eventName, eventDate, and eventId are required');
         }
 
-        // Validate formData structure
         if (!Array.isArray(formData.participants) || formData.participants.length === 0) {
             return res.status(400).send('Invalid formData: participants array is required');
         }
 
-        // Format participants data for entries.csv
         const formattedParticipants = formData.participants.map(participant => {
             const { license, firstName, lastName, birthYear } = participant;
             let formattedName = 'ERROR-EMPTY';
@@ -209,39 +205,30 @@ app.post('/submit-entry', async (req, res) => {
                 const surname = lastName.toUpperCase();
                 const name = firstName.charAt(0).toUpperCase() + firstName.slice(1);
                 const year = birthYear.slice(-2);
-                const organization = participant.organization && participant.organization !== 'Other' ? participant.organization : participant.otherOrganization;
+                const organization = participant.organization && participant.organization !== 'Other'
+                    ? participant.organization
+                    : participant.otherOrganization;
                 formattedName = organization ? `${organization} / ${surname} ${name} ${year}` : `${surname} ${name} ${year}`;
             }
             return formattedName;
         }).join('<br>');
-        
-        const trimmedParticipants = formattedParticipants.trim(); // This is now a string
 
+        const trimmedParticipants = formattedParticipants.trim();
         const boatClass = formData.boatClass;
         const contactInformation = formData.contactInformation;
         const organization = formData.organization;
         const otherOrganization = formData.otherOrganization;
-
-        // Extract and format coach information
         const coachInformation = (formData.coachInformation || '').toUpperCase().replace(/,/g, '<br>');
-
-        // Get the current server time in YYYY-MM-DD HH:MM:SS format
         const now = new Date();
-        const formattedDate = now.toISOString().replace('T', ' ').substring(0, 19); // YYYY-MM-DD HH:MM:SS
-
-        // Prepare CSV data for entries.csv
+        const formattedDate = now.toISOString().replace('T', ' ').substring(0, 19);
         const csvData = `\n${boatClass},${organization && organization !== 'Other' ? organization : otherOrganization},${trimmedParticipants},${contactInformation},${coachInformation},${formattedDate}`;
-        const eventFolder = `${eventDate}  ${eventName}`;
+        const eventFolder = `${eventId}___${eventDate}___${eventName}`;
         const eventDirectory = path.join(__dirname, 'public', 'entrySys', eventFolder);
         const entriesFilePath = path.join(eventDirectory, 'entries.csv');
 
-        // Ensure the directory exists, create if it doesn't
         await fs.mkdir(eventDirectory, { recursive: true });
-
-        // Append data to entries.csv
         await fs.appendFile(entriesFilePath, csvData, 'utf8');
 
-        // Prepare CSV data for participants.csv
         const participantsData = formData.participants.map(participant => {
             const { license, firstName, lastName, birthYear } = participant;
             let formattedName = 'ERROR-EMPTY';
@@ -251,18 +238,16 @@ app.post('/submit-entry', async (req, res) => {
                 const surname = lastName.toUpperCase();
                 const name = firstName.charAt(0).toUpperCase() + firstName.slice(1);
                 const year = birthYear.slice(-2);
-                const organization = participant.organization && participant.organization !== 'Other' ? participant.organization : participant.otherOrganization;
+                const organization = participant.organization && participant.organization !== 'Other'
+                    ? participant.organization
+                    : participant.otherOrganization;
                 formattedName = organization ? `${organization} / ${surname} ${name} ${year}` : `${surname} ${name} ${year}`;
             }
             return `${boatClass},${organization && organization !== 'Other' ? organization : otherOrganization},${formattedName}`;
         }).join('\n');
 
         const participantsFilePath = path.join(eventDirectory, 'participants.csv');
-
-        // Append data to participants.csv
         await fs.appendFile(participantsFilePath, `\n${participantsData}`, 'utf8');
-
-        // Respond with success message
         res.status(200).send('Entry submitted successfully!');
     } catch (error) {
         console.error('Error submitting entry:', error);

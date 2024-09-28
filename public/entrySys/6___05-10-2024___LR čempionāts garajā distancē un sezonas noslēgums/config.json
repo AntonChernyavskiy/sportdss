@@ -1,0 +1,87 @@
+{
+  "organizations": [
+    "AK Lielupe",
+    "AK Daugava",
+    "Daugavpils Sporta skola",
+    "Individuāli",
+    "Jelgavas BJSS",
+    "LATC",
+    "MSĢ TSV Jūrmala",
+    "MSĢ TSV SASS",
+    "RAK1872",
+    "Other"
+  ],
+  "boatClasses": [
+    {
+      "class": "Select"
+    },
+    {
+      "class": "M1x - LR čempionāts garajā distancē",
+      "participants": 1
+    },
+    {
+      "class": "W1x - LR čempionāts garajā distancē",
+      "participants": 1
+    },
+    {
+      "class": "M2- - LR čempionāts garajā distancē",
+      "participants": 2
+    },
+    {
+      "class": "W2- - LR čempionāts garajā distancē",
+      "participants": 2
+    },
+    {
+      "class": "JM2x - sezona noslēgums",
+      "participants": 2
+    },
+    {
+      "class": "JM4- - sezona noslēgums",
+      "participants": 4
+    },
+    {
+      "class": "JW2x - sezona noslēgums",
+      "participants": 2
+    },
+    {
+      "class": "JW4- - sezona noslēgums",
+      "participants": 4
+    },
+    {
+      "class": "MMix2x - sezona noslēgums",
+      "participants": 4
+    },
+    {
+      "class": "Ā/K 2x",
+      "participants": 2
+    },
+    {
+      "class": "Ā/K 2+",
+      "participants": 2,
+      "coxswainIndex": 3,
+      "coxswainName": "Sturmanis"
+    },
+    {
+      "class": "Ā/K 4x",
+      "participants": 4
+    },
+    {
+      "class": "Ā/K 4-",
+      "participants": 4
+    },
+    {
+      "class": "Ā/K 4+",
+      "participants": 4,
+      "coxswainIndex": 5,
+      "coxswainName": "Sturmanis"
+    },
+    {
+      "class": "Ā/K 8+",
+      "participants": 8,
+      "coxswainIndex": 9,
+      "coxswainName": "Sturmanis"
+    }
+  ],
+  "registrationStartDate": "2024-09-27T21:00:00Z",
+  "registrationEndDate": "2024-10-03T19:01:00Z"
+}

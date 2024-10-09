@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSS Sport System</title>
+    <title>Digital Sport System</title>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -269,7 +269,7 @@
         <div class="container">
             <div class="navbar-brand" href="/">
                 <span>
-                    DSS Sport System
+                    Digital Sport System
                 </span>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -284,7 +284,7 @@
                         <a class="nav-link" href="https://sportdss.eu">Pieteikšanas</a>
                     </li>
                     <li class="nav-item hvr-underline-from-left">
-                        <a class="nav-link" href="https://sportdss.eu/liveresults">Dzīvie rezultāti</a>
+                        <a class="nav-link" href="https://sportdss.eu/results">Dzīvie rezultāti</a>
                     </li>
                 </ul>
             </div>
@@ -559,22 +559,25 @@
                             .then(data => {
                                 const { baseFiles, resultsFiles, startlistsFiles } = data;
 
+                                // Filter out the config.json file from baseFiles
                                 baseFiles.forEach(file => {
-                                    const fileUrl = `/files/${urlPath}/${encodeURIComponent(file)}`;
-                                    const fileElement = document.createElement('a');
-                                    fileElement.classList.add('file-element');
-                                    fileElement.href = fileUrl;
-                                    fileElement.target = '_blank';
+                                    if (file !== 'config.json') { // Exclude config.json
+                                        const fileUrl = `/files/${urlPath}/${encodeURIComponent(file)}`;
+                                        const fileElement = document.createElement('a');
+                                        fileElement.classList.add('file-element');
+                                        fileElement.href = fileUrl;
+                                        fileElement.target = '_blank';
 
-                                    if (isMobileDevice()) {
-                                        fileElement.setAttribute('download', '');
+                                        if (isMobileDevice()) {
+                                            fileElement.setAttribute('download', '');
+                                        }
+
+                                        const span = document.createElement('span');
+                                        span.textContent = file;
+                                        fileElement.appendChild(span);
+
+                                        modalOtherFilesContainer.appendChild(fileElement);
                                     }
-
-                                    const span = document.createElement('span');
-                                    span.textContent = file;
-                                    fileElement.appendChild(span);
-
-                                    modalOtherFilesContainer.appendChild(fileElement);
                                 });
 
                                 startlistsFiles.forEach(file => {
@@ -736,7 +739,7 @@
     <footer style="text-align: center;" class="d-print-none">
         <br>
         <hr>
-        2024 © DSS Sport System. All rights reserved.
+        2024 © Digital Sport System. All rights reserved.
     </footer>
 </body>
 </html>

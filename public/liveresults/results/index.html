@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eventName</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Exo+2:300,400,700|Maven+Pro:400,700|Montserrat:300,400,700|Titillium+Web:300,400,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+
+    <meta name="viewport" content="width=430px" />
+    <link rel="stylesheet" href="../index.css">
+    <meta charset="utf-8">
+
+    <style>
+        .modal-dialog {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 576px) {
+            .modal-dialog {
+                max-width: 80%;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .modal-dialog {
+                max-width: 70%;
+            }
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <div class="navbar-brand" href="/">
+                <span id="navbarBrand">
+                    eventName
+                </span>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav" style="padding-right: 10px; margin-right: 10px;">
+                    <li class="nav-item hvr-underline-from-left">
+                        <a class="nav-link" href="https://sportdss.eu/liveresults/schedule/" onclick="navigateToWithParams(event, 'https://sportdss.eu/liveresults/schedule/')">Schedule</a>
+                    </li>
+                    <li class="nav-item hvr-underline-from-left active">
+                        <a class="nav-link" href="https://sportdss.eu/liveresults/results/" onclick="navigateToWithParams(event, 'https://sportdss.eu/liveresults/results/')">Results</a>
+                    </li>
+                    <li class="nav-item hvr-underline-from-left">
+                        <a class="nav-link" href="https://sportdss.eu/details/" onclick="navigateToWithParams(event, 'https://sportdss.eu/details/')">Documents</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container main-content">
+        <p id="loading">Loading results...</p>
+        <div id="resultsContainer"></div>
+    </div>
+
+    <footer style="text-align: center;" class="d-print-none">
+        <br>
+        <hr>
+        2024 © Digital Sport System. All rights reserved.
+    </footer>
+
+    <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="resultsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resultsModalLabel">Results</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="resultsTable">
+                            <thead id="resultsTableHead">
+                                <tr>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function navigateToWithParams(event, targetUrl) {
+            event.preventDefault(); // Prevent default link behavior
+            const params = new URLSearchParams(window.location.search); // Get current URL parameters
+            const newUrl = new URL(targetUrl); // Create a new URL object
+
+            // Append existing parameters to the new URL
+            params.forEach((value, key) => {
+                newUrl.searchParams.set(key, value);
+            });
+
+            window.location.href = newUrl.toString(); // Navigate to the new URL with preserved parameters
+        }
+
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        const eventName = getUrlParameter('event');
+        if (eventName) {
+            document.title = eventName; // Set page title
+            document.getElementById('navbarBrand').textContent = eventName; // Set navbar brand
+        }
+
+        document.querySelectorAll('.show-results').forEach(button => {
+        button.addEventListener('click', function () {
+            const eventId = this.getAttribute('data-event');
+            $('#resultsModal').modal('show');
+        });
+    });
+
+    let configData;
+    let modalData;
+
+    function fetchConfigJson() {
+        // Extract parameters from the current URL
+        const params = new URLSearchParams(window.location.search);
+        const event = params.get('event');
+        const date = params.get('date');
+        const id = params.get('id');
+
+        if (event && date && id) {
+            // Construct the URL for config.json
+            const formattedEventName = encodeURIComponent(event);
+            const formattedDate = date.replace(/-/g, '-'); // Remove dashes for folder structure
+            const configUrl = `https://sportdss.eu/files/${id}___${formattedDate}___${formattedEventName}/config.json`;
+
+            // Fetch the config.json file
+            fetch(configUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    configData = data.configData;
+                    modalData = data.modalData;
+
+                    if (!configData.regattaNumber) {
+                        console.error('Regatta number not found in configData');
+                        return;
+                    }
+
+                    fetchResults();  
+                    setInterval(fetchResults, 5 * 60000);
+                })
+                .catch(error => {
+                    console.error('Error fetching config.json:', error);
+                });
+        } else {
+            console.error('Missing URL parameters');
+        }
+    }
+
+    // Call the function to fetch config.json
+    fetchConfigJson();
+
+    function initializeEventListeners() {
+        document.querySelectorAll('.your-selector').forEach(cardDiv => {
+            cardDiv.addEventListener('click', () => {
+                const eventResults = getEventResults();
+                const heatsheetData = getHeatsheetData();
+                showResultsInModal(eventResults, heatsheetData);
+            });
+        });
+    }
+
+    async function fetchResults() {
+        if (!configData || !configData.regattaNumber) {
+            console.error('Regatta number is missing in configData');
+            return;
+        }
+
+        const regattaNumber = configData.regattaNumber;
+        const loadingMessage = document.getElementById('loading');
+        const resultsContainer = document.getElementById('resultsContainer');
+        loadingMessage.style.display = 'block';
+        resultsContainer.innerHTML = '';
+
+        try {
+            const resultsResponse = await fetch(`https://www.crewtimer.com/results?regatta=r${regattaNumber}`);
+            const resultsText = await resultsResponse.text();
+            const resultsData = parseCSV(resultsText);
+
+            const heatsheetResponse = await fetch(`https://www.crewtimer.com/heatsheet?regatta=r${regattaNumber}`);
+            const heatsheetText = await heatsheetResponse.text();
+            const heatsheetData = parseCSV(heatsheetText);
+
+            displayResults(resultsData, heatsheetData, resultsData);
+        } catch (error) {
+            console.error('Error fetching results:', error);
+        } finally {
+            loadingMessage.style.display = 'none';
+        }
+    }
+    
+        function parseCSV(text) {
+            const rows = text.split('\n').map(row => row.split(','));
+            const header = rows[0].map(h => h.replace(/"/g, ''));
+            return rows.slice(1).map(row => {
+                return header.reduce((obj, key, index) => {
+                    obj[key] = row[index] ? row[index].replace(/"/g, '') : '';
+                    return obj;
+                }, {});
+            });
+        }
+    
+
+        function displayResults(results, heatsheetData, resultsData) {
+    const resultsByCategory = {};
+    
+    // Группировка результатов по категориям и типам событий
+    resultsData.forEach(result => {
+        const category = result.Event.split(" ")[0]; // Категория - первое слово в Event
+        const eventType = result.Event; // Полное название события (тип)
+
+        if (!resultsByCategory[category]) {
+            resultsByCategory[category] = {};
+        }
+
+        // Создаем массив для каждого типа события
+        if (!resultsByCategory[category][eventType]) {
+            resultsByCategory[category][eventType] = [];
+        }
+
+        // Добавляем результаты в соответствующий заезд
+        resultsByCategory[category][eventType].push(result);
+    });
+
+    // Очистка контейнера для результатов
+    resultsContainer.innerHTML = '';
+
+    // Сортировка категорий по алфавиту
+    const sortedCategories = Object.keys(resultsByCategory).sort();
+
+    // Проходим по категориям и заездам
+    for (const category of sortedCategories) {
+        const events = resultsByCategory[category];
+
+        const categoryDiv = document.createElement('div');
+        categoryDiv.className = 'category-group';
+        categoryDiv.style.padding = '10px 0px';
+        categoryDiv.style.borderBottom = '2px solid #00397C';
+        categoryDiv.style.marginBottom = '20px';
+
+        const categoryHeader = document.createElement('div');
+        categoryHeader.style.display = 'flex';
+        categoryHeader.style.justifyContent = 'space-between';
+        categoryHeader.style.cursor = 'pointer';
+        categoryHeader.style.alignItems = 'center';
+        
+        const categoryTitle = document.createElement('h3');
+        categoryTitle.textContent = `${category}`;
+        categoryTitle.style.color = '#00397C';
+        categoryTitle.style.fontWeight = '700';
+        categoryTitle.textContent = configData.boats[category] || category;
+        
+        const toggleIcon = document.createElement('span');
+        toggleIcon.innerHTML = '&#9654;'; // Иконка стрелки
+        toggleIcon.style.transition = 'transform 0.3s ease';
+
+        categoryHeader.appendChild(categoryTitle);
+        categoryHeader.appendChild(toggleIcon);
+
+        categoryDiv.appendChild(categoryHeader);
+
+        // Скрытый блок для заездов
+        const eventsDiv = document.createElement('div');
+        eventsDiv.style.display = 'none';
+        eventsDiv.style.paddingLeft = '20px'; // Отступ для вложенных элементов
+
+        // Проходим по заездам в порядке их добавления
+        for (const eventType in events) {
+            const eventResults = events[eventType];
+            
+            const eventDiv = document.createElement('div');
+            eventDiv.className = 'event-group';
+            eventDiv.style.borderBottom = '1px solid rgba(0, 57, 124, 0.3)';
+            eventDiv.style.cursor = 'pointer';
+            eventDiv.style.padding = '10px 0px';
+            eventDiv.style.color = 'rgb(0, 29, 62)';
+            eventDiv.style.backgroundColor = 'rgb(228, 235, 243)';
+            eventDiv.style.marginBottom = '5px';
+
+            const eventNameDiv = document.createElement('div');
+            eventNameDiv.className = 'event-name';
+            eventNameDiv.style.fontWeight = '700';
+            eventNameDiv.style.fontSize = '16px';
+            eventNameDiv.textContent = `${eventType.split(" ")[1]}`;
+            eventNameDiv.textContent = configData.eventNames[eventType.split(" ")[1]] || eventType.split(" ")[1];
+
+            eventDiv.appendChild(eventNameDiv);
+
+            // При клике отображаем все результаты этого заезда
+            eventDiv.onclick = function () {
+                showResultsInModal(eventResults, heatsheetData, eventResults[0]); // Передаем все результаты заезда
+            };
+
+            eventsDiv.appendChild(eventDiv);
+        }
+
+        categoryDiv.appendChild(eventsDiv);
+
+        // Обработчик клика для раскрытия заездов при нажатии на категорию
+        categoryHeader.onclick = function () {
+            const isVisible = eventsDiv.style.display === 'block';
+            eventsDiv.style.display = isVisible ? 'none' : 'block';
+            toggleIcon.style.transform = isVisible ? 'rotate(0deg)' : 'rotate(90deg)';
+        };
+
+        resultsContainer.appendChild(categoryDiv);
+    }
+}
+        function displayFilteredResults(resultsByEventNum, heatsheetEvents, selectedDay = null, resultsData) {
+            resultsContainer.innerHTML = '';
+
+            const filterContainer = document.createElement('div');
+            filterContainer.className = 'filter-buttons';
+
+            const uniqueDays = new Set(Object.values(heatsheetEvents).map(e => e.day));
+            const sortedDays = Array.from(uniqueDays).sort((a, b) => new Date(a.split('.').reverse().join('-')) - new Date(b.split('.').reverse().join('-')));
+
+            sortedDays.forEach(day => {
+                if (day) {
+                    const dayButton = document.createElement('div');
+                    dayButton.className = 'day-button';
+                    dayButton.style.boxSizing = 'border-box';
+                    dayButton.style.marginBottom = '16px';
+                    dayButton.style.cursor = 'pointer';
+                    dayButton.style.fontSize = '18px';
+                    dayButton.style.fontWeight = '700';
+                    dayButton.style.padding = '10px 0px';
+                    dayButton.style.textAlign = 'center';
+                    dayButton.style.fontFamily = 'Effra, sans-serif';
+                    dayButton.style.lineHeight = '21px';
+                    dayButton.textContent = day;
+
+                    if (day === selectedDay) {
+                        dayButton.style.backgroundColor = 'rgb(0, 164, 228)';
+                        dayButton.style.color = 'rgb(255, 255, 255)';
+                    } else {
+                        dayButton.style.backgroundColor = 'rgb(0, 57, 124)';
+                        dayButton.style.color = 'rgb(255, 255, 255)';
+                    }
+
+                    dayButton.onclick = function () {
+                        displayFilteredResults(resultsByEventNum, heatsheetEvents, day, resultsData);
+                    };
+
+                    filterContainer.appendChild(dayButton);
+                }
+            });
+
+            resultsContainer.appendChild(filterContainer);
+
+            for (const [eventNum, eventResults] of Object.entries(resultsByEventNum)) {
+                const heatsheetData = heatsheetEvents[eventNum];
+                const results = resultsData[eventNum-1];
+
+                if (!heatsheetData) continue;
+                if (selectedDay && heatsheetData.day !== selectedDay) continue;
+
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'row race-row';
+                cardDiv.style.borderBottom = '1px solid rgba(0, 57, 124, 0.3)';
+                cardDiv.style.cursor = 'pointer';
+                cardDiv.style.padding = '10px 0px';
+                cardDiv.style.color = 'rgb(0, 29, 62)';
+                cardDiv.style.fontFamily = 'system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"';
+                cardDiv.style.fontSize = '16px';
+                cardDiv.style.fontWeight = '400';
+                cardDiv.style.lineHeight = '24px';
+                cardDiv.style.textAlign = 'start';
+                cardDiv.style.backgroundColor = 'rgb(228, 235, 243)';
+
+                const colDiv = document.createElement('div');
+                colDiv.className = 'col';
+
+                const innerDiv = document.createElement('div');
+                innerDiv.className = 'inner';
+
+                const timeDiv = document.createElement('div');
+                timeDiv.className = 'time';
+                timeDiv.style.boxSizing = 'border-box';
+                timeDiv.style.backgroundColor = 'rgb(0, 164, 228)';
+                timeDiv.style.color = 'rgb(255, 255, 255)';
+                timeDiv.style.display = 'inline-block';
+                timeDiv.style.fontSize = '16px';
+                timeDiv.style.fontWeight = '700';
+                timeDiv.style.marginRight = '10px';
+                timeDiv.style.textAlign = 'center';
+                timeDiv.style.width = '90px';
+                timeDiv.textContent = heatsheetData.time || 'Unknown Time';
+
+                const nameDiv = document.createElement('div');
+                nameDiv.className = 'name';
+                nameDiv.style.boxSizing = 'border-box';
+                nameDiv.style.display = 'inline-block';
+                nameDiv.style.fontSize = '16px';
+                nameDiv.style.fontWeight = '400';
+                nameDiv.style.color = 'rgb(0, 29, 62)';
+                const eventAbbreviation = results.Event.split(" ")[0];
+                nameDiv.textContent = configData.boats[eventAbbreviation] || results.Event.split(" ")[0];
+
+                const etaDescDiv = document.createElement('div');
+                etaDescDiv.className = 'eta-desc';
+                etaDescDiv.style.boxSizing = 'border-box';
+                etaDescDiv.style.color = 'rgb(0, 57, 124)';
+                etaDescDiv.style.float = 'right';
+                etaDescDiv.style.fontWeight = '700';
+                etaDescDiv.style.marginRight = '20px';
+                const eventIdentifier = heatsheetData.event.split(" ")[2] || results.Event.split(" ")[1];
+                etaDescDiv.textContent = configData.eventNames[eventIdentifier] || 'Unknown Description';
+
+                innerDiv.appendChild(timeDiv);
+                innerDiv.appendChild(nameDiv);
+                innerDiv.appendChild(etaDescDiv);
+                innerDiv.appendChild(document.createElement('div'));
+
+                colDiv.appendChild(innerDiv);
+                cardDiv.appendChild(colDiv);
+                
+                cardDiv.onclick = function () {
+                    showResultsInModal(eventResults, heatsheetData, results);
+                };
+
+                resultsContainer.appendChild(cardDiv);
+            }
+        }
+
+        function showResultsInModal(eventResults, heatsheetData, result) {
+            const resultsTableBody = document.getElementById('resultsTableBody');
+            const resultsTableHead = document.getElementById('resultsTableHead');
+            
+            if (!resultsTableBody) {
+                console.error('resultsTableBody element not found!');
+                return;
+            }
+
+            // Clear existing table rows and headers
+            resultsTableBody.innerHTML = '';
+            resultsTableHead.innerHTML = '';
+
+            // Check if result.Event exists before splitting
+            if (result.Event) {
+                const category = result.Event.split(" ")[0];
+                const eventType = result.Event.split(" ")[1]; 
+                const modalTitle = document.getElementById('resultsModalLabel');
+                modalTitle.textContent = `${category} - ${eventType}`;
+            } else {
+                console.error('result.Event is undefined');
+                return;
+            }
+
+            // Define table headers
+            const headers = ['Place', 'Bow', 'Crew', 'Stroke', 'Start', 'AdjTime', 'Delta'];
+            const headerRow = document.createElement('tr');
+            
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+            
+            // Append header row to thead
+            resultsTableHead.appendChild(headerRow);
+
+            // Loop through eventResults and create rows for each entry
+            eventResults.forEach(result => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${result.Place || ''}</td>
+                    <td>${result.Bow || ''}</td>
+                    <td>${result.Crew || ''}</td>
+                    <td>${result.Stroke ? result.Stroke.replace(/\//g, '<br>') : ''}</td>
+                    <td>${result.Start || ''}</td>
+                    <td>${result.AdjTime || ''}</td>
+                    <td>${result.Delta || ''}</td>
+                `;
+                resultsTableBody.appendChild(row);
+            });
+
+            // Display the modal with the entire race's results
+            $('#resultsModal').modal('show');
+        }
+
+    </script>    
+    
+</body>
+</html>

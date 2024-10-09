@@ -1,0 +1,369 @@
+body {
+    font-family: 'Exo 2' !important;
+
+}
+
+table {
+    width: 100% !important;
+    font-size: small !important;
+}
+
+table tr th  {
+    text-align: left !important;
+}
+
+table.dataTable thead .sorting {
+     background-image: none !important;
+}
+
+table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc {
+    background-image: none !important;
+}
+
+footer {
+    margin-top: 30px;
+    text-align: center;
+}
+
+footer .container .row .col {
+    border-top: 1px solid #eee;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    color: #aaa;
+}
+
+footer .container .row .col p {
+    font-size: x-small;
+    margin-top: 20px;
+}
+
+footer img {
+    width: 100px;
+}
+
+table a {
+    color: #0967ac !important;
+}
+
+.navbar-brand span {
+    color: #0967ac !important;
+    font-family: 'Maven Pro';
+    font-weight: bold;
+    font-size: 16px;
+    display: inline-block;
+    line-height: 1.2;
+    padding-right: 20px;
+    border-right: 1px solid #c1c1c1;
+}
+
+.navbar-brand img {
+    height: 30px;
+
+    display: inline-block;
+    margin-right: 9px;
+}
+
+.hvr-bubble-float-left:before {
+    display: none !important;
+}
+
+.navbar {
+    box-shadow: 0px 0px 10px #bbb;
+    position: fixed !important;
+    width: 100%;
+    z-index: 2;
+}
+
+.main-content {
+    padding-top: 100px;
+}
+
+.single-event {
+    width: 150px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.single-event span.ev-number {
+    float: left;
+    background-color: #6c757d;
+    width: 30px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    margin-left: -12px;
+    margin-top: -6px;
+    margin-bottom: -6px;
+    height: 36px;
+    padding-top: 5px;
+}
+
+.single-event span.ev-slots {
+    float: right;
+    font-size: small;
+    padding-top: 3px;
+    font-weight: bold;
+    color: #ccc;
+}
+
+span.status-indicator {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: 10px;
+    margin-right: 5px;
+}
+
+.btn-group > .btn:not(:first-child), .btn-group > .btn-group:not(:first-child) > .btn {
+    border-left: 1px solid #555;
+}
+
+.competition-table-header {
+    background-color: #efefef;
+    font-size: medium;
+}
+
+span.competition-number {
+    color: #fff;
+    background-color: #aaa;
+    width: 30px;
+    display: inline-block;
+    text-align: center;
+    height: 30px;
+    padding-top: 4px;
+    margin-right: 10px;
+    border: 1px solid #999;
+    border-radius: 20px;
+}
+
+.club-name {
+    display: block;
+    padding-top: 0px;
+    padding-bottom: 7px;
+}
+
+.rowers-list .r-index {
+    width: 25px;
+    display: inline-block;
+    margin-left: 30px;
+    background-color: #eee;
+    padding: 3px;
+    text-align: center;
+    border-radius: 5px;
+    font-size: small;
+    height: 25px;
+    margin-right: 10px;
+    margin-bottom: 4px;
+    color: #666;
+    float:left;
+}
+
+.rowers-list .r-Name {
+    display: inline-block;
+    width: 230px;
+    float:left;
+}
+
+.rowers-list .r-date {
+    display: inline-block;
+    float:left;
+    width: 80px;
+}
+
+.rowers-list .r-club {
+    display: inline-block;
+    float:left;
+    width: 220px;
+}
+
+.rowers-list .r-Name>.r-LastName {
+    font-weight: bold;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.competition-list {
+    float:left;
+    display: inline-block;
+}
+
+.coxswain-row {
+    background-color: #ed6000;
+}
+
+.cox {
+    border-color: #ed6000 !important;
+}
+
+.cox>.ev-number {
+    background-color: #ed6000 !important;
+}
+
+.competition-list>.single-event {
+    padding: 1px;
+    width: 100px;
+    font-weight: bold;
+    font-size: x-small;
+    overflow: hidden;
+}
+
+.competition-list>.single-event>.ev-number {
+    font-size: x-small;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    padding: 3px;
+    height: 21px;
+    margin-left: -1px;
+    border-radius: 2px 0px 0px 2px;
+}
+
+.competition-list>.single-event>.ev-name {
+    margin: 2px 0px;
+    display: inline-block;
+    color: #6c757d;
+}
+
+.competition-list>.single-event:hover>.ev-name {
+    color: #fff;
+}
+
+#pagination-container {
+    overflow: auto;
+    height: calc(100vh - 400px);
+    padding-right: 10px;
+}
+
+@media print {
+    .main-content {
+        padding-top: 0px;
+    }
+}
+
+@media only screen and (max-width: 812px) {
+    .no-mobile {
+        display: none !important;
+    }
+
+    span.rower-licence {
+        display: none !important;
+    }
+
+    .only-mobile {
+        display: block !important;
+        width: 100%;
+        clear: both;
+        margin: 0px;
+    }
+
+    .payment-panel-bottom .col-12 {
+        border-radius: 0px !important;
+        border-left: none !important;
+        border-right: none !important;
+        border-bottom: none !important;
+        height: 150px !important;
+    }
+
+    .payment-panel-bottom.shown {
+        bottom: 0px !important;
+    }
+
+    .payment-panel-bottom.hidden {
+        bottom: -170px !important;
+    }
+}
+
+.balance-value {
+    font-size: 1.2rem;
+    font-weight: bolder;
+}
+
+.balance-ignore { opacity: 0.3 }
+
+.entry-balance-details>td {
+    background-color: #f0f7ff;
+    /* border-top: none !important;
+    border-bottom: 2px solid #cfcfcf; */
+
+    font-weight: bold;
+    box-shadow: 0px 0px 20px #aaa;
+    border-radius: 10px;
+    padding: 20px !important
+}
+
+.eb-hidden {
+    display: none;
+}
+
+a.btn-small {
+    font-size: 0.8rem !important;
+    padding: 3px 10px;
+    line-height: 0.9;
+    color: #fff !important;
+}
+
+.compact-table tr td {
+    padding: 5px;
+}
+
+.modal-xl {
+    max-width: 750px !important;
+}
+
+.table-small tr td {
+    font-size: 0.7rem;
+    padding: 4px;
+}
+
+
+.payment-success {
+    background-color: #35bd54;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    padding: 2px 3px;
+    border-radius: 4px;
+}
+
+.payment-no {
+    background-color: #bd3535;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    padding: 2px 3px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.payment-progress {
+    background-color: #fcbc26;
+    color: #fff;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    padding: 2px 3px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+.payment-info {
+    background-color: #dadada;
+    color: #656565;
+    font-weight: normal;
+    font-size: small;
+    width: 100%;
+    text-align: center;
+    padding: 2px 3px;
+    border-radius: 0px 0px 4px 4px;
+}
+
+.btn-pay {
+    width: 100%;
+    text-align: center;
+    border: 1px solid #aaa;
+    padding-bottom: 5px;
+    border-radius: 4px;
+    font-weight: bold;
+    background-color: #efefef;
+    margin-bottom: 0px !important;
+}

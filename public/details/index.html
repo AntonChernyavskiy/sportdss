@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DSS Sport System</title>
+    <title>Digital Sport System</title>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -184,7 +184,7 @@
         <div class="container">
             <div class="navbar-brand" href="/">
                 <span>
-                    DSS Sport System
+                    Digital Sport System
                 </span>
             </div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -199,7 +199,7 @@
                         <a class="nav-link" href="https://sportdss.eu">Pieteikšanas</a>
                     </li>
                     <li class="nav-item hvr-underline-from-left">
-                        <a class="nav-link" href="https://sportdss.eu/liveresults">Dzīvie rezultāti</a>
+                        <a class="nav-link" href="https://sportdss.eu/results">Dzīvie rezultāti</a>
                     </li>
                 </ul>
             </div>
@@ -213,6 +213,10 @@
             </li>
             <li class="breadcrumb-item">competitionsName</li>
         </ol>
+        <div class="alert mt-3 alert-danger" id="live-results-alert" style="display: none;">
+            <a href="#">LIVE RESULTS</a>
+        </div>
+        
         <div class="row">
             <div class="col-md">
                 <h5>Start lists / Starta protokoli</h5>
@@ -232,6 +236,20 @@
 
     <script src="../js/filter.js"></script>
     <script>
+        document.getElementById('live-results-alert').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default anchor behavior
+
+            // Get the current URL's parameters
+            const params = new URLSearchParams(window.location.search);
+
+            // Build the new URL
+            const newUrl = `https://sportdss.eu/liveresults/schedule?${params.toString()}`;
+
+            // Redirect to the new URL
+            window.location.href = newUrl;
+        });
+
+
         document.addEventListener('DOMContentLoaded', function () {
             fetch('/files')
                 .then(response => response.json())
@@ -431,14 +449,15 @@
                     }
     
                     function fetchAndDisplayResults(eventName, eventDate, id) {
-                        const startlistsContainer = document.getElementById('startlists');
-                        const resultsListContainer = document.getElementById('results-list');
-                        const otherFilesContainer = document.getElementById('other-files');
+                        const modalStartlistsContainer = document.getElementById('startlists');
+                        const modalResultsListContainer = document.getElementById('results-list');
+                        const modalOtherFilesContainer = document.getElementById('other-files');
                         const categoryButtonsContainer = document.getElementById('category-buttons');
+                        const liveResultsAlert = document.getElementById('live-results-alert'); // Get the alert element
 
-                        startlistsContainer.innerHTML = '';
-                        resultsListContainer.innerHTML = '';
-                        otherFilesContainer.innerHTML = '';
+                        modalStartlistsContainer.innerHTML = '';
+                        modalResultsListContainer.innerHTML = '';
+                        modalOtherFilesContainer.innerHTML = '';
                         categoryButtonsContainer.innerHTML = '';
 
                         const [year, month, day] = eventDate.split('-');
@@ -446,6 +465,7 @@
                         const formattedEventName = encodeURIComponent(eventName);
                         const urlPath = `${id}___${formattedDate}___${formattedEventName}`;
 
+                        // Обновляем адресную строку
                         const newUrl = `${window.location.pathname}?event=${formattedEventName}&date=${formattedDate}&id=${id}`;
                         history.pushState({ event: eventName, date: eventDate, id }, '', newUrl);
 
@@ -459,18 +479,29 @@
                             .then(data => {
                                 const { baseFiles, resultsFiles, startlistsFiles } = data;
 
+                                // Check for config.json and show/hide the alert accordingly
+                                const hasConfigFile = baseFiles.includes('config.json');
+                                liveResultsAlert.style.display = hasConfigFile ? 'block' : 'none'; // Show or hide alert
+
+                                // Filter out the config.json file from baseFiles
                                 baseFiles.forEach(file => {
-                                    const fileUrl = `/files/${urlPath}/${encodeURIComponent(file)}`;
-                                    const fileElement = document.createElement('a');
-                                    fileElement.classList.add('file-element');
-                                    fileElement.href = fileUrl;
-                                    fileElement.target = '_blank';
+                                    if (file !== 'config.json') { // Exclude config.json
+                                        const fileUrl = `/files/${urlPath}/${encodeURIComponent(file)}`;
+                                        const fileElement = document.createElement('a');
+                                        fileElement.classList.add('file-element');
+                                        fileElement.href = fileUrl;
+                                        fileElement.target = '_blank';
 
-                                    const span = document.createElement('span');
-                                    span.textContent = file;
-                                    fileElement.appendChild(span);
+                                        if (isMobileDevice()) {
+                                            fileElement.setAttribute('download', '');
+                                        }
 
-                                    otherFilesContainer.appendChild(fileElement);
+                                        const span = document.createElement('span');
+                                        span.textContent = file;
+                                        fileElement.appendChild(span);
+
+                                        modalOtherFilesContainer.appendChild(fileElement);
+                                    }
                                 });
 
                                 startlistsFiles.forEach(file => {
@@ -480,11 +511,15 @@
                                     fileElement.href = fileUrl;
                                     fileElement.target = '_blank';
 
+                                    if (isMobileDevice()) {
+                                        fileElement.setAttribute('download', '');
+                                    }
+
                                     const span = document.createElement('span');
                                     span.textContent = file;
                                     fileElement.appendChild(span);
 
-                                    startlistsContainer.appendChild(fileElement);
+                                    modalStartlistsContainer.appendChild(fileElement);
                                 });
 
                                 const categories = new Set();
@@ -599,7 +634,7 @@
     <footer style="text-align: center;" class="d-print-none">
         <br>
         <hr>
-        2024 © DSS Sport System. All rights reserved.
+        2024 © Digital Sport System. All rights reserved.
     </footer>
 </body>
 </html>
